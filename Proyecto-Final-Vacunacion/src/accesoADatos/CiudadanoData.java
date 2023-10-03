@@ -8,7 +8,10 @@ package accesoADatos;
 import entidades.Ciudadano;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -49,6 +52,57 @@ public class CiudadanoData {
 
     }
     
+    public void modificarCiudadano(Ciudadano persona){
+        String sql="UPDATE ciudadano "
+                + "SET nombre=?,apellido=?,zona=?,email=?,celular=?,patologia=?,ambitoTrabajo=?,covid=? WHERE dni=?";
+        
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, persona.getNombre());
+            ps.setString(2, persona.getApellido());
+            ps.setString(3, persona.getZona());
+            ps.setString(4, persona.getEmail());
+            ps.setInt(5, persona.getCelular());
+            ps.setString(6, persona.getPatologia());
+            ps.setString(7, persona.getAmbitoTrabajo());
+            ps.setBoolean(8, persona.isCovid());
+            ps.setInt(9, persona.getDni());
+            
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Datos modificado.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }
     
-
+    public Ciudadano buscarCiudadanoPorDni(int dni){
+        String sql="SELECT * FROM ciudadano WHERE dni=?";
+        Ciudadano persona=null;
+        PreparedStatement ps;
+        try {
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                persona=new Ciudadano();
+                persona.setDni(dni);
+                persona.setNombre(rs.getString("nombre"));
+                persona.setApellido(rs.getString("apellido"));
+                persona.setZona(rs.getString("zona"));
+                persona.setEmail(rs.getString("email"));
+                persona.setCelular(rs.getInt("celular"));
+                persona.setPatologia(rs.getString("patologia"));
+                persona.setAmbitoTrabajo(rs.getString("ambitoTrabajo"));
+                persona.setCovid(rs.getBoolean("covid"));
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return persona;
+    }
 }

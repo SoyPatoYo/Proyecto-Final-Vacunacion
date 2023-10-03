@@ -1,22 +1,20 @@
 package main;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import accesoADatos.CiudadanoData;
+import entidades.Ciudadano;
 
-/**
- *
- * @author Matias
- */
+
+
+
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        CiudadanoData cd=new CiudadanoData();
+        Ciudadano persona=new Ciudadano(123, "Matias", "Pato", "Este", "matias@gmail.com", 15123123, "rengo", "Salud", true);
+        //cd.guardarCiudadano(persona);
+        //cd.modificarCiudadano(persona);
+        System.out.println(cd.buscarCiudadanoPorDni(123)+" Tiene covid?:"+cd.buscarCiudadanoPorDni(123).isCovid());
     }
     
 }
