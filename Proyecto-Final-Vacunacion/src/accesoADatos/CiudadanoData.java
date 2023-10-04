@@ -109,7 +109,8 @@ public class CiudadanoData {
     public List<Ciudadano> listarCiudadanos() {
         String sql = "SELECT * FROM ciudadano";
         ArrayList<Ciudadano> ciudadanos = new ArrayList<>();
-        Ciudadano persona = null;
+        Ciudadano persona;
+        
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
 
