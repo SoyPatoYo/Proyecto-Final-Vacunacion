@@ -1,29 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package entidades;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
-/**
- *
- * @author Matias
- */
+
 public class Vacuna {
     private int numSerie;
     private String marca;
     private String laboratorio;
     private double medida;
-    private LocalDate vencimiento;
+    private Date vencimiento;
     private boolean colocada;
     private String antigeno;
 
     public Vacuna() {
     }
 
-    public Vacuna(int numSerie, String marca, String laboratorio, double medida, LocalDate vencimiento, boolean colocada, String antigeno) {
+    public Vacuna(int numSerie, String marca, String laboratorio, double medida, Date vencimiento, boolean colocada, String antigeno) {
         this.numSerie = numSerie;
         this.marca = marca;
         this.laboratorio = laboratorio;
@@ -65,11 +58,11 @@ public class Vacuna {
         this.medida = medida;
     }
 
-    public LocalDate getVencimiento() {
+    public Date getVencimiento() {
         return vencimiento;
     }
 
-    public void setVencimiento(LocalDate vencimiento) {
+    public void setVencimiento(Date vencimiento) {
         this.vencimiento = vencimiento;
     }
 
