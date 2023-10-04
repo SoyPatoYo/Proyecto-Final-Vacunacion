@@ -15,6 +15,7 @@ public class Main {
         //cd.guardarCiudadano(persona);
         //cd.modificarCiudadano(persona);
         //System.out.println(cd.buscarCiudadanoPorDni(123));
+        //System.out.println(cd.listarCiudadanos());
     }
     
 }
