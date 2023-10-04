@@ -25,7 +25,7 @@ public class VacunaData {
             ps.setString(3, vacuna.getLaboratorio());
             ps.setDouble(4, vacuna.getMedida());
             ps.setDate(5, vacuna.getVencimiento());
-            ps.setBoolean(6, vacuna.isColocada());
+            ps.setBoolean(6, false);
             ps.setString(7, vacuna.getAntigeno());
             int exito = ps.executeUpdate();
             if (exito == 1) {
