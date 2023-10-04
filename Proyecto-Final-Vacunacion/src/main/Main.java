@@ -11,10 +11,10 @@ public class Main {
     
     public static void main(String[] args) {
         CiudadanoData cd=new CiudadanoData();
-        Ciudadano persona=new Ciudadano(123, "Matias", "Pato", "Este", "matias@gmail.com", 15123123, "rengo", "Salud", true);
+        Ciudadano persona=new Ciudadano(12345, "Guillermo", "Gonzalez", "Norte", "guille@gmail.com", 15321321, "Asmatico", "Salud", false);
         //cd.guardarCiudadano(persona);
         //cd.modificarCiudadano(persona);
-        System.out.println(cd.buscarCiudadanoPorDni(123)+" Tiene covid?:"+cd.buscarCiudadanoPorDni(123).isCovid());
+        //System.out.println(cd.buscarCiudadanoPorDni(123));
     }
     
 }
