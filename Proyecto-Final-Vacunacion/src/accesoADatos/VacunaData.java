@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -42,7 +40,7 @@ public class VacunaData {
         }
     }
 
-    public Vacuna buscarVacunas(int idDosis) {
+    public Vacuna buscarVacuna(int idDosis) {
         String sql = "SELECT * FROM vacuna WHERE idDosis=?";
         Vacuna vacuna = null;
         PreparedStatement ps;
@@ -66,7 +64,7 @@ public class VacunaData {
         return vacuna;
     }
 
-    public List<Vacuna> buscarTodasVacunas() {
+    public List<Vacuna> buscarVacunas() {
         List<Vacuna> vacunas = new ArrayList<>();
         String sql = "SELECT * FROM vacuna";
 
@@ -91,6 +89,32 @@ public class VacunaData {
         }
 
         return vacunas;
+    }
+
+    public void modificarVacuna(int idDosis) {
+        String sql = "UPDATE vacuna SET marca=?, laboratorio=?, medida=?, vencimiento=?, antigeno=?, colocada=? WHERE idDosis=?";
+        Vacuna vacuna = new Vacuna();
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, vacuna.getMarca());
+            ps.setString(2, vacuna.getLaboratorio());
+            ps.setDouble(3, vacuna.getMedida());
+            ps.setDate(4, Date.valueOf(vacuna.getVencimiento()));
+            ps.setString(5, vacuna.getAntigeno());
+            ps.setBoolean(6, vacuna.isColocada());
+            ps.setInt(7, idDosis);
+
+            int filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Vacuna modificada exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna vacuna con el ID especificado");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al modificar la vacuna: " + ex.getMessage());
+        }
     }
 
 }
