@@ -2,9 +2,12 @@ package accesoADatos;
 
 import entidades.Vacuna;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.mariadb.jdbc.Statement;
 
 public class VacunaData {
 
@@ -16,20 +19,22 @@ public class VacunaData {
 
     public void guardarVacuna(Vacuna vacuna) {
 
-        String sql = "INSERT INTO vacuna VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO vacuna VALUES (null,?,?,?,?,?,?)";
 
         try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, vacuna.getNumSerie());
-            ps.setString(2, vacuna.getMarca());
-            ps.setString(3, vacuna.getLaboratorio());
-            ps.setDouble(4, vacuna.getMedida());
-            ps.setDate(5, vacuna.getVencimiento());
-            ps.setBoolean(6, false);
-            ps.setString(7, vacuna.getAntigeno());
-            int exito = ps.executeUpdate();
-            if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Ciudadano guardado.");
+            PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, vacuna.getMarca());
+            ps.setString(2, vacuna.getLaboratorio());
+            ps.setDouble(3, vacuna.getMedida());
+            ps.setDate(4, Date.valueOf(vacuna.getVencimiento()));
+            ps.setBoolean(5, false);
+            ps.setString(6, vacuna.getAntigeno());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                vacuna.setIdDosis(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Vacuna registrada");
+
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());

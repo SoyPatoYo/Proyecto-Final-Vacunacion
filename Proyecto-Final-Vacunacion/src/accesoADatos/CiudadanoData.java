@@ -1,4 +1,3 @@
-
 package accesoADatos;
 
 import entidades.Ciudadano;
@@ -9,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-
+import org.mariadb.jdbc.Statement;
 
 public class CiudadanoData {
 
@@ -20,10 +19,11 @@ public class CiudadanoData {
     }
 
     public void guardarCiudadano(Ciudadano persona) {
-        String sql = "INSERT INTO ciudadano VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO ciudadano(dni,nombre,apellido,zona,email,celular,patologia,ambitoTrabajo,covid)"
+                + " VALUES(?,?,?,?,?,?,?,?,?)";
 
         try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+            PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, persona.getDni());
             ps.setString(2, persona.getNombre());
             ps.setString(3, persona.getApellido());
@@ -34,10 +34,14 @@ public class CiudadanoData {
             ps.setString(8, persona.getAmbitoTrabajo());
             ps.setBoolean(9, persona.isCovid());
 
-            int exito = ps.executeUpdate();
-            if (exito == 1) {
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                persona.setIdCiudadano(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Ciudadano guardado.");
+
             }
+
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
@@ -103,7 +107,7 @@ public class CiudadanoData {
         String sql = "SELECT * FROM ciudadano";
         ArrayList<Ciudadano> ciudadanos = new ArrayList<>();
         Ciudadano persona;
-        
+
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
 

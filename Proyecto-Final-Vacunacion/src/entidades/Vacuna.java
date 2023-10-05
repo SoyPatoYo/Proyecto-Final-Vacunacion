@@ -1,23 +1,23 @@
-
 package entidades;
 
 import java.sql.Date;
-
+import java.time.LocalDate;
 
 public class Vacuna {
-    private int numSerie;
+
+    private int idDosis;
     private String marca;
     private String laboratorio;
     private double medida;
-    private Date vencimiento;
+    private LocalDate vencimiento;
     private boolean colocada;
     private String antigeno;
 
     public Vacuna() {
     }
 
-    public Vacuna(int numSerie, String marca, String laboratorio, double medida, Date vencimiento, boolean colocada, String antigeno) {
-        this.numSerie = numSerie;
+    public Vacuna(int idDosis, String marca, String laboratorio, double medida, LocalDate vencimiento, boolean colocada, String antigeno) {
+        this.idDosis = idDosis;
         this.marca = marca;
         this.laboratorio = laboratorio;
         this.medida = medida;
@@ -26,12 +26,21 @@ public class Vacuna {
         this.antigeno = antigeno;
     }
 
-    public int getNumSerie() {
-        return numSerie;
+    public Vacuna(String marca, String laboratorio, double medida, LocalDate vencimiento, String antigeno) {
+        this.marca = marca;
+        this.laboratorio = laboratorio;
+        this.medida = medida;
+        this.vencimiento = vencimiento;
+        this.colocada=false;
+        this.antigeno = antigeno;
     }
 
-    public void setNumSerie(int numSerie) {
-        this.numSerie = numSerie;
+    public int getIdDosis() {
+        return idDosis;
+    }
+
+    public void setIdDosis(int idDosis) {
+        this.idDosis = idDosis;
     }
 
     public String getMarca() {
@@ -58,11 +67,11 @@ public class Vacuna {
         this.medida = medida;
     }
 
-    public Date getVencimiento() {
+    public LocalDate getVencimiento() {
         return vencimiento;
     }
 
-    public void setVencimiento(Date vencimiento) {
+    public void setVencimiento(LocalDate vencimiento) {
         this.vencimiento = vencimiento;
     }
 
@@ -84,9 +93,7 @@ public class Vacuna {
 
     @Override
     public String toString() {
-        return numSerie + "-" + marca;
+        return idDosis + "-" + marca;
     }
-    
-    
-    
+
 }

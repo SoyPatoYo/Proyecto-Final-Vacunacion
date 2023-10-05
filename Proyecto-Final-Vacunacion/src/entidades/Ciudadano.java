@@ -1,8 +1,8 @@
-
 package entidades;
 
-
 public class Ciudadano {
+
+    private int idCiudadano;
     private int dni;
     private String nombre;
     private String apellido;
@@ -14,6 +14,19 @@ public class Ciudadano {
     private boolean covid;
 
     public Ciudadano() {
+    }
+
+    public Ciudadano(int idCiudadano, int dni, String nombre, String apellido, String zona, String email, int celular, String patologia, String ambitoTrabajo, boolean covid) {
+        this.idCiudadano = idCiudadano;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.zona = zona;
+        this.email = email;
+        this.celular = celular;
+        this.patologia = patologia;
+        this.ambitoTrabajo = ambitoTrabajo;
+        this.covid = covid;
     }
 
     public Ciudadano(int dni, String nombre, String apellido, String zona, String email, int celular, String patologia, String ambitoTrabajo, boolean covid) {
@@ -28,15 +41,12 @@ public class Ciudadano {
         this.covid = covid;
     }
 
-    public Ciudadano(int dni, String nombre, String apellido, String zona, String email, int celular, String ambitoTrabajo, boolean covid) {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.zona = zona;
-        this.email = email;
-        this.celular = celular;
-        this.ambitoTrabajo = ambitoTrabajo;
-        this.covid = covid;
+    public int getIdCiudadano() {
+        return idCiudadano;
+    }
+
+    public void setIdCiudadano(int idCiudadano) {
+        this.idCiudadano = idCiudadano;
     }
 
     public int getDni() {
@@ -115,6 +125,5 @@ public class Ciudadano {
     public String toString() {
         return dni + "-" + nombre + ", " + apellido;
     }
-    
-    
+
 }
