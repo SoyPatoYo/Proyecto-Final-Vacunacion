@@ -47,7 +47,7 @@ public class CentroSaludData {
             ps.setString(2, centro.getDireccion());
             ps.setString(3, centro.getZona());
             ps.setString(4, centro.getLaboratorio().getLaboratorio());
-            ps.setInt(5, centro.getIdCentro()); 
+            ps.setInt(5, centro.getIdCentro()); // Usamos el ID para identificar el centro a modificar
             int filasActualizadas = ps.executeUpdate();
             if (filasActualizadas > 0) {
                 JOptionPane.showMessageDialog(null, "Centro de Salud modificado.");
