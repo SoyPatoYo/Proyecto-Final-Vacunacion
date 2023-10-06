@@ -63,6 +63,30 @@ public class VacunaData {
         }
         return vacuna;
     }
+    
+    public Vacuna buscarVacunasPorLaboratorio(String nombreLaboratorio) {
+    String sql = "SELECT * FROM vacuna WHERE laboratorio=?";
+    PreparedStatement ps;
+    Vacuna vacuna= new Vacuna();
+    try {
+        ps = conexion.prepareStatement(sql);
+        ps.setString(1, nombreLaboratorio);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            vacuna.setIdDosis(rs.getInt("idDosis"));
+            vacuna.setMarca(rs.getString("marca"));
+            vacuna.setLaboratorio(rs.getString("laboratorio"));
+            vacuna.setMedida(rs.getDouble("medida"));
+            vacuna.setVencimiento(rs.getDate("vencimiento").toLocalDate());
+            vacuna.setAntigeno(rs.getString("antigeno"));
+            vacuna.setColocada(rs.getBoolean("colocada"));
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+    }
+    return vacuna;
+}
+
 
     public List<Vacuna> buscarVacunas() {
         List<Vacuna> vacunas = new ArrayList<>();

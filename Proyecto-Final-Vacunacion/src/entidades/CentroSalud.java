@@ -7,24 +7,24 @@ public class CentroSalud {
     private String nombre;
     private String direccion;
     private String zona;
-    private Vacuna provedor;
+    private Vacuna laboratorio;
 
     public CentroSalud() {
     }
 
-    public CentroSalud(int idCentro, String nombre, String direccion, String zona, Vacuna provedor) {
+    public CentroSalud(int idCentro, String nombre, String direccion, String zona, Vacuna laboratorio) {
         this.idCentro = idCentro;
         this.nombre = nombre;
         this.direccion = direccion;
         this.zona = zona;
-        this.provedor = provedor;
+        this.laboratorio = laboratorio;
     }
 
-    public CentroSalud(String nombre, String direccion, String zona, Vacuna provedor) {
+    public CentroSalud(String nombre, String direccion, String zona, Vacuna laboratorio) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.zona = zona;
-        this.provedor = provedor;
+        this.laboratorio = laboratorio;
     }
 
     public int getIdCentro() {
@@ -59,12 +59,12 @@ public class CentroSalud {
         this.zona = zona;
     }
 
-    public Vacuna getProvedor() {
-        return provedor;
+    public Vacuna getLaboratorio() {
+        return laboratorio;
     }
 
-    public void setProvedor(Vacuna provedor) {
-        this.provedor = provedor;
+    public void setLaboratorio(Vacuna laboratorio) {
+        this.laboratorio = laboratorio;
     }
 
     
