@@ -57,6 +57,8 @@ public class VacunaData {
                 vacuna.setVencimiento(rs.getDate("vencimiento").toLocalDate());
                 vacuna.setAntigeno(rs.getString("antigeno"));
                 vacuna.setColocada(rs.getBoolean("colocada"));
+            }else{
+                JOptionPane.showMessageDialog(null, "No se encuenta una vacuna con ese ID.");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
