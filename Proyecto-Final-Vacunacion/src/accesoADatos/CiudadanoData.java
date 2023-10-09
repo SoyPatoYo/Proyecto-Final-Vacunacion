@@ -103,6 +103,35 @@ public class CiudadanoData {
         }
         return persona;
     }
+    
+    public Ciudadano buscarCiudadanoPorId(int id) {
+        String sql = "SELECT * FROM ciudadano WHERE idCiudadano=?";
+        Ciudadano persona = null;
+        PreparedStatement ps;
+        try {
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                persona = new Ciudadano();
+                persona.setDni(rs.getInt("dni"));
+                persona.setIdCiudadano(rs.getInt("idCiudadano"));
+                persona.setNombre(rs.getString("nombre"));
+                persona.setApellido(rs.getString("apellido"));
+                persona.setZona(rs.getString("zona"));
+                persona.setEmail(rs.getString("email"));
+                persona.setCelular(rs.getInt("celular"));
+                persona.setPatologia(rs.getString("patologia"));
+                persona.setAmbitoTrabajo(rs.getString("ambitoTrabajo"));
+                persona.setCovid(rs.getBoolean("covid"));
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return persona;
+    }
 
     public List<Ciudadano> listarCiudadanos() {
         String sql = "SELECT * FROM ciudadano";

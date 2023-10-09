@@ -30,12 +30,16 @@ public class Main {
           //CentroSalud centro = new CentroSalud(1,"Centro Medico", "Calle 321", "Norte", vD.buscarVacuna(1));
           //csd.guardarCentroSalud(centro);
           //System.out.println(csD.buscarCentroSaludPorID(1));
-          //csd.modificarCentroSalud(centro);
+          //csD.modificarCentroSalud(centro);
           //System.out.println(csD.listarCentrosSalud());
         
         CitaData citaD = new CitaData();
-        Cita cita = new Cita(cD.buscarCiudadanoPorDni(12345), 0, LocalDateTime.now(), csD.buscarCentroSaludPorID(1), LocalDateTime.now(), vD.buscarVacuna(1));
-        citaD.guardarCita(cita);
+        //Cita cita = new Cita(1,cD.buscarCiudadanoPorDni(12345), 0, LocalDateTime.now(), csD.buscarCentroSaludPorID(1), LocalDateTime.now(), vD.buscarVacuna(1));
+        //citaD.guardarCita(cita);
+        //citaD.modificarCita(cita);
+        //System.out.println(citaD.buscarCita(1));
+        //System.out.println(citaD.listarCitas());
+        
     }
 
 }

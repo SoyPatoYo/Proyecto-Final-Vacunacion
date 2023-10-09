@@ -57,8 +57,8 @@ public class CitaData {
             if (rs.next()) {
                 cita = new Cita();
                 cita.setCodigo(codigo);
-                cita.setPersona(cd.buscarCiudadanoPorDni(rs.getInt("persona")));
-                cita.setCodigoRefuerzo(rs.getInt("codRefuezo"));
+                cita.setPersona(cd.buscarCiudadanoPorId(rs.getInt("persona")));
+                cita.setCodigoRefuerzo(rs.getInt("codRefuerzo"));
                 cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
                 cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
                 cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime());
@@ -84,6 +84,7 @@ public class CitaData {
             ps.setInt(4, cita.getCentroVacunacion().getIdCentro());
             ps.setTimestamp(5, Timestamp.valueOf(cita.getFechaHoraColoca()));//<---
             ps.setInt(6, cita.getDosis().getIdDosis());
+            ps.setInt(7, cita.getCodigo());
 
             int filasActualizadas = ps.executeUpdate();
 
@@ -108,7 +109,7 @@ public class CitaData {
             while (rs.next()) {
                 Cita cita = new Cita();
                 cita.setCodigo(rs.getInt("codigo"));
-                cita.setPersona(cd.buscarCiudadanoPorDni(rs.getInt("persona")));
+                cita.setPersona(cd.buscarCiudadanoPorId(rs.getInt("persona")));
                 cita.setCodigoRefuerzo(rs.getInt("codRefuerzo"));
                 cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
                 cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
