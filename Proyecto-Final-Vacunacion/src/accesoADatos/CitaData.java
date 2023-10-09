@@ -72,9 +72,9 @@ public class CitaData {
         return cita;
     }
 
-    public void modificarCita() {
+    public void modificarCita(Cita cita) {
         String sql = "UPDATE cita SET persona=?, codRefuerzo=?, fechahoraCita=?, centroVacunacion=?, fechahoraColoca=?, dosis=? WHERE codigo=?";
-        Cita cita = new Cita();
+        
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);

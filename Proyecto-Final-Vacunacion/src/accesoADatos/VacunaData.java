@@ -117,9 +117,8 @@ public class VacunaData {
         return vacunas;
     }
 
-    public void modificarVacuna(int idDosis) {
+    public void modificarVacuna(Vacuna vacuna) {
         String sql = "UPDATE vacuna SET marca=?, laboratorio=?, medida=?, vencimiento=?, antigeno=?, colocada=? WHERE idDosis=?";
-        Vacuna vacuna = new Vacuna();
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -129,7 +128,7 @@ public class VacunaData {
             ps.setDate(4, Date.valueOf(vacuna.getVencimiento()));
             ps.setString(5, vacuna.getAntigeno());
             ps.setBoolean(6, vacuna.isColocada());
-            ps.setInt(7, idDosis);
+            ps.setInt(7, vacuna.getIdDosis());
 
             int filasActualizadas = ps.executeUpdate();
 

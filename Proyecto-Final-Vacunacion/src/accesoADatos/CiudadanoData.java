@@ -86,6 +86,7 @@ public class CiudadanoData {
             if (rs.next()) {
                 persona = new Ciudadano();
                 persona.setDni(dni);
+                persona.setIdCiudadano(rs.getInt("idCiudadano"));
                 persona.setNombre(rs.getString("nombre"));
                 persona.setApellido(rs.getString("apellido"));
                 persona.setZona(rs.getString("zona"));
