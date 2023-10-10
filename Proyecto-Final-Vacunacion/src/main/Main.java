@@ -27,7 +27,7 @@ public class Main {
         Vacuna vacuna = new Vacuna ("Sputnik","RusiaPro",0.3,LocalDate.of(2016, 6, 2),"manaos");
         //vD.guardarVacuna(vacuna);
         //System.out.println(vD.buscarVacunas());
-        System.out.println("Numero total de vacunas: "+vD.contarVacunas());
+        //System.out.println("Numero total de vacunas: "+vD.contarVacunas());
         //vD.borrarVacuna(3);
 
         CentroSaludData csD = new CentroSaludData();
