@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -74,7 +72,6 @@ public class CitaData {
 
     public void modificarCita(Cita cita) {
         String sql = "UPDATE cita SET persona=?, codRefuerzo=?, fechahoraCita=?, centroVacunacion=?, fechahoraColoca=?, dosis=? WHERE codigo=?";
-        
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -123,23 +120,21 @@ public class CitaData {
 
         return citas;
     }
-    
+
     public void borrarCita(int codigo) {
-    String sql = "DELETE FROM cita WHERE codigo=?";
-    try {
-        PreparedStatement ps = conexion.prepareStatement(sql);
-        ps.setInt(1, codigo);
-        int filasEliminadas = ps.executeUpdate();
-        if (filasEliminadas > 0) {
-            JOptionPane.showMessageDialog(null, "Cita con código " + codigo + " eliminada exitosamente.");
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró ninguna cita con el código especificado.");
+        String sql = "DELETE FROM cita WHERE codigo=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, codigo);
+            int filasEliminadas = ps.executeUpdate();
+            if (filasEliminadas > 0) {
+                JOptionPane.showMessageDialog(null, "Cita con código " + codigo + " eliminada exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna cita con el código especificado.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la cita: " + ex.getMessage());
         }
-        ps.close();
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar la cita: " + ex.getMessage());
     }
-}
-
-
 }
