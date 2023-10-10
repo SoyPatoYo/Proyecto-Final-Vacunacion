@@ -29,9 +29,9 @@ public class CitaData {
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, cita.getPersona().getIdCiudadano());
             ps.setInt(2, cita.getCodigoRefuerzo());
-            ps.setTimestamp(3, Timestamp.valueOf(cita.getFechaHoraCita()));//todavia no sabemos si esto anda.
+            ps.setTimestamp(3, Timestamp.valueOf(cita.getFechaHoraCita()));//al parecer anda.
             ps.setInt(4, cita.getCentroVacunacion().getIdCentro());
-            ps.setTimestamp(5, Timestamp.valueOf(cita.getFechaHoraColoca()));//este tampoco
+            ps.setTimestamp(5, Timestamp.valueOf(cita.getFechaHoraColoca()));//este tambien
             ps.setInt(6, cita.getDosis().getIdDosis());
 
             ps.executeUpdate();
