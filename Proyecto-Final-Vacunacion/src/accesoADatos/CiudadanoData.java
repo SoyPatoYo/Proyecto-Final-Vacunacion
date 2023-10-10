@@ -37,7 +37,7 @@ public class CiudadanoData {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                persona.setIdCiudadano(rs.getInt("idCiudadano"));
+                persona.setIdCiudadano(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Ciudadano guardado.");
             }
 

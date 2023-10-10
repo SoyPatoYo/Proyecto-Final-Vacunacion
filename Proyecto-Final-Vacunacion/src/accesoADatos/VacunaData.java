@@ -158,4 +158,22 @@ public class VacunaData {
         }
     }
 
+    public int contarVacunas() {
+        String sql = "SELECT COUNT(*) AS total FROM vacuna";
+        int totalVacunas = 0;
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                totalVacunas = rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al contar las vacunas: " + ex.getMessage());
+        }
+
+        return totalVacunas;
+    }
+
 }

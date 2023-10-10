@@ -123,7 +123,7 @@ public class Ciudadano {
 
     @Override
     public String toString() {
-        return dni + "-" + nombre + ", " + apellido;
+        return idCiudadano+" - "+dni + "-" + nombre + ", " + apellido;
     }
 
 }
