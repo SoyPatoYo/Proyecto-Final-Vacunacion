@@ -37,9 +37,8 @@ public class CiudadanoData {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                persona.setIdCiudadano(rs.getInt(1));
+                persona.setIdCiudadano(rs.getInt("idCiudadano"));
                 JOptionPane.showMessageDialog(null, "Ciudadano guardado.");
-
             }
 
             ps.close();
@@ -144,6 +143,7 @@ public class CiudadanoData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 persona = new Ciudadano();
+                persona.setIdCiudadano(rs.getInt("idCiudadano"));
                 persona.setDni(rs.getInt("dni"));
                 persona.setNombre(rs.getString("nombre"));
                 persona.setApellido(rs.getString("apellido"));
@@ -163,7 +163,7 @@ public class CiudadanoData {
         return ciudadanos;
     }
 
-    public void borrarCiudadano(int dni) {
+    public void borrarCiudadanoPorDni(int dni) {
         String sql = "DELETE FROM ciudadano WHERE dni=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -173,6 +173,23 @@ public class CiudadanoData {
                 JOptionPane.showMessageDialog(null, "Ciudadano con DNI " + dni + " eliminado.");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró ningún ciudadano con DNI " + dni + ".");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }
+    
+    public void borrarCiudadanoPorId(int idCiudadano){
+        String sql = "DELETE FROM ciudadano WHERE idCiudadano=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idCiudadano);
+            int filasEliminadas = ps.executeUpdate();
+            if (filasEliminadas > 0) {
+                JOptionPane.showMessageDialog(null, "Ciudadano con ID " + idCiudadano + " eliminado.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún ciudadano con ID " + idCiudadano + ".");
             }
             ps.close();
         } catch (SQLException ex) {
