@@ -57,7 +57,7 @@ public class VacunaData {
                 vacuna.setVencimiento(rs.getDate("vencimiento").toLocalDate());
                 vacuna.setAntigeno(rs.getString("antigeno"));
                 vacuna.setColocada(rs.getBoolean("colocada"));
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No se encuenta una vacuna con ese ID.");
             }
         } catch (SQLException ex) {
@@ -65,30 +65,29 @@ public class VacunaData {
         }
         return vacuna;
     }
-    
-    public Vacuna buscarVacunasPorLaboratorio(String nombreLaboratorio) {
-    String sql = "SELECT * FROM vacuna WHERE laboratorio=?";
-    PreparedStatement ps;
-    Vacuna vacuna= new Vacuna();
-    try {
-        ps = conexion.prepareStatement(sql);
-        ps.setString(1, nombreLaboratorio);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            vacuna.setIdDosis(rs.getInt("idDosis"));
-            vacuna.setMarca(rs.getString("marca"));
-            vacuna.setLaboratorio(rs.getString("laboratorio"));
-            vacuna.setMedida(rs.getDouble("medida"));
-            vacuna.setVencimiento(rs.getDate("vencimiento").toLocalDate());
-            vacuna.setAntigeno(rs.getString("antigeno"));
-            vacuna.setColocada(rs.getBoolean("colocada"));
-        }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-    }
-    return vacuna;
-}
 
+    public Vacuna buscarVacunasPorLaboratorio(String nombreLaboratorio) {
+        String sql = "SELECT * FROM vacuna WHERE laboratorio=?";
+        PreparedStatement ps;
+        Vacuna vacuna = new Vacuna();
+        try {
+            ps = conexion.prepareStatement(sql);
+            ps.setString(1, nombreLaboratorio);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                vacuna.setIdDosis(rs.getInt("idDosis"));
+                vacuna.setMarca(rs.getString("marca"));
+                vacuna.setLaboratorio(rs.getString("laboratorio"));
+                vacuna.setMedida(rs.getDouble("medida"));
+                vacuna.setVencimiento(rs.getDate("vencimiento").toLocalDate());
+                vacuna.setAntigeno(rs.getString("antigeno"));
+                vacuna.setColocada(rs.getBoolean("colocada"));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return vacuna;
+    }
 
     public List<Vacuna> buscarVacunas() {
         List<Vacuna> vacunas = new ArrayList<>();
@@ -139,6 +138,23 @@ public class VacunaData {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al modificar la vacuna: " + ex.getMessage());
+        }
+    }
+
+    public void borrarVacuna(int idDosis) {
+        String sql = "DELETE FROM vacuna WHERE idDosis=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idDosis);
+            int filasEliminadas = ps.executeUpdate();
+            if (filasEliminadas > 0) {
+                JOptionPane.showMessageDialog(null, "Vacuna con ID " + idDosis + " eliminada exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna vacuna con el ID especificado.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la vacuna: " + ex.getMessage());
         }
     }
 

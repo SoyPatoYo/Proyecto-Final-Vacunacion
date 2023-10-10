@@ -17,8 +17,8 @@ public class CentroSaludData {
     public CentroSaludData() {
         conexion = Conexion.buscarConexion();
     }
-    
-    VacunaData vd=new VacunaData();
+
+    VacunaData vd = new VacunaData();
 
     public void guardarCentroSalud(CentroSalud centro) {
         String sql = "INSERT INTO centrosalud VALUES (null,?,?,?,?)";
@@ -85,7 +85,7 @@ public class CentroSaludData {
     public List<CentroSalud> listarCentrosSalud() {
         List<CentroSalud> centros = new ArrayList<>();
         String sql = "SELECT * FROM centrosalud";
-        
+
         try {
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(sql);
@@ -104,4 +104,20 @@ public class CentroSaludData {
         return centros;
     }
 
+    public void borrarCentroSalud(int idCentro) {
+        String sql = "DELETE FROM centrosalud WHERE idCentro=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idCentro);
+            int filasEliminadas = ps.executeUpdate();
+            if (filasEliminadas > 0) {
+                JOptionPane.showMessageDialog(null, "Centro de Salud con ID " + idCentro + " eliminado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún Centro de Salud con el ID especificado.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el Centro de Salud: " + ex.getMessage());
+        }
+    }
 }

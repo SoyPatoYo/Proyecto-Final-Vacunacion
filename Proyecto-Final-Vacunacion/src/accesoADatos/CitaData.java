@@ -123,5 +123,23 @@ public class CitaData {
 
         return citas;
     }
+    
+    public void borrarCita(int codigo) {
+    String sql = "DELETE FROM cita WHERE codigo=?";
+    try {
+        PreparedStatement ps = conexion.prepareStatement(sql);
+        ps.setInt(1, codigo);
+        int filasEliminadas = ps.executeUpdate();
+        if (filasEliminadas > 0) {
+            JOptionPane.showMessageDialog(null, "Cita con código " + codigo + " eliminada exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ninguna cita con el código especificado.");
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar la cita: " + ex.getMessage());
+    }
+}
+
 
 }

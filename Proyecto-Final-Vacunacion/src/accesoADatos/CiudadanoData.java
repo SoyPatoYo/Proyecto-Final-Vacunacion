@@ -103,7 +103,7 @@ public class CiudadanoData {
         }
         return persona;
     }
-    
+
     public Ciudadano buscarCiudadanoPorId(int id) {
         String sql = "SELECT * FROM ciudadano WHERE idCiudadano=?";
         Ciudadano persona = null;
@@ -162,4 +162,22 @@ public class CiudadanoData {
         }
         return ciudadanos;
     }
+
+    public void borrarCiudadano(int dni) {
+        String sql = "DELETE FROM ciudadano WHERE dni=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, dni);
+            int filasEliminadas = ps.executeUpdate();
+            if (filasEliminadas > 0) {
+                JOptionPane.showMessageDialog(null, "Ciudadano con DNI " + dni + " eliminado.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún ciudadano con DNI " + dni + ".");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }
+
 }
