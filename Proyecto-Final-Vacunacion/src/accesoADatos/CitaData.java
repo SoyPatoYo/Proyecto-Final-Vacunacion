@@ -30,7 +30,7 @@ public class CitaData {
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, cita.getPersona().getIdCiudadano());
             ps.setInt(2, cita.getCodigoRefuerzo());
-            ps.setTimestamp(3, Timestamp.valueOf(cita.getFechaHoraCita()));//al parecer anda.
+            ps.setTimestamp(3, Timestamp.valueOf(cita.getFechaHoraCita()));//Timestamp entra en un DateTime.
             ps.setInt(4, cita.getCentroVacunacion().getIdCentro());
             ps.setInt(5, cita.getDosis().getIdDosis());
             ps.setBoolean(6, cita.isEstado());
@@ -61,7 +61,7 @@ public class CitaData {
                 cita.setCodigoRefuerzo(rs.getInt("codRefuerzo"));
                 cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
                 cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
-                //cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime());
+                //cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime()); Daba error si la fecha era null.
                 cita.setDosis(vd.buscarVacuna(rs.getInt("dosis")));
                 cita.setEstado(rs.getBoolean("estado"));
                 cita.setColocada(rs.getBoolean("colocada"));
