@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -219,6 +221,31 @@ public class CitaData {
         }
 
         return cantidadCiudadanos;
+    }
+
+    public Map<String, Integer> contarDosisAplicadasPorCentroColocadas() {
+        String sql = "SELECT c.nombre AS centro, COUNT(*) AS cantidad_dosis "
+                + "FROM cita ci "
+                + "JOIN centrosalud c ON ci.centroVacunacion = c.idCentro "
+                + "WHERE ci.colocada = true "
+                + "GROUP BY ci.centroVacunacion";
+
+        Map<String, Integer> dosisPorCentro = new HashMap<>();
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String nombreCentro = rs.getString("centro");
+                int cantidadDosis = rs.getInt("cantidad_dosis");
+                dosisPorCentro.put(nombreCentro, cantidadDosis);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al contar dosis aplicadas por centro: " + ex.getMessage());
+        }
+
+        return dosisPorCentro;
     }
 
 }
