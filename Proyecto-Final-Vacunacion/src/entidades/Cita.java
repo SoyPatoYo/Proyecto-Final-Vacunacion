@@ -12,11 +12,13 @@ public class Cita {
     private CentroSalud centroVacunacion;
     private LocalDateTime fechaHoraColoca;
     private Vacuna dosis;
+    private boolean estado;
+    private boolean colocada;
 
     public Cita() {
     }
 
-    public Cita(int codigo, Ciudadano persona, int codigoRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, LocalDateTime fechaHoraColoca, Vacuna dosis) {
+    public Cita(int codigo, Ciudadano persona, int codigoRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, LocalDateTime fechaHoraColoca, Vacuna dosis, boolean estado, boolean colocada) {
         this.codigo = codigo;
         this.persona = persona;
         this.codigoRefuerzo = codigoRefuerzo;
@@ -24,15 +26,31 @@ public class Cita {
         this.centroVacunacion = centroVacunacion;
         this.fechaHoraColoca = fechaHoraColoca;
         this.dosis = dosis;
+        this.estado = estado;
+        this.colocada = colocada;
     }
 
-    public Cita(Ciudadano persona, int codigoRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, LocalDateTime fechaHoraColoca, Vacuna dosis) {
+    public Cita(Ciudadano persona, int codigoRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, Vacuna dosis, boolean estado, boolean colocada) {
+        this.persona = persona;
+        this.codigoRefuerzo = codigoRefuerzo;
+        this.fechaHoraCita = fechaHoraCita;
+        this.centroVacunacion = centroVacunacion;
+        this.dosis = dosis;
+        this.estado = estado;
+        this.colocada = colocada;
+    }
+    
+    
+
+    public Cita(Ciudadano persona, int codigoRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, LocalDateTime fechaHoraColoca, Vacuna dosis, boolean estado, boolean colocada) {
         this.persona = persona;
         this.codigoRefuerzo = codigoRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
         this.centroVacunacion = centroVacunacion;
         this.fechaHoraColoca = fechaHoraColoca;
         this.dosis = dosis;
+        this.estado = estado;
+        this.colocada = colocada;
     }
     
     
@@ -92,6 +110,24 @@ public class Cita {
     public void setDosis(Vacuna dosis) {
         this.dosis = dosis;
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public boolean isColocada() {
+        return colocada;
+    }
+
+    public void setColocada(boolean colocada) {
+        this.colocada = colocada;
+    }
+    
+    
 
     @Override
     public String toString() {
