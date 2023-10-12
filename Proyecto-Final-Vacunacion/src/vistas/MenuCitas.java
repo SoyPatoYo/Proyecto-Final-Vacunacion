@@ -5,17 +5,20 @@
  */
 package vistas;
 
+import java.awt.CardLayout;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Matias
  */
 public class MenuCitas extends javax.swing.JPanel {
 
-    /**
-     * Creates new form MenuCiudadano
-     */
+    CargarCita cargarCita;
+    CardLayout vista;
     public MenuCitas() {
         initComponents();
+        vista = (CardLayout) Principal.jpEscritorio.getLayout();
     }
 
     /**
@@ -40,6 +43,11 @@ public class MenuCitas extends javax.swing.JPanel {
         jLabel1.setText("Menu Citas");
 
         jButton1.setText("Cargar Cita");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,6 +85,15 @@ public class MenuCitas extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Principal.jpEscritorio.removeAll();
+        cargarCita = new CargarCita();
+        Principal.jpEscritorio.add(cargarCita, "cargarcita");
+        vista.show(Principal.jpEscritorio, "cargarcita");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

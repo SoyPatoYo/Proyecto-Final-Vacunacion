@@ -5,17 +5,20 @@
  */
 package vistas;
 
+import java.awt.CardLayout;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Matias
  */
 public class MenuCentroSalud extends javax.swing.JPanel {
 
-    /**
-     * Creates new form MenuCiudadano
-     */
+    CargarCentro cargarCentro;
+    CardLayout vista;
     public MenuCentroSalud() {
         initComponents();
+        vista = (CardLayout) Principal.jpEscritorio.getLayout();
     }
 
     /**
@@ -40,6 +43,11 @@ public class MenuCentroSalud extends javax.swing.JPanel {
         jLabel1.setText("Menu Centro Salud");
 
         jButton1.setText("Cargar Centro");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,6 +85,15 @@ public class MenuCentroSalud extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Principal.jpEscritorio.removeAll();
+        cargarCentro = new CargarCentro();
+        Principal.jpEscritorio.add(cargarCentro, "cargarcentro");
+        vista.show(Principal.jpEscritorio, "cargarcentro");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
