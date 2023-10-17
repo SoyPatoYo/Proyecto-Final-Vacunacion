@@ -58,7 +58,7 @@ public class MenuVacunas extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 52, Short.MAX_VALUE)
+                .addGap(0, 318, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(39, 39, 39))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
