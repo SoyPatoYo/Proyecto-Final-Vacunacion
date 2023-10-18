@@ -211,8 +211,9 @@ public class CargarVacuna extends javax.swing.JPanel {
             String lab = laboratorio.getText();
             Double cantidad = Double.parseDouble((String) comboCantidad.getSelectedItem());
             int cantDosis = Integer.parseInt(dosisTotales.getText());
+            String ant = antigeno.getText();
             LocalDate fecha = LocalDate.of(2025, Month.SEPTEMBER, 23);
-            Vacuna vacun = new Vacuna(marca, lab, cantidad, fecha,false,antigeno.getText());
+            Vacuna vacun = new Vacuna(marca, lab, cantidad, fecha,false,ant);
 
             while (cantDosis > 0) {
                 vD.guardarVacuna(vacun);
