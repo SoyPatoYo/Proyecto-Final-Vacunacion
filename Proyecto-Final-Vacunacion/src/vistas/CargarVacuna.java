@@ -220,16 +220,16 @@ public class CargarVacuna extends javax.swing.JPanel {
         try {
             String marca = (String) comboMarca.getSelectedItem();
             String lab = laboratorio.getText();
-            Double cantidad =Double.parseDouble((String) comboCantidad.getSelectedItem());
-            Date fecha= (Date) fechaVencimiento.getDate();
+            Double cantidad = Double.parseDouble((String) comboCantidad.getSelectedItem());
+            Date fecha = (Date) fechaVencimiento.getDate();
             String ant = antigeno.getText();
             int cantDosis = Integer.parseInt(dosisTotales.getText());
-            Vacuna vac = new Vacuna(marca, lab, cantidad,fecha.toLocalDate() , ant);
+            Vacuna vac = new Vacuna(marca, lab, cantidad, fecha.toLocalDate(), ant);
             while (cantDosis < 0) {
                 vD.guardarVacuna(vac);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error " + e.fillInStackTrace());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
