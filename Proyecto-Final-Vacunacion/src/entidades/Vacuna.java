@@ -25,11 +25,11 @@ public class Vacuna {
         this.antigeno = antigeno;
     }
 
-    public Vacuna(String marca, String laboratorio, double medida, LocalDate vencimiento, String antigeno) {
+    public Vacuna(String marca, String laboratorio, double medida, LocalDate vencimiento,boolean colocada,String antigeno) {
         this.marca = marca;
         this.laboratorio = laboratorio;
         this.medida = medida;
-        this.vencimiento = vencimiento;
+        this.vencimiento=vencimiento;
         this.colocada=false;
         this.antigeno = antigeno;
     }
