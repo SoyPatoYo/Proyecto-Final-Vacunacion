@@ -33,7 +33,6 @@ public class VacunaData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 vacuna.setIdDosis(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Vacuna registrada");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());

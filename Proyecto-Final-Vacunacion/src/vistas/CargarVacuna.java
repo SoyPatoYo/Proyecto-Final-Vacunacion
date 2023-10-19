@@ -220,6 +220,7 @@ public class CargarVacuna extends javax.swing.JPanel {
                 vD.guardarVacuna(vacun);
                 cantDosis--;
             }
+            JOptionPane.showMessageDialog(null, "Vacunas ingresadas con exito");
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error " + e.fillInStackTrace());

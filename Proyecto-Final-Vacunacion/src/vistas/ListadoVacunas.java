@@ -33,7 +33,7 @@ public class ListadoVacunas extends javax.swing.JPanel {
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel1.setText("Cargar Vacuna");
+        jLabel1.setText("Listado de Vacunas");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
