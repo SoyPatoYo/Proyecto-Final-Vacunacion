@@ -13,6 +13,8 @@ public class CargarVacuna extends javax.swing.JPanel {
 
     public CargarVacuna() {
         initComponents();
+        vD = new VacunaData();
+        vac=new Vacuna();
 
     }
 
@@ -213,12 +215,10 @@ public class CargarVacuna extends javax.swing.JPanel {
             int cantDosis = Integer.parseInt(dosisTotales.getText());
             String ant = antigeno.getText();
             LocalDate fecha = LocalDate.of(2025, Month.SEPTEMBER, 23);
-            Vacuna vacun = new Vacuna(marca, lab, cantidad, fecha,false,ant);
-
+            Vacuna vacun = new Vacuna(marca, lab, cantidad, fecha, ant);
             while (cantDosis > 0) {
                 vD.guardarVacuna(vacun);
                 cantDosis--;
-
             }
 
         } catch (NumberFormatException e) {
