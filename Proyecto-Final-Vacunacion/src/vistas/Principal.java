@@ -6,6 +6,7 @@
 package vistas;
 
 import java.awt.CardLayout;
+import java.util.Random;
 import javax.swing.SwingUtilities;
 
 /**
@@ -19,7 +20,7 @@ public class Principal extends javax.swing.JFrame {
     MenuVacunas menuV;
     MenuCitas menuCita;
     CardLayout vista;
-    
+
     public Principal() {
         initComponents();
         this.setResizable(false);
@@ -262,4 +263,10 @@ public class Principal extends javax.swing.JFrame {
     public static javax.swing.JPanel jpEscritorio;
     private javax.swing.JPanel jpMenu;
     // End of variables declaration//GEN-END:variables
+
+    public static int numeroAzar(int numeroMax) {
+        Random random = new Random();
+        int numRandom = random.nextInt(numeroMax);
+        return numRandom;
+    }
 }
