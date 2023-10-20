@@ -45,7 +45,23 @@ public class Main {
         //citaD.modificarCita(cita);
         //System.out.println(citaD.buscarCita(2));
         //System.out.println(citaD.listarCitasVencidas());
-        System.out.println("numero:"+Principal.numeroAzar(1000));
+        
+        //Pruebas numero random
+        int num1=Principal.numeroAzar(200)+100;
+        int num2=Principal.numeroAzar(200)+100;
+        int num3=Principal.numeroAzar(200)+100;
+        int num4=Principal.numeroAzar(200)+100;
+        int suma=num1+num2+num3+num4;
+        System.out.println("vacuna 1="+num1);
+        System.out.println("vacuna 2="+num2);
+        System.out.println("vacuna 3="+num3);
+        System.out.println("vacuna 4="+num4);
+        System.out.println("Se colocaron en total:"+suma+" vacunas.");
+        int num5=Principal.numeroAzar(50)+10;
+        System.out.println("se cancelaron="+num5);
+        System.out.println("no asistieron="+(Principal.numeroAzar(50)+10));
+        System.out.println("se reprogramadaron="+(Principal.numeroAzar(50)+10));
+        
     }
 
 }

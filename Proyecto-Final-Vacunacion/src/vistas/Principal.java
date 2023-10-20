@@ -266,7 +266,7 @@ public class Principal extends javax.swing.JFrame {
 
     public static int numeroAzar(int numeroMax) {
         Random random = new Random();
-        int numRandom = random.nextInt(numeroMax);
+        int numRandom = random.nextInt(numeroMax)+1;
         return numRandom;
     }
 }
