@@ -3,21 +3,31 @@ package entidades;
 import java.time.LocalDate;
 
 public class Vacuna {
-
-    private int idDosis;
-    private String marca;
+    private int lote;
+    private int cantidadDosis;
+    private String marcaVacuna;
     private String laboratorio;
     private double medida;
     private LocalDate vencimiento;
-    private boolean colocada;
+    private boolean colocada=false;
     private String antigeno;
 
     public Vacuna() {
     }
 
-    public Vacuna(int idDosis, String marca, String laboratorio, double medida, LocalDate vencimiento, boolean colocada, String antigeno) {
-        this.idDosis = idDosis;
-        this.marca = marca;
+    public Vacuna(int cantidadDosis, String marcaVacuna, String laboratorio, double medida, LocalDate vencimiento, String antigeno) {
+        this.cantidadDosis = cantidadDosis;
+        this.marcaVacuna = marcaVacuna;
+        this.laboratorio = laboratorio;
+        this.medida = medida;
+        this.vencimiento = vencimiento;
+        this.antigeno = antigeno;
+    }
+
+    public Vacuna(int lote, int cantidadDosis, String marcaVacuna, String laboratorio, double medida, LocalDate vencimiento, boolean colocada, String antigeno) {
+        this.lote = lote;
+        this.cantidadDosis = cantidadDosis;
+        this.marcaVacuna = marcaVacuna;
         this.laboratorio = laboratorio;
         this.medida = medida;
         this.vencimiento = vencimiento;
@@ -25,28 +35,30 @@ public class Vacuna {
         this.antigeno = antigeno;
     }
 
-    public Vacuna(String marca, String laboratorio, double medida, LocalDate vencimiento, String antigeno) {
-        this.marca = marca;
-        this.laboratorio = laboratorio;
-        this.medida = medida;
-        this.vencimiento = vencimiento;
-        this.antigeno = antigeno;
+    public int getLote() {
+        return lote;
     }
 
-    public int getIdDosis() {
-        return idDosis;
+    public void setLote(int lote) {
+        this.lote = lote;
     }
 
-    public void setIdDosis(int idDosis) {
-        this.idDosis = idDosis;
+   
+
+    public int getCantidadDosis() {
+        return cantidadDosis;
     }
 
-    public String getMarca() {
-        return marca;
+    public void setCantidadDosis(int cantidadDosis) {
+        this.cantidadDosis = cantidadDosis;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public String getMarcaVacuna() {
+        return marcaVacuna;
+    }
+
+    public void setMarcaVacuna(String marcaVacuna) {
+        this.marcaVacuna = marcaVacuna;
     }
 
     public String getLaboratorio() {
@@ -91,7 +103,7 @@ public class Vacuna {
 
     @Override
     public String toString() {
-        return idDosis + "-" + marca;
+        return cantidadDosis + "-" + marcaVacuna;
     }
 
 }

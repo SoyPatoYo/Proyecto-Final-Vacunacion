@@ -25,16 +25,16 @@ public class Main {
         //cD.borrarCiudadanoPorDni(55555);
         //cD.borrarCiudadanoPorId(4);
 
-        //VacunaData vD = new VacunaData();
-        //Vacuna vacuna = new Vacuna ("Sputnik","RusiaPro",0.3,LocalDate.of(2016, 6, 2),"manaos");
+        VacunaData vD = new VacunaData();
+        Vacuna vacuna = new Vacuna (3000,"Sputnik","Rusia",0.6,LocalDate.of(2016, 6, 2),"manaos");
         //vD.guardarVacuna(vacuna);
         //System.out.println(vD.buscarVacunas());
         //System.out.println("Numero total de vacunas: "+vD.contarVacunas());
         //vD.borrarVacuna(3);
 
-        //CentroSaludData csD = new CentroSaludData();
-          //CentroSalud centro = new CentroSalud(1,"Centro Medico", "Calle 321", "Norte", vD.buscarVacuna(1));
-          //csd.guardarCentroSalud(centro);
+        CentroSaludData csD = new CentroSaludData();
+          CentroSalud centro = new CentroSalud("Centro Medico Pato", "Calle 321", "Sur",vD.buscarVacuna(2),0);
+          //csD.guardarCentroSalud(centro);
           //System.out.println(csD.buscarCentroSaludPorID(1));
           //csD.modificarCentroSalud(centro);
           //System.out.println(csD.listarCentrosSalud());
@@ -45,7 +45,11 @@ public class Main {
         //citaD.modificarCita(cita);
         //System.out.println(citaD.buscarCita(2));
         //System.out.println(citaD.listarCitasVencidas());
-        System.out.println("numero:"+Principal.numeroAzar(1000));
-    }
+        //System.out.println("numero:"+Principal.numeroAzar(1000));
+         //csD.guardarCentroSalud(centro);
+         //System.out.println("CENTRO ID : " + csD.listarCentrosSalud()+" ");
+         //System.out.println("Dosis del centro : "+csD.obtenerCantidadDosisPorCentro(4, "Rusia"));
+        csD.enviarVacunasAlCentro(4,"Rusia", 1500);
+    }    
 
 }

@@ -1,30 +1,32 @@
-
 package entidades;
 
-
 public class CentroSalud {
+
     private int idCentro;
     private String nombre;
     private String direccion;
     private String zona;
     private Vacuna laboratorio;
+    private int cantDosis;
 
     public CentroSalud() {
     }
 
-    public CentroSalud(int idCentro, String nombre, String direccion, String zona, Vacuna laboratorio) {
+    public CentroSalud(int idCentro, String nombre, String direccion, String zona, Vacuna laboratorio, int cantDosis) {
         this.idCentro = idCentro;
         this.nombre = nombre;
         this.direccion = direccion;
         this.zona = zona;
         this.laboratorio = laboratorio;
+        this.cantDosis = cantDosis;
     }
 
-    public CentroSalud(String nombre, String direccion, String zona, Vacuna laboratorio) {
+    public CentroSalud(String nombre, String direccion, String zona, Vacuna laboratorio, int cantDosis) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.zona = zona;
         this.laboratorio = laboratorio;
+        this.cantDosis = cantDosis;
     }
 
     public int getIdCentro() {
@@ -67,11 +69,17 @@ public class CentroSalud {
         this.laboratorio = laboratorio;
     }
 
-    
+    public int getCantDosis() {
+        return cantDosis;
+    }
+
+    public void setCantDosis(int cantDosis) {
+        this.cantDosis = cantDosis;
+    }
+
     @Override
     public String toString() {
-        return nombre;
+        return "ID Centro de Salud :"+idCentro + " Nombre :"+ nombre;
     }
-    
-    
+
 }
