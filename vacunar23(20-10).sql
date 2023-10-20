@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2023 a las 00:23:23
+-- Tiempo de generación: 21-10-2023 a las 01:32:31
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -34,8 +34,17 @@ CREATE TABLE `centrosalud` (
   `nombre` varchar(100) NOT NULL,
   `direccion` varchar(100) NOT NULL,
   `zona` varchar(100) NOT NULL,
-  `laboratorio` varchar(100) NOT NULL
+  `laboratorio` varchar(30) NOT NULL,
+  `cantidadDosis` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `centrosalud`
+--
+
+INSERT INTO `centrosalud` (`idCentro`, `nombre`, `direccion`, `zona`, `laboratorio`, `cantidadDosis`) VALUES
+(2, 'Centro Medico1', 'Calle 321', 'Este', 'Argentina', 900),
+(4, 'Centro Medico Pato', 'Calle 321', 'Sur', 'Rusia', 1501);
 
 -- --------------------------------------------------------
 
@@ -46,11 +55,13 @@ CREATE TABLE `centrosalud` (
 CREATE TABLE `cita` (
   `codigo` int(11) NOT NULL,
   `persona` int(11) NOT NULL,
-  `codRefuerzo` int(11) NOT NULL,
+  `cantRefuerzo` int(11) NOT NULL,
   `fechahoraCita` datetime NOT NULL,
   `centroVacunacion` int(11) NOT NULL,
-  `fechahoraColoca` datetime NOT NULL,
-  `dosis` int(11) NOT NULL
+  `fechahoraColoca` datetime DEFAULT NULL,
+  `lotedosis` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL,
+  `colocada` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -72,13 +83,6 @@ CREATE TABLE `ciudadano` (
   `covid` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `ciudadano`
---
-
-INSERT INTO `ciudadano` (`idCiudadano`, `dni`, `nombre`, `apellido`, `zona`, `email`, `celular`, `patologia`, `ambitoTrabajo`, `covid`) VALUES
-(1, 12345, 'Guillermo', 'Gonzalez', 'Este', 'guille@gmail.com', 15321321, 'Asmatico', 'Salud', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -86,8 +90,9 @@ INSERT INTO `ciudadano` (`idCiudadano`, `dni`, `nombre`, `apellido`, `zona`, `em
 --
 
 CREATE TABLE `vacuna` (
-  `idDosis` int(11) NOT NULL,
-  `marca` varchar(100) NOT NULL,
+  `Lote` int(11) NOT NULL,
+  `cantidadDosis` int(11) NOT NULL,
+  `marcaVacuna` varchar(100) NOT NULL,
   `laboratorio` varchar(100) NOT NULL,
   `medida` double NOT NULL,
   `vencimiento` date NOT NULL,
@@ -99,8 +104,9 @@ CREATE TABLE `vacuna` (
 -- Volcado de datos para la tabla `vacuna`
 --
 
-INSERT INTO `vacuna` (`idDosis`, `marca`, `laboratorio`, `medida`, `vencimiento`, `colocada`, `antigeno`) VALUES
-(1, 'Sputnik', 'RusiaPro', 0.3, '2016-06-02', 0, 'manaos');
+INSERT INTO `vacuna` (`Lote`, `cantidadDosis`, `marcaVacuna`, `laboratorio`, `medida`, `vencimiento`, `colocada`, `antigeno`) VALUES
+(1, 7000, 'Sinopharm', 'Argentina', 0.6, '2016-06-02', 0, 'manaos'),
+(2, 3000, 'Sputnik', 'Rusia', 0.6, '2025-09-23', 0, 'manaos');
 
 --
 -- Índices para tablas volcadas
@@ -111,7 +117,8 @@ INSERT INTO `vacuna` (`idDosis`, `marca`, `laboratorio`, `medida`, `vencimiento`
 --
 ALTER TABLE `centrosalud`
   ADD PRIMARY KEY (`idCentro`),
-  ADD UNIQUE KEY `nombre` (`nombre`),
+  ADD UNIQUE KEY `zona` (`zona`),
+  ADD KEY `cantidadDosis` (`cantidadDosis`),
   ADD KEY `laboratorio` (`laboratorio`);
 
 --
@@ -119,23 +126,24 @@ ALTER TABLE `centrosalud`
 --
 ALTER TABLE `cita`
   ADD PRIMARY KEY (`codigo`),
-  ADD KEY `dosis` (`dosis`),
+  ADD KEY `centroVacunacion` (`centroVacunacion`),
   ADD KEY `persona` (`persona`),
-  ADD KEY `centroVacunacion` (`centroVacunacion`);
+  ADD KEY `lotedosis` (`lotedosis`);
 
 --
 -- Indices de la tabla `ciudadano`
 --
 ALTER TABLE `ciudadano`
   ADD PRIMARY KEY (`idCiudadano`),
-  ADD UNIQUE KEY `dni` (`dni`);
+  ADD KEY `zona` (`zona`);
 
 --
 -- Indices de la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
-  ADD PRIMARY KEY (`idDosis`),
-  ADD UNIQUE KEY `laboratorio` (`laboratorio`);
+  ADD PRIMARY KEY (`Lote`),
+  ADD KEY `cantidadDosis` (`cantidadDosis`),
+  ADD KEY `laboratorio` (`laboratorio`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -145,7 +153,7 @@ ALTER TABLE `vacuna`
 -- AUTO_INCREMENT de la tabla `centrosalud`
 --
 ALTER TABLE `centrosalud`
-  MODIFY `idCentro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCentro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `cita`
@@ -157,13 +165,13 @@ ALTER TABLE `cita`
 -- AUTO_INCREMENT de la tabla `ciudadano`
 --
 ALTER TABLE `ciudadano`
-  MODIFY `idCiudadano` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idCiudadano` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
-  MODIFY `idDosis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Lote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -179,9 +187,15 @@ ALTER TABLE `centrosalud`
 -- Filtros para la tabla `cita`
 --
 ALTER TABLE `cita`
-  ADD CONSTRAINT `cita_ibfk_4` FOREIGN KEY (`persona`) REFERENCES `ciudadano` (`idCiudadano`),
-  ADD CONSTRAINT `cita_ibfk_5` FOREIGN KEY (`centroVacunacion`) REFERENCES `centrosalud` (`idCentro`),
-  ADD CONSTRAINT `cita_ibfk_6` FOREIGN KEY (`dosis`) REFERENCES `vacuna` (`idDosis`);
+  ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`centroVacunacion`) REFERENCES `centrosalud` (`idCentro`),
+  ADD CONSTRAINT `cita_ibfk_2` FOREIGN KEY (`persona`) REFERENCES `ciudadano` (`idCiudadano`),
+  ADD CONSTRAINT `cita_ibfk_3` FOREIGN KEY (`lotedosis`) REFERENCES `vacuna` (`Lote`);
+
+--
+-- Filtros para la tabla `ciudadano`
+--
+ALTER TABLE `ciudadano`
+  ADD CONSTRAINT `ciudadano_ibfk_1` FOREIGN KEY (`zona`) REFERENCES `centrosalud` (`zona`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
