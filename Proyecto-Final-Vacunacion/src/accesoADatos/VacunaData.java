@@ -20,44 +20,46 @@ public class VacunaData {
     }
 
     public void guardarVacuna(Vacuna vacuna) {
-        String sql = "INSERT INTO vacuna VALUES (null,?,?,?,?,?,?)";
+        String sql = "INSERT INTO vacuna (cantidadDosis, marcaVacuna, laboratorio, medida, vencimiento, colocada, antigeno) VALUES (?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, vacuna.getMarca());
-            ps.setString(2, vacuna.getLaboratorio());
-            ps.setDouble(3, vacuna.getMedida());
-            ps.setDate(4, Date.valueOf(vacuna.getVencimiento()));
-            ps.setBoolean(5, false);
-            ps.setString(6, vacuna.getAntigeno());
+            ps.setInt(1, vacuna.getCantidadDosis());
+            ps.setString(2, vacuna.getMarcaVacuna());
+            ps.setString(3, vacuna.getLaboratorio());
+            ps.setDouble(4, vacuna.getMedida());
+            ps.setDate(5, Date.valueOf(vacuna.getVencimiento()));
+            ps.setBoolean(6, false);
+            ps.setString(7, vacuna.getAntigeno());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                vacuna.setIdDosis(rs.getInt(1));
+                vacuna.setLote(rs.getInt(1));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
     }
 
-    public Vacuna buscarVacuna(int idDosis) {
-        String sql = "SELECT * FROM vacuna WHERE idDosis=?";
+    public Vacuna buscarVacuna(int lote) {
+        String sql = "SELECT * FROM vacuna WHERE Lote=?";
         Vacuna vacuna = null;
         PreparedStatement ps;
         try {
             ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idDosis);
+            ps.setInt(1, lote);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 vacuna = new Vacuna();
-                vacuna.setIdDosis(rs.getInt("idDosis"));
-                vacuna.setMarca(rs.getString("marca"));
+                vacuna.setCantidadDosis(rs.getInt("cantidadDosis"));
+                vacuna.setMarcaVacuna(rs.getString("marcaVacuna"));
                 vacuna.setLaboratorio(rs.getString("laboratorio"));
                 vacuna.setMedida(rs.getDouble("medida"));
                 vacuna.setVencimiento(rs.getDate("vencimiento").toLocalDate());
+
                 vacuna.setAntigeno(rs.getString("antigeno"));
                 vacuna.setColocada(rs.getBoolean("colocada"));
             } else {
-                JOptionPane.showMessageDialog(null, "No se encuenta una vacuna con ese ID.");
+                JOptionPane.showMessageDialog(null, "No se encuenta una vacuna con ese numero de Lote.");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
@@ -74,11 +76,12 @@ public class VacunaData {
             ps.setString(1, nombreLaboratorio);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                vacuna.setIdDosis(rs.getInt("idDosis"));
-                vacuna.setMarca(rs.getString("marca"));
+                vacuna.setCantidadDosis(rs.getInt("cantidadDosis"));
+                vacuna.setMarcaVacuna(rs.getString("marcaVacuna"));
                 vacuna.setLaboratorio(rs.getString("laboratorio"));
                 vacuna.setMedida(rs.getDouble("medida"));
                 vacuna.setVencimiento(rs.getDate("vencimiento").toLocalDate());
+
                 vacuna.setAntigeno(rs.getString("antigeno"));
                 vacuna.setColocada(rs.getBoolean("colocada"));
             }
@@ -98,8 +101,8 @@ public class VacunaData {
 
             while (rs.next()) {
                 Vacuna vacuna = new Vacuna();
-                vacuna.setIdDosis(rs.getInt("idDosis"));
-                vacuna.setMarca(rs.getString("marca"));
+                vacuna.setCantidadDosis(rs.getInt("cantidadDosis"));
+                vacuna.setMarcaVacuna(rs.getString("marcaVacuna"));
                 vacuna.setLaboratorio(rs.getString("laboratorio"));
                 vacuna.setMedida(rs.getDouble("medida"));
                 vacuna.setVencimiento(rs.getDate("vencimiento").toLocalDate());
@@ -116,40 +119,40 @@ public class VacunaData {
     }
 
     public void modificarVacuna(Vacuna vacuna) {
-        String sql = "UPDATE vacuna SET marca=?, laboratorio=?, medida=?, vencimiento=?, antigeno=?, colocada=? WHERE idDosis=?";
+        String sql = "UPDATE vacuna SET marcaVacuna=?, laboratorio=?, medida=?, vencimiento=?, antigeno=?, colocada=? WHERE lote=?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, vacuna.getMarca());
+            ps.setString(1, vacuna.getMarcaVacuna());
             ps.setString(2, vacuna.getLaboratorio());
             ps.setDouble(3, vacuna.getMedida());
             ps.setDate(4, Date.valueOf(vacuna.getVencimiento()));
             ps.setString(5, vacuna.getAntigeno());
             ps.setBoolean(6, vacuna.isColocada());
-            ps.setInt(7, vacuna.getIdDosis());
+            ps.setInt(7, vacuna.getLote());
 
             int filasActualizadas = ps.executeUpdate();
 
             if (filasActualizadas > 0) {
                 JOptionPane.showMessageDialog(null, "Vacuna modificada exitosamente");
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ninguna vacuna con el ID especificado");
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna vacuna con el Lote especificado");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al modificar la vacuna: " + ex.getMessage());
         }
     }
 
-    public void borrarVacuna(int idDosis) {
-        String sql = "DELETE FROM vacuna WHERE idDosis=?";
+    public void borrarVacuna(int lote) {
+        String sql = "DELETE FROM vacuna WHERE lote=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idDosis);
+            ps.setInt(1, lote);
             int filasEliminadas = ps.executeUpdate();
             if (filasEliminadas > 0) {
-                JOptionPane.showMessageDialog(null, "Vacuna con ID " + idDosis + " eliminada exitosamente.");
+                JOptionPane.showMessageDialog(null, "Vacuna con Lote " + lote + " eliminada exitosamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ninguna vacuna con el ID especificado.");
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna vacuna con el Lote especificado.");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -174,5 +177,9 @@ public class VacunaData {
 
         return totalVacunas;
     }
+    
+    
+
+
 
 }

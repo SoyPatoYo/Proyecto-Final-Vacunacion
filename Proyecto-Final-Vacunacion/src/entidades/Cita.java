@@ -7,48 +7,48 @@ import java.time.LocalDateTime;
 public class Cita {
     private int codigo;
     private Ciudadano persona;
-    private int codigoRefuerzo;
+    private int cantRefuerzo;
     private LocalDateTime fechaHoraCita;
     private CentroSalud centroVacunacion;
     private LocalDateTime fechaHoraColoca;
-    private Vacuna dosis;
+    private Vacuna loteDosis;
     private boolean estado;
     private boolean colocada;
 
     public Cita() {
     }
 
-    public Cita(int codigo, Ciudadano persona, int codigoRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, LocalDateTime fechaHoraColoca, Vacuna dosis, boolean estado, boolean colocada) {
+    public Cita(int codigo, Ciudadano persona, int cantRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, LocalDateTime fechaHoraColoca, Vacuna loteDosis, boolean estado, boolean colocada) {
         this.codigo = codigo;
         this.persona = persona;
-        this.codigoRefuerzo = codigoRefuerzo;
+        this.cantRefuerzo = cantRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
         this.centroVacunacion = centroVacunacion;
         this.fechaHoraColoca = fechaHoraColoca;
-        this.dosis = dosis;
+        this.loteDosis = loteDosis;
         this.estado = estado;
         this.colocada = colocada;
     }
 
-    public Cita(Ciudadano persona, int codigoRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, Vacuna dosis, boolean estado, boolean colocada) {
+    public Cita(Ciudadano persona, int cantRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, Vacuna loteDosis, boolean estado, boolean colocada) {
         this.persona = persona;
-        this.codigoRefuerzo = codigoRefuerzo;
+        this.cantRefuerzo = cantRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
         this.centroVacunacion = centroVacunacion;
-        this.dosis = dosis;
+        this.loteDosis = loteDosis;
         this.estado = estado;
         this.colocada = colocada;
     }
     
     
 
-    public Cita(Ciudadano persona, int codigoRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, LocalDateTime fechaHoraColoca, Vacuna dosis, boolean estado, boolean colocada) {
+    public Cita(Ciudadano persona, int cantRefuerzo, LocalDateTime fechaHoraCita, CentroSalud centroVacunacion, LocalDateTime fechaHoraColoca, Vacuna loteDosis, boolean estado, boolean colocada) {
         this.persona = persona;
-        this.codigoRefuerzo = codigoRefuerzo;
+        this.cantRefuerzo = cantRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
         this.centroVacunacion = centroVacunacion;
         this.fechaHoraColoca = fechaHoraColoca;
-        this.dosis = dosis;
+        this.loteDosis = loteDosis;
         this.estado = estado;
         this.colocada = colocada;
     }
@@ -71,12 +71,12 @@ public class Cita {
         this.persona = persona;
     }
 
-    public int getCodigoRefuerzo() {
-        return codigoRefuerzo;
+    public int getCantRefuerzo() {
+        return cantRefuerzo;
     }
 
-    public void setCodigoRefuerzo(int codigoRefuerzo) {
-        this.codigoRefuerzo = codigoRefuerzo;
+    public void setCantRefuerzo(int cantRefuerzo) {
+        this.cantRefuerzo = cantRefuerzo;
     }
 
     public LocalDateTime getFechaHoraCita() {
@@ -103,12 +103,12 @@ public class Cita {
         this.fechaHoraColoca = fechaHoraColoca;
     }
 
-    public Vacuna getDosis() {
-        return dosis;
+    public Vacuna getLoteDosis() {
+        return loteDosis;
     }
 
-    public void setDosis(Vacuna dosis) {
-        this.dosis = dosis;
+    public void setLoteDosis(Vacuna loteDosis) {
+        this.loteDosis = loteDosis;
     }
 
     public boolean isEstado() {
@@ -131,7 +131,7 @@ public class Cita {
 
     @Override
     public String toString() {
-        return codigo + "-" + persona + ", " + codigoRefuerzo + ", " + centroVacunacion;
+        return codigo + "-" + persona + ", " + cantRefuerzo + ", " + centroVacunacion;
     }
     
     

@@ -21,13 +21,14 @@ public class CentroSaludData {
     VacunaData vd = new VacunaData();
 
     public void guardarCentroSalud(CentroSalud centro) {
-        String sql = "INSERT INTO centrosalud VALUES (null,?,?,?,?)";
+        String sql = "INSERT INTO centrosalud VALUES (null,?,?,?,?,?)";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, centro.getNombre());
             ps.setString(2, centro.getDireccion());
             ps.setString(3, centro.getZona());
             ps.setString(4, centro.getLaboratorio().getLaboratorio());
+            ps.setInt(5, centro.getCantDosis());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -40,14 +41,16 @@ public class CentroSaludData {
     }
 
     public void modificarCentroSalud(CentroSalud centro) {
-        String sql = "UPDATE centrosalud SET nombre=?, direccion=?, zona=?, laboratorio=? WHERE idCentro=?";
+        String sql = "UPDATE centrosalud SET nombre=?, direccion=?, zona=?, laboratorio=?,laboratorio=?,cantidadDosis=? WHERE idCentro=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, centro.getNombre());
             ps.setString(2, centro.getDireccion());
             ps.setString(3, centro.getZona());
             ps.setString(4, centro.getLaboratorio().getLaboratorio());
-            ps.setInt(5, centro.getIdCentro()); // Usamos el ID para identificar el centro a modificar
+            
+            ps.setInt(6,centro.getCantDosis());
+            ps.setInt(7, centro.getIdCentro()); // Usamos el ID para identificar el centro a modificar
             int filasActualizadas = ps.executeUpdate();
             if (filasActualizadas > 0) {
                 JOptionPane.showMessageDialog(null, "Centro de Salud modificado.");
@@ -72,6 +75,7 @@ public class CentroSaludData {
                 centro.setDireccion(rs.getString("direccion"));
                 centro.setZona(rs.getString("zona"));
                 centro.setLaboratorio(vd.buscarVacunasPorLaboratorio(rs.getString("laboratorio")));
+                centro.setCantDosis(rs.getInt("cantidadDosis"));
                 return centro;
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el centro de salud con ID: " + idCentro);
@@ -96,6 +100,7 @@ public class CentroSaludData {
                 centro.setDireccion(rs.getString("direccion"));
                 centro.setZona(rs.getString("zona"));
                 centro.setLaboratorio(vd.buscarVacunasPorLaboratorio(rs.getString("laboratorio")));
+                centro.setCantDosis(rs.getInt("cantidadDosis"));
                 centros.add(centro);
             }
         } catch (SQLException ex) {
@@ -120,4 +125,67 @@ public class CentroSaludData {
             JOptionPane.showMessageDialog(null, "Error al eliminar el Centro de Salud: " + ex.getMessage());
         }
     }
+    
+    public int obtenerCantidadDosisPorCentro(int idCentro, String nombreVacuna) {
+    String sql = "SELECT cantidadDosis FROM centrosalud WHERE idCentro = ? AND laboratorio = ?";
+    int cantidadDosis = 0;
+
+    try {
+        PreparedStatement ps = conexion.prepareStatement(sql);
+        ps.setInt(1, idCentro);
+        ps.setString(2, nombreVacuna);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            cantidadDosis = rs.getInt("cantidadDosis");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró el centro de salud con ID: " + idCentro + " o la vacuna " + nombreVacuna + " no existe en el centro de salud.");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+    }
+
+    return cantidadDosis;
+}
+    
+    public void enviarVacunasAlCentro(int idCentro, String nombreVacuna, int cantidadEnviada) {
+    // Verificar si el centro de salud y la vacuna existen
+    CentroSalud centro = buscarCentroSaludPorID(idCentro);
+    if (centro == null) {
+        JOptionPane.showMessageDialog(null, "No se encontró el centro de salud con ID: " + idCentro);
+        return;
+    }
+    
+    // Verificar si la vacuna existe en el centro de salud
+    int cantidadDosisActual = obtenerCantidadDosisPorCentro(idCentro, nombreVacuna);
+    if (cantidadDosisActual == 0) {
+        JOptionPane.showMessageDialog(null, "La vacuna " + nombreVacuna + " no existe en el centro de salud.");
+        return;
+    }
+    
+    // Calcular la nueva cantidad de dosis después del envío
+    int nuevaCantidad = cantidadDosisActual + cantidadEnviada;
+    
+    // Actualizar la cantidad de dosis en el centro de salud
+    String sql = "UPDATE centrosalud SET cantidadDosis = ? WHERE idCentro = ? AND laboratorio = ?";
+    
+    try {
+        PreparedStatement ps = conexion.prepareStatement(sql);
+        ps.setInt(1, nuevaCantidad);
+        ps.setInt(2, idCentro);
+        ps.setString(3, nombreVacuna);
+        int filasActualizadas = ps.executeUpdate();
+        
+        if (filasActualizadas > 0) {
+            JOptionPane.showMessageDialog(null, "Se enviaron " + cantidadEnviada + " dosis de la vacuna " + nombreVacuna + " al centro de salud ID: " + idCentro);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo realizar el envío de vacunas.");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+    }
+}
+
+    
+
 }
