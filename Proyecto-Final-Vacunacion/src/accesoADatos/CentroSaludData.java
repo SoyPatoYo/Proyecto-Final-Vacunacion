@@ -267,12 +267,12 @@ public class CentroSaludData {
 //        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
 //    }
 //}
-    public void descontarVacunasDelLote(int lote, String nombreVacuna, int cantidadDescontada) {
+    public void descontarVacunasDelLote(int lote, String laboratorio, int cantidadDescontada) {
         String sql = "UPDATE vacuna SET cantidadDosis = cantidadDosis - ? WHERE laboratorio = ?  AND Lote = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, cantidadDescontada);
-            ps.setString(2, nombreVacuna);
+            ps.setString(2, laboratorio);
             ps.setInt(3, lote);
             ps.executeUpdate();
         } catch (SQLException ex) {
