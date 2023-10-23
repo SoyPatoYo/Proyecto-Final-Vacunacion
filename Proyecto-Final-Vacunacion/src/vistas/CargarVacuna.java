@@ -58,7 +58,7 @@ public class CargarVacuna extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Cantidad ml.");
 
-        comboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sputnik" }));
+        comboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sputnik", "Sinopharm", "Moderna", "Pfizer", "AstraZeneca" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Antigeno");
