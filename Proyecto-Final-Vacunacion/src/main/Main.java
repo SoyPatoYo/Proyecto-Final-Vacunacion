@@ -99,6 +99,6 @@ public class Main {
 //         //System.out.println("CENTRO ID : " + csD.listarCentrosSalud()+" ");
 //         //System.out.println("Dosis del centro : "+csD.obtenerCantidadDosisPorCentro(4, "Rusia"));
 //        csD.enviarVacunasAlCentro(5,"India", 1500);
-        csD.descontarVacunasDelLote(1,"Argentina", 1500);
+//        csD.descontarVacunasDelLote(1,"Argentina", 1500);
     }  
 }
