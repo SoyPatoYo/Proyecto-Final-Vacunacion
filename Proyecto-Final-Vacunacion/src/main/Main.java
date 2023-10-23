@@ -26,16 +26,16 @@ public class Main {
         //cD.borrarCiudadanoPorDni(55555);
         //cD.borrarCiudadanoPorId(4);
 
-        //VacunaData vD = new VacunaData();
-        //Vacuna vacuna = new Vacuna ("Sputnik","RusiaPro",0.3,LocalDate.of(2016, 6, 2),"manaos");
+        VacunaData vD = new VacunaData();
+        Vacuna vacuna = new Vacuna (10000,"Astrazeneca","India",0.6,LocalDate.of(2016, 6, 2),"manaos");
         //vD.guardarVacuna(vacuna);
         //System.out.println(vD.buscarVacunas());
         //System.out.println("Numero total de vacunas: "+vD.contarVacunas());
         //vD.borrarVacuna(3);
 
-        //CentroSaludData csD = new CentroSaludData();
-          //CentroSalud centro = new CentroSalud(1,"Centro Medico", "Calle 321", "Norte", vD.buscarVacuna(1));
-          //csd.guardarCentroSalud(centro);
+        CentroSaludData csD = new CentroSaludData();
+//          CentroSalud centro = new CentroSalud("Centro Medico1", "Calle 321", "Norte", vD.buscarVacuna(3),1);
+//          csD.guardarCentroSalud(centro);
           //System.out.println(csD.buscarCentroSaludPorID(1));
           //csD.modificarCentroSalud(centro);
           //System.out.println(csD.listarCentrosSalud());
@@ -47,23 +47,23 @@ public class Main {
         //System.out.println(citaD.buscarCita(2));
         //System.out.println(citaD.listarCitasVencidas());
         
-        //Pruebas numero random
-        int num1=Principal.numeroAzar(200)+100;
-        int num2=Principal.numeroAzar(200)+100;
-        int num3=Principal.numeroAzar(200)+100;
-        int num4=Principal.numeroAzar(200)+100;
-        int suma=num1+num2+num3+num4;
-        System.out.println("vacuna 1="+num1);
-        System.out.println("vacuna 2="+num2);
-        System.out.println("vacuna 3="+num3);
-        System.out.println("vacuna 4="+num4);
-        System.out.println("Se colocaron en total:"+suma+" vacunas.");
-        int num5=Principal.numeroAzar(50)+10;
-        System.out.println("se cancelaron="+num5);
-        System.out.println("no asistieron="+(Principal.numeroAzar(50)+10));
-        System.out.println("se reprogramadaron="+(Principal.numeroAzar(50)+10));
-        
-    }
+//        //Pruebas numero random
+//        int num1=Principal.numeroAzar(200)+100;
+//        int num2=Principal.numeroAzar(200)+100;
+//        int num3=Principal.numeroAzar(200)+100;
+//        int num4=Principal.numeroAzar(200)+100;
+//        int suma=num1+num2+num3+num4;
+//        System.out.println("vacuna 1="+num1);
+//        System.out.println("vacuna 2="+num2);
+//        System.out.println("vacuna 3="+num3);
+//        System.out.println("vacuna 4="+num4);
+//        System.out.println("Se colocaron en total:"+suma+" vacunas.");
+//        int num5=Principal.numeroAzar(50)+10;
+//        System.out.println("se cancelaron="+num5);
+//        System.out.println("no asistieron="+(Principal.numeroAzar(50)+10));
+//        System.out.println("se reprogramadaron="+(Principal.numeroAzar(50)+10));
+//        
+//    }
 
 //        //CiudadanoData cD = new CiudadanoData();
 //        //Ciudadano persona=new Ciudadano(55555, "Pepe", "Tito", "Este", "pepe@gmail.com", 15123321,"Asmatico","Salud", false);
@@ -81,7 +81,7 @@ public class Main {
 //        //System.out.println("Numero total de vacunas: "+vD.contarVacunas());
 //        //vD.borrarVacuna(3);
 //
-//        CentroSaludData csD = new CentroSaludData();
+         
 //          CentroSalud centro = new CentroSalud("Centro Medico Pato", "Calle 321", "Sur",vD.buscarVacuna(2),0);
 //          //csD.guardarCentroSalud(centro);
 //          //System.out.println(csD.buscarCentroSaludPorID(1));
@@ -98,5 +98,7 @@ public class Main {
 //         //csD.guardarCentroSalud(centro);
 //         //System.out.println("CENTRO ID : " + csD.listarCentrosSalud()+" ");
 //         //System.out.println("Dosis del centro : "+csD.obtenerCantidadDosisPorCentro(4, "Rusia"));
-//        csD.enviarVacunasAlCentro(4,"Rusia", 1500);
-    }    
+//        csD.enviarVacunasAlCentro(5,"India", 1500);
+        csD.descontarVacunasDelLote(1,"Argentina", 1500);
+    }  
+}
