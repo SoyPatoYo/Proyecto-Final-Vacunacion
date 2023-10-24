@@ -76,6 +76,7 @@ public class VacunaData {
             ps.setString(1, nombreLaboratorio);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                vacuna.setLote(rs.getInt("Lote"));
                 vacuna.setCantidadDosis(rs.getInt("cantidadDosis"));
                 vacuna.setMarcaVacuna(rs.getString("marcaVacuna"));
                 vacuna.setLaboratorio(rs.getString("laboratorio"));
