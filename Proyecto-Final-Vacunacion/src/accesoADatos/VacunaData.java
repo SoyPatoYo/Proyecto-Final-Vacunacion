@@ -50,6 +50,7 @@ public class VacunaData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 vacuna = new Vacuna();
+                vacuna.setLote(rs.getInt("Lote"));
                 vacuna.setCantidadDosis(rs.getInt("cantidadDosis"));
                 vacuna.setMarcaVacuna(rs.getString("marcaVacuna"));
                 vacuna.setLaboratorio(rs.getString("laboratorio"));
@@ -102,6 +103,7 @@ public class VacunaData {
 
             while (rs.next()) {
                 Vacuna vacuna = new Vacuna();
+                vacuna.setLote(rs.getInt("Lote"));
                 vacuna.setCantidadDosis(rs.getInt("cantidadDosis"));
                 vacuna.setMarcaVacuna(rs.getString("marcaVacuna"));
                 vacuna.setLaboratorio(rs.getString("laboratorio"));
