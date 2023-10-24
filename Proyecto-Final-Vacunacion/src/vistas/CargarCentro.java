@@ -7,6 +7,8 @@ package vistas;
 
 import accesoADatos.CentroSaludData;
 import entidades.CentroSalud;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -182,9 +184,9 @@ public class CargarCentro extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textTotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -204,23 +206,66 @@ public class CargarCentro extends javax.swing.JPanel {
     }//GEN-LAST:event_textTotalDActionPerformed
 
     private void comboBoxZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxZonaActionPerformed
+        borrarFilas();
         csD = new CentroSaludData();
         String zona = (String) comboBoxZona.getSelectedItem();
         if (zona.equals("Norte")) {
-            CentroSalud centro1 = csD.buscarCentroSaludPorID(5);
-            CentroSalud centro2 = csD.buscarCentroSaludPorID(7);
-            CentroSalud centro3 = csD.buscarCentroSaludPorID(8);
-            CentroSalud centro4 = csD.buscarCentroSaludPorID(9);
-
-            textNombre.setText(centro1.getNombre());
-            textDirec.setText(centro1.getDireccion());
-            int total = centro1.getCantDosis() + centro2.getCantDosis() + centro3.getCantDosis() + centro4.getCantDosis();
+            List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Norte");
+            CentroSalud centro=centros.get(0);
+            textNombre.setText(centro.getNombre());
+            textDirec.setText(centro.getDireccion());
+            int total=0;
+            for (CentroSalud c : centros) {
+               total+=c.getCantDosis();
+            }
+            //int total = centro1.getCantDosis() + centro2.getCantDosis() + centro3.getCantDosis() + centro4.getCantDosis();
             textTotalD.setText("" + total);
             textVacunaciones.setText("" + Principal.numeroAzar(200));
-            cargarDatos(centro1);
-            cargarDatos(centro2);
-            cargarDatos(centro3);
-            cargarDatos(centro4);
+            for (CentroSalud c : centros) {
+                cargarDatos(c);
+            }
+        }else if (zona.equals("Sur")) {
+            List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Sur");
+            CentroSalud centro=centros.get(0);
+            textNombre.setText(centro.getNombre());
+            textDirec.setText(centro.getDireccion());
+            int total=0;
+            for (CentroSalud c : centros) {
+               total+=c.getCantDosis();
+            }
+            textTotalD.setText("" + total);
+            textVacunaciones.setText("" + Principal.numeroAzar(200));
+            for (CentroSalud c : centros) {
+                cargarDatos(c);
+            }
+        }else if (zona.equals("Este")) {
+            List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Este");
+            CentroSalud centro=centros.get(0);
+            textNombre.setText(centro.getNombre());
+            textDirec.setText(centro.getDireccion());
+            int total=0;
+            for (CentroSalud c : centros) {
+               total+=c.getCantDosis();
+            }
+            textTotalD.setText("" + total);
+            textVacunaciones.setText("" + Principal.numeroAzar(200));
+            for (CentroSalud c : centros) {
+                cargarDatos(c);
+            }
+        }else if (zona.equals("Oeste")) {
+            List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Oeste");
+            CentroSalud centro=centros.get(0);
+            textNombre.setText(centro.getNombre());
+            textDirec.setText(centro.getDireccion());
+            int total=0;
+            for (CentroSalud c : centros) {
+               total+=c.getCantDosis();
+            }
+            textTotalD.setText("" + total);
+            textVacunaciones.setText("" + Principal.numeroAzar(200));
+            for (CentroSalud c : centros) {
+                cargarDatos(c);
+            }
         }
     }//GEN-LAST:event_comboBoxZonaActionPerformed
 
@@ -250,5 +295,12 @@ public class CargarCentro extends javax.swing.JPanel {
         modelo.addColumn("Cantidad");
         
         tablaMarcaCantidad.setModel(modelo);
+    }
+    private void borrarFilas() {
+        int filas = tablaMarcaCantidad.getRowCount() - 1;
+
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
     }
 }

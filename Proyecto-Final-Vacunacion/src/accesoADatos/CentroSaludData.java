@@ -109,6 +109,31 @@ public class CentroSaludData {
         return centros;
     }
 
+    public List<CentroSalud> buscarCentrosSaludPorNombre(String nombreBuscado) {
+        List<CentroSalud> centros = new ArrayList<>();
+        String sql = "SELECT * FROM centrosalud WHERE nombre = ?";
+
+        try {
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement.setString(1, nombreBuscado);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                CentroSalud centro = new CentroSalud();
+                centro.setIdCentro(rs.getInt("idCentro"));
+                centro.setNombre(rs.getString("nombre"));
+                centro.setDireccion(rs.getString("direccion"));
+                centro.setZona(rs.getString("zona"));
+                centro.setLaboratorio(vd.buscarVacunasPorLaboratorio(rs.getString("laboratorio")));
+                centro.setCantDosis(rs.getInt("cantidadDosis"));
+                centros.add(centro);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return centros;
+    }
+
     public void borrarCentroSalud(int idCentro) {
         String sql = "DELETE FROM centrosalud WHERE idCentro=?";
         try {
@@ -149,85 +174,86 @@ public class CentroSaludData {
     }
 
     public void enviarVacunasAlCentro(int idCentro, String nombreVacuna, int cantidadEnviada) {
-    // Verificar si el centro de salud y la vacuna existen
-    CentroSalud centro = buscarCentroSaludPorID(idCentro);
-    if (centro == null) {
-        JOptionPane.showMessageDialog(null, "No se encontró el centro de salud con ID: " + idCentro);
-        return;
-    }
-    
-    // Verificar si la vacuna existe en el centro de salud
-    int cantidadDosisActual = obtenerCantidadDosisPorCentro(idCentro, nombreVacuna);
-    if (cantidadDosisActual == 0) {
-        JOptionPane.showMessageDialog(null, "La vacuna " + nombreVacuna + " no existe en el centro de salud.");
-        return;
-    }
-    
-    // Calcular la nueva cantidad de dosis después del envío
-    int nuevaCantidad = cantidadDosisActual + cantidadEnviada;
-    
-    // Actualizar la cantidad de dosis en el centro de salud
-    String sql = "UPDATE centrosalud SET cantidadDosis = ? WHERE idCentro = ? AND laboratorio = ?";
-    
-    try {
-        PreparedStatement ps = conexion.prepareStatement(sql);
-        ps.setInt(1, nuevaCantidad);
-        ps.setInt(2, idCentro);
-        ps.setString(3, nombreVacuna);
-        int filasActualizadas = ps.executeUpdate();
-        
-        if (filasActualizadas > 0) {
-            JOptionPane.showMessageDialog(null, "Se enviaron " + cantidadEnviada + " dosis de la vacuna " + nombreVacuna + " al centro de salud ID: " + idCentro);
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo realizar el envío de vacunas.");
+        // Verificar si el centro de salud y la vacuna existen
+        CentroSalud centro = buscarCentroSaludPorID(idCentro);
+        if (centro == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró el centro de salud con ID: " + idCentro);
+            return;
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+
+        // Verificar si la vacuna existe en el centro de salud
+        int cantidadDosisActual = obtenerCantidadDosisPorCentro(idCentro, nombreVacuna);
+        if (cantidadDosisActual == 0) {
+            JOptionPane.showMessageDialog(null, "La vacuna " + nombreVacuna + " no existe en el centro de salud.");
+            return;
+        }
+
+        // Calcular la nueva cantidad de dosis después del envío
+        int nuevaCantidad = cantidadDosisActual + cantidadEnviada;
+
+        // Actualizar la cantidad de dosis en el centro de salud
+        String sql = "UPDATE centrosalud SET cantidadDosis = ? WHERE idCentro = ? AND laboratorio = ?";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, nuevaCantidad);
+            ps.setInt(2, idCentro);
+            ps.setString(3, nombreVacuna);
+            int filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Se enviaron " + cantidadEnviada + " dosis de la vacuna " + nombreVacuna + " al centro de salud ID: " + idCentro);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo realizar el envío de vacunas.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
     }
-}
+
     public void descontarVacunasDelCentro(int idCentro, String nombreVacuna, int cantidadDescontada) {
-    // Verificar si el centro de salud y la vacuna existen
-    CentroSalud centro = buscarCentroSaludPorID(idCentro);
-    if (centro == null) {
-        JOptionPane.showMessageDialog(null, "No se encontró el centro de salud con ID: " + idCentro);
-        return;
-    }
-    
-    // Verificar si la vacuna existe en el centro de salud
-    int cantidadDosisActual = obtenerCantidadDosisPorCentro(idCentro, nombreVacuna);
-    if (cantidadDosisActual == 0) {
-        JOptionPane.showMessageDialog(null, "La vacuna " + nombreVacuna + " no existe en el centro de salud.");
-        return;
-    }
-    
-    // Calcular la nueva cantidad de dosis después del descuento
-    int nuevaCantidad = cantidadDosisActual - cantidadDescontada;
-    
-    // Verificar que no se vuelva negativa la cantidad
-    if (nuevaCantidad < 0) {
-        JOptionPane.showMessageDialog(null, "No se pueden descontar más vacunas de las disponibles.");
-        return;
-    }
-    
-    // Actualizar la cantidad de dosis en el centro de salud
-    String sql = "UPDATE centrosalud SET cantidadDosis = ? WHERE idCentro = ? AND laboratorio = ?";
-    
-    try {
-        PreparedStatement ps = conexion.prepareStatement(sql);
-        ps.setInt(1, nuevaCantidad);
-        ps.setInt(2, idCentro);
-        ps.setString(3, nombreVacuna);
-        int filasActualizadas = ps.executeUpdate();
-        
-        if (filasActualizadas > 0) {
-            JOptionPane.showMessageDialog(null, "Se descontaron " + cantidadDescontada + " dosis de la vacuna " + nombreVacuna + " en el centro de salud ID: " + idCentro);
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo realizar el descuento de vacunas.");
+        // Verificar si el centro de salud y la vacuna existen
+        CentroSalud centro = buscarCentroSaludPorID(idCentro);
+        if (centro == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró el centro de salud con ID: " + idCentro);
+            return;
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+
+        // Verificar si la vacuna existe en el centro de salud
+        int cantidadDosisActual = obtenerCantidadDosisPorCentro(idCentro, nombreVacuna);
+        if (cantidadDosisActual == 0) {
+            JOptionPane.showMessageDialog(null, "La vacuna " + nombreVacuna + " no existe en el centro de salud.");
+            return;
+        }
+
+        // Calcular la nueva cantidad de dosis después del descuento
+        int nuevaCantidad = cantidadDosisActual - cantidadDescontada;
+
+        // Verificar que no se vuelva negativa la cantidad
+        if (nuevaCantidad < 0) {
+            JOptionPane.showMessageDialog(null, "No se pueden descontar más vacunas de las disponibles.");
+            return;
+        }
+
+        // Actualizar la cantidad de dosis en el centro de salud
+        String sql = "UPDATE centrosalud SET cantidadDosis = ? WHERE idCentro = ? AND laboratorio = ?";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, nuevaCantidad);
+            ps.setInt(2, idCentro);
+            ps.setString(3, nombreVacuna);
+            int filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Se descontaron " + cantidadDescontada + " dosis de la vacuna " + nombreVacuna + " en el centro de salud ID: " + idCentro);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo realizar el descuento de vacunas.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
     }
-}
 //    public void enviarVacunasAlCentro(int idCentro, String nombreVacuna, int cantidadEnviada) {
 //    // Verificar si el centro de salud y la vacuna existen
 //    CentroSalud centro = buscarCentroSaludPorID(idCentro);
@@ -267,6 +293,7 @@ public class CentroSaludData {
 //        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
 //    }
 //}
+
     public void descontarVacunasDelLote(int lote, String laboratorio, int cantidadDescontada) {
         String sql = "UPDATE vacuna SET cantidadDosis = cantidadDosis - ? WHERE laboratorio = ?  AND Lote = ?";
         try {
