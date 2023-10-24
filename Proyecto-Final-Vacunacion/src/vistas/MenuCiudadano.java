@@ -42,7 +42,6 @@ public class MenuCiudadano extends javax.swing.JPanel {
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Menu Ciudadano");
 
         jButton2.setText("Cargar Ciudadano");
@@ -52,7 +51,7 @@ public class MenuCiudadano extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Buscar  Ciudadano");
+        jButton3.setText("Editar  Ciudadano");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
