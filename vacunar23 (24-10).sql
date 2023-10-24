@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2023 a las 01:32:31
+-- Tiempo de generación: 25-10-2023 a las 00:30:09
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -43,8 +43,26 @@ CREATE TABLE `centrosalud` (
 --
 
 INSERT INTO `centrosalud` (`idCentro`, `nombre`, `direccion`, `zona`, `laboratorio`, `cantidadDosis`) VALUES
-(2, 'Centro Medico1', 'Calle 321', 'Este', 'Argentina', 900),
-(4, 'Centro Medico Pato', 'Calle 321', 'Sur', 'Rusia', 1501);
+(5, 'Centro Medico Norte', 'Rodriguez 1500', 'Norte', 'EEUU', 1000),
+(7, 'Centro Medico Norte', 'Rodriguez 1500', 'Norte', 'Rusia', 1000),
+(8, 'Centro Medico Norte', 'Rodriguez 1500', 'Norte', 'Argentina', 1000),
+(9, 'Centro Medico Norte', 'Rodriguez 1500', 'Norte', 'Nueva York', 1000),
+(10, 'Centro Medico Norte', 'Rodriguez 1500', 'Norte', 'Reino Unido', 1000),
+(11, 'Centro Medico Sur', 'Callao 567', 'Sur', 'Reino Unido', 1000),
+(12, 'Centro Medico Sur', 'Callao 567', 'Sur', 'Nueva York', 1000),
+(13, 'Centro Medico Sur', 'Callao 567', 'Sur', 'Argentina', 1000),
+(14, 'Centro Medico Sur', 'Callao 567', 'Sur', 'Rusia', 1000),
+(15, 'Centro Medico Sur', 'Callao 567', 'Sur', 'EEUU', 1000),
+(16, 'Centro Medico Este', 'Av. Peron 715', 'Este', 'Reino Unido', 1000),
+(17, 'Centro Medico Este', 'Av. Peron 715', 'Este', 'Nueva York', 1000),
+(18, 'Centro Medico Este', 'Av. Peron 715', 'Este', 'Argentina', 1000),
+(19, 'Centro Medico Este', 'Av. Peron 715', 'Este', 'Rusia', 1000),
+(20, 'Centro Medico Este', 'Av. Peron 715', 'Este', 'EEUU', 1000),
+(21, 'Centro Medico Oeste', 'Av del Caño 512', 'Oeste', 'Reino Unido', 1000),
+(22, 'Centro Medico Oeste', 'Av del Caño 512', 'Oeste', 'Nueva York', 1000),
+(23, 'Centro Medico Oeste', 'Av del Caño 512', 'Oeste', 'Argentina', 1000),
+(24, 'Centro Medico Oeste', 'Av del Caño 512', 'Oeste', 'Rusia', 1000),
+(25, 'Centro Medico Oeste', 'Av del Caño 512', 'Oeste', 'EEUU', 1000);
 
 -- --------------------------------------------------------
 
@@ -83,6 +101,14 @@ CREATE TABLE `ciudadano` (
   `covid` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `ciudadano`
+--
+
+INSERT INTO `ciudadano` (`idCiudadano`, `dni`, `nombre`, `apellido`, `zona`, `email`, `celular`, `patologia`, `ambitoTrabajo`, `covid`) VALUES
+(4, 40459852, 'Maximo', 'Roberto', 'Norte', 'maxi@gmail.com', 154898989, 'Cardiaco', 'Salud', 1),
+(5, 45684598, 'Pepe', 'Gimeno', 'Este', 'pepe@gmail.com', 154874568, 'Cardiaco', 'Salud', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -106,7 +132,10 @@ CREATE TABLE `vacuna` (
 
 INSERT INTO `vacuna` (`Lote`, `cantidadDosis`, `marcaVacuna`, `laboratorio`, `medida`, `vencimiento`, `colocada`, `antigeno`) VALUES
 (1, 7000, 'Sinopharm', 'Argentina', 0.6, '2016-06-02', 0, 'manaos'),
-(2, 3000, 'Sputnik', 'Rusia', 0.6, '2025-09-23', 0, 'manaos');
+(2, 3000, 'Sputnik', 'Rusia', 0.6, '2025-09-23', 0, 'manaos'),
+(3, 10000, 'Moderna', 'EEUU', 0.3, '2025-09-23', 0, 'manaos'),
+(4, 10000, 'Pfizer', 'Nueva York', 0.3, '2025-09-23', 0, 'manos'),
+(5, 10000, 'AstraZeneca', 'Reino Unido', 0.9, '2025-09-23', 0, 'manos');
 
 --
 -- Índices para tablas volcadas
@@ -117,9 +146,9 @@ INSERT INTO `vacuna` (`Lote`, `cantidadDosis`, `marcaVacuna`, `laboratorio`, `me
 --
 ALTER TABLE `centrosalud`
   ADD PRIMARY KEY (`idCentro`),
-  ADD UNIQUE KEY `zona` (`zona`),
   ADD KEY `cantidadDosis` (`cantidadDosis`),
-  ADD KEY `laboratorio` (`laboratorio`);
+  ADD KEY `laboratorio` (`laboratorio`),
+  ADD KEY `zona` (`zona`);
 
 --
 -- Indices de la tabla `cita`
@@ -153,7 +182,7 @@ ALTER TABLE `vacuna`
 -- AUTO_INCREMENT de la tabla `centrosalud`
 --
 ALTER TABLE `centrosalud`
-  MODIFY `idCentro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idCentro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `cita`
@@ -165,13 +194,13 @@ ALTER TABLE `cita`
 -- AUTO_INCREMENT de la tabla `ciudadano`
 --
 ALTER TABLE `ciudadano`
-  MODIFY `idCiudadano` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCiudadano` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
-  MODIFY `Lote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Lote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
@@ -190,12 +219,6 @@ ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`centroVacunacion`) REFERENCES `centrosalud` (`idCentro`),
   ADD CONSTRAINT `cita_ibfk_2` FOREIGN KEY (`persona`) REFERENCES `ciudadano` (`idCiudadano`),
   ADD CONSTRAINT `cita_ibfk_3` FOREIGN KEY (`lotedosis`) REFERENCES `vacuna` (`Lote`);
-
---
--- Filtros para la tabla `ciudadano`
---
-ALTER TABLE `ciudadano`
-  ADD CONSTRAINT `ciudadano_ibfk_1` FOREIGN KEY (`zona`) REFERENCES `centrosalud` (`zona`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
