@@ -30,6 +30,7 @@ public class CargarCita extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
+        setForeground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(526, 466));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));

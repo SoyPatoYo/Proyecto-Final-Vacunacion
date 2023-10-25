@@ -35,11 +35,14 @@ public class CargarVacuna extends javax.swing.JPanel {
         comboCantidad = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        dosisTotales = new javax.swing.JTextPane();
+        dosisActuales = new javax.swing.JTextPane();
         jButton1 = new javax.swing.JButton();
         botonLimpiar = new javax.swing.JButton();
         botonSalir = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        dosisASumar = new javax.swing.JTextPane();
 
         setPreferredSize(new java.awt.Dimension(493, 517));
 
@@ -59,6 +62,11 @@ public class CargarVacuna extends javax.swing.JPanel {
         jLabel3.setText("Cantidad ml.");
 
         comboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sputnik", "Sinopharm", "Moderna", "Pfizer", "AstraZeneca" }));
+        comboMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboMarcaActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Antigeno");
@@ -68,9 +76,9 @@ public class CargarVacuna extends javax.swing.JPanel {
         comboCantidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0.3", "0.6", "0.9" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Cant. Dosis");
+        jLabel9.setText("Cant. Dosis a Sumar");
 
-        jScrollPane5.setViewportView(dosisTotales);
+        jScrollPane5.setViewportView(dosisActuales);
 
         jButton1.setText("AGREGAR!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +104,11 @@ public class CargarVacuna extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Laboratorio");
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Cant. Dosis Actual");
+
+        jScrollPane6.setViewportView(dosisASumar);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,10 +123,11 @@ public class CargarVacuna extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(98, Short.MAX_VALUE))
+                        .addContainerGap(94, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -122,11 +136,15 @@ public class CargarVacuna extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botonSalir))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane5))
+                                .addGap(36, 36, 36)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(22, 22, 22))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,19 +182,23 @@ public class CargarVacuna extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonLimpiar)
-                            .addComponent(botonSalir)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonLimpiar)
+                    .addComponent(botonSalir))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -193,7 +215,7 @@ public class CargarVacuna extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
         );
 
         getAccessibleContext().setAccessibleName("");
@@ -202,7 +224,7 @@ public class CargarVacuna extends javax.swing.JPanel {
     private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed
         laboratorio.setText("");
         antigeno.setText("");
-        dosisTotales.setText("");
+        dosisActuales.setText("");
     }//GEN-LAST:event_botonLimpiarActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
@@ -214,22 +236,76 @@ public class CargarVacuna extends javax.swing.JPanel {
         //BOTON AGREGAR
 
         try {
-
             String marca = (String) comboMarca.getSelectedItem();
-            String lab = laboratorio.getText();
-            Double medida = Double.parseDouble((String) comboCantidad.getSelectedItem());
-            int cantDosis = Integer.parseInt(dosisTotales.getText());
-            String ant = antigeno.getText();
-            LocalDate fecha = LocalDate.of(2025, Month.SEPTEMBER, 23);
-            Vacuna vacun = new Vacuna(cantDosis, marca, lab, medida, fecha, ant);
+            Vacuna vacun = new Vacuna();
+            String dosisASumarText = dosisASumar.getText();
 
-            vD.guardarVacuna(vacun);
-            JOptionPane.showMessageDialog(null, "Lote de vacunas ingresado con exito");
+            // Validar que dosisASumarText sea un número entero positivo
+            if (dosisASumarText.matches("^\\d+$")) {
+                int cantidad = Integer.parseInt(dosisASumarText);
 
+                if (cantidad > 0) {
+                    if (marca.equals("Sputnik")) {
+                        vacun = vD.buscarVacuna(2);
+                    } else if (marca.equals("Sinopharm")) {
+                        vacun = vD.buscarVacuna(1);
+                    } else if (marca.equals("Moderna")) {
+                        vacun = vD.buscarVacuna(3);
+                    } else if (marca.equals("Pfizer")) {
+                        vacun = vD.buscarVacuna(4);
+                    } else if (marca.equals("AstraZeneca")) {
+                        vacun = vD.buscarVacuna(5);
+                    }
+
+                    vD.modificarCantidadVacuna(vacun,cantidad);
+                    dosisASumar.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número entero positivo.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número.");
+            }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error " + e.fillInStackTrace());
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void comboMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarcaActionPerformed
+        //Sputnik, Sinopharm, Moderna, Pfizer, AstraZeneca
+        String marca = (String) comboMarca.getSelectedItem();
+        Vacuna vac;
+        if (marca.equals("Sputnik")) {
+            vac = vD.buscarVacuna(2);
+            laboratorio.setText(vac.getLaboratorio());
+            comboCantidad.setSelectedIndex(1);
+            antigeno.setText(vac.getAntigeno());
+            dosisActuales.setText(vac.getCantidadDosis() + "");
+        } else if (marca.equals("Sinopharm")) {
+            vac = vD.buscarVacuna(1);
+            laboratorio.setText(vac.getLaboratorio());
+            comboCantidad.setSelectedIndex(1);
+            antigeno.setText(vac.getAntigeno());
+            dosisActuales.setText(vac.getCantidadDosis() + "");
+        } else if (marca.equals("Moderna")) {
+            vac = vD.buscarVacuna(3);
+            laboratorio.setText(vac.getLaboratorio());
+            comboCantidad.setSelectedIndex(0);
+            antigeno.setText(vac.getAntigeno());
+            dosisActuales.setText(vac.getCantidadDosis() + "");
+        } else if (marca.equals("Pfizer")) {
+            vac = vD.buscarVacuna(4);
+            laboratorio.setText(vac.getLaboratorio());
+            comboCantidad.setSelectedIndex(0);
+            antigeno.setText(vac.getAntigeno());
+            dosisActuales.setText(vac.getCantidadDosis() + "");
+        } else if (marca.equals("AstraZeneca")) {
+            vac = vD.buscarVacuna(5);
+            laboratorio.setText(vac.getLaboratorio());
+            comboCantidad.setSelectedIndex(2);
+            antigeno.setText(vac.getAntigeno());
+            dosisActuales.setText(vac.getCantidadDosis() + "");
+        }
+    }//GEN-LAST:event_comboMarcaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -238,9 +314,11 @@ public class CargarVacuna extends javax.swing.JPanel {
     private javax.swing.JButton botonSalir;
     private javax.swing.JComboBox<String> comboCantidad;
     private javax.swing.JComboBox<String> comboMarca;
-    private javax.swing.JTextPane dosisTotales;
+    private javax.swing.JTextPane dosisASumar;
+    private javax.swing.JTextPane dosisActuales;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -250,6 +328,7 @@ public class CargarVacuna extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextPane laboratorio;
     // End of variables declaration//GEN-END:variables
 }

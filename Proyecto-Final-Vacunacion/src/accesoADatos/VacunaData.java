@@ -146,6 +146,26 @@ public class VacunaData {
         }
     }
 
+    public void modificarCantidadVacuna(Vacuna vacuna, int cantidad) {
+        String sql = "UPDATE vacuna SET cantidadDosis=cantidadDosis + ? WHERE lote=?";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, cantidad);
+            ps.setInt(2, vacuna.getLote());
+
+            int filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Se sumaron las vacunas exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna vacuna con el Lote especificado");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al modificar la vacuna: " + ex.getMessage());
+        }
+    }
+
     public void borrarVacuna(int lote) {
         String sql = "DELETE FROM vacuna WHERE lote=?";
         try {
@@ -180,8 +200,5 @@ public class VacunaData {
 
         return totalVacunas;
     }
-    
-    
-
 
 }
