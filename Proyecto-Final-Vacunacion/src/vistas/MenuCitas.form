@@ -56,8 +56,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="546" max="32767" attributes="0"/>
+                  <Component id="jButton1" min="-2" pref="63" max="-2" attributes="0"/>
+                  <EmptySpace pref="515" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

@@ -105,7 +105,7 @@ public class CitaData {
     }
 
     public List<Cita> listarCitas() {
-        String sql = "SELECT * FROM cita";
+        String sql = "SELECT codigo, persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada FROM cita";
         List<Cita> citas = new ArrayList<>();
 
         try {
@@ -119,14 +119,41 @@ public class CitaData {
                 cita.setCantRefuerzo(rs.getInt("cantRefuerzo"));
                 cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
                 cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
-                cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime());
-                cita.setLoteDosis(vd.buscarVacuna(rs.getInt("lotedosis")));
+                //cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime());
                 cita.setEstado(rs.getBoolean("estado"));
                 cita.setColocada(rs.getBoolean("colocada"));
                 citas.add(cita);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al listar las citas: " + ex.getMessage());
+        }
+
+        return citas;
+    }
+
+    public List<Cita> listarCitasPorPersona(int idPersona) {
+        String sql = "SELECT * FROM cita WHERE persona = ?";
+        List<Cita> citas = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idPersona);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setCodigo(rs.getInt("codigo"));
+                cita.setPersona(cd.buscarCiudadanoPorId(rs.getInt("persona")));
+                cita.setCantRefuerzo(rs.getInt("cantRefuerzo"));
+                cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
+                cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
+                cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime());
+                cita.setEstado(rs.getBoolean("estado"));
+                cita.setColocada(rs.getBoolean("colocada"));
+                citas.add(cita);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar las citas por persona: " + ex.getMessage());
         }
 
         return citas;
