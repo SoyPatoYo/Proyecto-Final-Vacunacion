@@ -1,9 +1,13 @@
 package vistas;
 
+import accesoADatos.CentroSaludData;
 import accesoADatos.CitaData;
 import accesoADatos.CiudadanoData;
+import entidades.CentroSalud;
 import entidades.Cita;
 import entidades.Ciudadano;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -11,11 +15,13 @@ public class CargarCita extends javax.swing.JPanel {
 
     CiudadanoData cd;
     CitaData citaD;
+    CentroSaludData csD;
 
     public CargarCita() {
         initComponents();
         cd = new CiudadanoData();
         citaD = new CitaData();
+        csD = new CentroSaludData();
         textNombre.setEditable(false);
         textApellido.setEditable(false);
         textPatologia.setEditable(false);
@@ -49,10 +55,8 @@ public class CargarCita extends javax.swing.JPanel {
         rbCovid = new javax.swing.JRadioButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         comboCentro = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        dateCita = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
         textCodRef = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -99,10 +103,6 @@ public class CargarCita extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Fecha de Cita");
-
         comboCentro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Centro Medico Norte", "Centro Medico Sur", "Centro Medico Este", "Centro Medico Oeste" }));
         comboCentro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,34 +121,32 @@ public class CargarCita extends javax.swing.JPanel {
         textCodRef.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jButton2.setText("Cargar Cita");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(90, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(78, 78, 78))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboCentro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboCentro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(67, 67, 67)
-                                        .addComponent(jLabel5))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(60, 60, 60)
-                                        .addComponent(jLabel6)))
-                                .addGap(0, 81, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jButton2))
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addGap(13, 13, 13)
-                        .addComponent(textCodRef))
-                    .addComponent(dateCita, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textCodRef)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,17 +156,13 @@ public class CargarCita extends javax.swing.JPanel {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboCentro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(dateCita, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textCodRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textCodRef, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(17, 17, 17))
+                .addGap(91, 91, 91))
         );
 
         jButton1.setText("☻");
@@ -199,7 +193,7 @@ public class CargarCita extends javax.swing.JPanel {
                             .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textApellido)
+                            .addComponent(textApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                             .addComponent(textDni)
                             .addComponent(textNombre)
                             .addComponent(textPatologia)
@@ -259,7 +253,7 @@ public class CargarCita extends javax.swing.JPanel {
                     .addComponent(rbCovid))
                 .addGap(18, 18, 18)
                 .addComponent(textoVacuna, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -311,6 +305,35 @@ public class CargarCita extends javax.swing.JPanel {
 
     }//GEN-LAST:event_comboCentroActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Ciudadano persona = cd.buscarCiudadanoPorDni(Integer.parseInt(textDni.getText()));
+        
+        int codRef = Integer.parseInt(textCodRef.getText());
+        LocalDate fecha = LocalDate.now().plusDays(10);
+        int opcion = Principal.numeroAzar(3);
+        LocalDateTime fechaCita = fecha.atTime(16, 30); 
+        switch(opcion){
+            case 1:
+                fechaCita = fecha.atTime(13, 30);
+                break;
+            case 2:
+                fechaCita = fecha.atTime(14, 30);
+                break;
+            case 3: 
+                fechaCita = fecha.atTime(15, 30);
+                break;
+        }
+        if(rbCovid.isSelected()){
+            fechaCita.plusDays(7);
+        }
+        List<CentroSalud> centrosVacunacion = csD.buscarCentrosSaludPorNombre((String)comboCentro.getSelectedItem());
+        int random = Principal.numeroAzar(5)-1;
+        CentroSalud centro = centrosVacunacion.get(random);
+        
+        Cita cita = new Cita(persona, codRef, fechaCita, centro, true, false);
+        citaD.guardarCita(cita);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void actualizarComboCentro() {
         String zonaSeleccionada = textZona.getText();
         comboCentro.removeAllItems();
@@ -331,7 +354,6 @@ public class CargarCita extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboCentro;
-    private com.toedter.calendar.JDateChooser dateCita;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -340,7 +362,6 @@ public class CargarCita extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

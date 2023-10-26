@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class CitaData {
     VacunaData vd = new VacunaData();
 
     public void guardarCita(Cita cita) {
-        String sql = "INSERT INTO cita(persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO cita(persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada) VALUES (?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -41,7 +42,10 @@ public class CitaData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 cita.setCodigo(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Cita registrada");
+                LocalDate fecha = cita.getFechaHoraCita().toLocalDate();
+                 
+                JOptionPane.showMessageDialog(null, "Cita registrada para "+fecha+" a las "+cita.getFechaHoraCita().getHour()+":"+cita.getFechaHoraCita().getMinute()+" en "+
+                        cita.getCentroVacunacion().getDireccion()+" con dosis "+ cita.getCentroVacunacion().getLaboratorio().getMarcaVacuna()+".");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
