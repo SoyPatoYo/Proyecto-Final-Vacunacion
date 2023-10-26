@@ -8,6 +8,7 @@ package vistas;
 import accesoADatos.CiudadanoData;
 import entidades.Ciudadano;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
 public class CargarCiudadano extends javax.swing.JPanel {
 
     CiudadanoData cd;
-
+    CargarCiudadano cargarC;
     public CargarCiudadano() {
         initComponents();
         cd = new CiudadanoData();
@@ -340,6 +341,14 @@ public class CargarCiudadano extends javax.swing.JPanel {
 
             Ciudadano ciudadano = new Ciudadano(dni, nombre, apellido, zona, email, celular, patologia, ambitoTrabajo, covid);
             cd.guardarCiudadano(ciudadano);
+            //esto para limpiar la pantalla despues de guardar el ciudadano
+            Principal.jpEscritorio.removeAll();
+            cargarC = new CargarCiudadano();
+            Principal.jpEscritorio.add(cargarC, "cargarciudadanos");
+            MenuCiudadano.vista.show(Principal.jpEscritorio, "cargarciudadanos");
+            SwingUtilities.updateComponentTreeUI(this);
+            this.repaint();
+            //hasta aca
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }

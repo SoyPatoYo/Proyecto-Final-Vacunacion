@@ -17,7 +17,7 @@ public class MenuCiudadano extends javax.swing.JPanel {
     CargarCiudadano cargarC;
     BuscarCiudadano buscarC;
     ListadoCiudadanos listarC;
-    CardLayout vista;
+    public static CardLayout vista;
     
     public MenuCiudadano() {
         initComponents();

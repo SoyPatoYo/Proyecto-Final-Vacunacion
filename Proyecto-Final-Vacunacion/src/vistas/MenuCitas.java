@@ -15,7 +15,8 @@ import javax.swing.SwingUtilities;
 public class MenuCitas extends javax.swing.JPanel {
 
     CargarCita cargarCita;
-    CardLayout vista;
+    public static CardLayout vista;
+    
     public MenuCitas() {
         initComponents();
         vista = (CardLayout) Principal.jpEscritorio.getLayout();
