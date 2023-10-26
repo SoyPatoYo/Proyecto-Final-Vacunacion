@@ -26,7 +26,7 @@ public class CitaData {
     VacunaData vd = new VacunaData();
 
     public void guardarCita(Cita cita) {
-        String sql = "INSERT INTO cita(persona, cantRefuerzo, fechahoraCita, centroVacunacion, lotedosis, estado, colocada) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO cita(persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada) VALUES (?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -34,9 +34,8 @@ public class CitaData {
             ps.setInt(2, cita.getCantRefuerzo());
             ps.setTimestamp(3, Timestamp.valueOf(cita.getFechaHoraCita()));//Timestamp entra en un DateTime.
             ps.setInt(4, cita.getCentroVacunacion().getIdCentro());
-            ps.setInt(5, cita.getLoteDosis().getLote());
-            ps.setBoolean(6, cita.isEstado());
-            ps.setBoolean(7, cita.isColocada());
+            ps.setBoolean(5, cita.isEstado());
+            ps.setBoolean(6, cita.isColocada());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -50,7 +49,7 @@ public class CitaData {
     }
 
     public Cita buscarCita(int codigo) {
-        String sql = "SELECT persona, cantRefuerzo, fechahoraCita, centroVacunacion, lotedosis, estado, colocada FROM cita WHERE codigo=?";
+        String sql = "SELECT persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada FROM cita WHERE codigo=?";
         Cita cita = null;
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -64,7 +63,6 @@ public class CitaData {
                 cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
                 cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
                 //cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime()); Daba error si la fecha era null.
-                cita.setLoteDosis(vd.buscarVacuna(rs.getInt("lotedosis")));
                 cita.setEstado(rs.getBoolean("estado"));
                 cita.setColocada(rs.getBoolean("colocada"));
 
@@ -78,7 +76,7 @@ public class CitaData {
     }
 
     public void modificarCita(Cita cita) {
-        String sql = "UPDATE cita SET persona=?, cantRefuerzo=?, fechahoraCita=?, centroVacunacion=?, fechahoraColoca=?, lotedosis=?, estado=?, colocada=? WHERE codigo=?";
+        String sql = "UPDATE cita SET persona=?, cantRefuerzo=?, fechahoraCita=?, centroVacunacion=?, fechahoraColoca=?, estado=?, colocada=? WHERE codigo=?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -87,10 +85,9 @@ public class CitaData {
             ps.setTimestamp(3, Timestamp.valueOf(cita.getFechaHoraCita()));//<---
             ps.setInt(4, cita.getCentroVacunacion().getIdCentro());
             ps.setTimestamp(5, Timestamp.valueOf(cita.getFechaHoraColoca()));//<---
-            ps.setInt(6, cita.getLoteDosis().getLote());
-            ps.setBoolean(7, cita.isEstado());
-            ps.setBoolean(8, cita.isColocada());
-            ps.setInt(9, cita.getCodigo());
+            ps.setBoolean(6, cita.isEstado());
+            ps.setBoolean(7, cita.isColocada());
+            ps.setInt(8, cita.getCodigo());
 
             int filasActualizadas = ps.executeUpdate();
 
@@ -212,7 +209,6 @@ public class CitaData {
                 cita.setCantRefuerzo(rs.getInt("cantRefuerzo"));
                 cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
                 cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
-                cita.setLoteDosis(vd.buscarVacuna(rs.getInt("lotedosis")));
                 cita.setEstado(rs.getBoolean("estado"));
                 cita.setColocada(rs.getBoolean("colocada"));
 
