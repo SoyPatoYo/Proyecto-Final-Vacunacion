@@ -100,7 +100,7 @@ public class CargarCita extends javax.swing.JPanel {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Fecha de Cita");
 
         comboCentro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Centro Medico Norte", "Centro Medico Sur", "Centro Medico Este", "Centro Medico Oeste" }));
@@ -111,7 +111,7 @@ public class CargarCita extends javax.swing.JPanel {
         });
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Centro de Salud");
 
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
@@ -140,7 +140,7 @@ public class CargarCita extends javax.swing.JPanel {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(60, 60, 60)
                                         .addComponent(jLabel6)))
-                                .addGap(0, 81, Short.MAX_VALUE))))
+                                .addGap(0, 53, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addComponent(jButton2))
