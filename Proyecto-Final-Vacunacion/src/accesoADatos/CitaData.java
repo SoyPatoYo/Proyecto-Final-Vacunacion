@@ -106,7 +106,7 @@ public class CitaData {
     }
 
     public List<Cita> listarCitas() {
-        String sql = "SELECT codigo, persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada FROM cita";
+        String sql = "SELECT codigo,persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada FROM cita";
         List<Cita> citas = new ArrayList<>();
 
         try {
@@ -115,14 +115,14 @@ public class CitaData {
 
             while (rs.next()) {
                 Cita cita = new Cita();
-                cita.setCodigo(rs.getInt("codigo"));
+//                cita.setCodigo(rs.getInt("codigo"));
                 cita.setPersona(cd.buscarCiudadanoPorId(rs.getInt("persona")));
                 cita.setCantRefuerzo(rs.getInt("cantRefuerzo"));
                 cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
                 cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
-                //cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime());
-                cita.setEstado(rs.getBoolean("estado"));
-                cita.setColocada(rs.getBoolean("colocada"));
+//                cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime());
+//                cita.setEstado(rs.getBoolean("estado"));
+//                cita.setColocada(rs.getBoolean("colocada"));
                 citas.add(cita);
             }
         } catch (SQLException ex) {

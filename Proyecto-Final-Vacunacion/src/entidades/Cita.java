@@ -119,7 +119,7 @@ public class Cita {
 
     @Override
     public String toString() {
-        return codigo + "-" + persona + ", " + cantRefuerzo + ", " + centroVacunacion;
+        return persona.getDni() + "-" + persona.getNombre() + ", "+ persona.getApellido()+"," + cantRefuerzo + ", " + centroVacunacion;
     }
     
     
