@@ -7,6 +7,7 @@ package vistas;
 
 import java.awt.CardLayout;
 import java.util.Random;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
 /**
@@ -23,6 +24,7 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
         this.setResizable(false);
         this.setLocationRelativeTo(this);
         vista = (CardLayout) jpMenu.getLayout();
