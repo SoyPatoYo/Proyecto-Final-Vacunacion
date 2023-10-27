@@ -207,6 +207,6 @@ public class ListarCitas extends javax.swing.JPanel {
 
     private void cargarDatos(Cita cita) {
         modelo.addRow(new Object[]{cita.getPersona().getDni(), cita.getPersona().getNombre(), cita.getPersona().getApellido(),
-            cita.getCentroVacunacion().getNombre(), cita.getFechaHoraCita().toLocalDate()});
+            cita.getCentroVacunacion().getNombre(), cita.getFechaHoraCita().getHour()+":"+cita.getFechaHoraCita().getMinute()});
     }
 }
