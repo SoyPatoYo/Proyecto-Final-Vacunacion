@@ -53,7 +53,7 @@ public class CitaData {
     }
 
     public Cita buscarCita(int codigo) {
-        String sql = "SELECT persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada FROM cita WHERE codigo=?";
+        String sql = "SELECT codigo,persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada FROM cita WHERE codigo=?";
         Cita cita = null;
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);

@@ -5,6 +5,7 @@ import entidades.Cita;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ListarCitas extends javax.swing.JPanel {
@@ -148,9 +149,26 @@ public class ListarCitas extends javax.swing.JPanel {
     }//GEN-LAST:event_comboFechaDiaActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        try {
-            
-        } catch (Exception e) {
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            int dniPersona = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
+            int idCita = -1;
+            List<Cita> listaCitas = citaD.listarCitas();
+            for (Cita cita : listaCitas) {
+                if (cita.getPersona().getDni() == dniPersona) {
+                    idCita = cita.getCodigo();
+                    break;
+                }
+            }
+            if (idCita != -1) {
+                citaD.cancelarCita(idCita);
+                limpiarTabla();
+                llenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró una cita con el DNI de la persona seleccionada.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona una fila antes de eliminar la cita.");
         }
     }//GEN-LAST:event_eliminarActionPerformed
 
@@ -188,6 +206,6 @@ public class ListarCitas extends javax.swing.JPanel {
 
     private void cargarDatos(Cita cita) {
         modelo.addRow(new Object[]{cita.getPersona().getDni(), cita.getPersona().getNombre(), cita.getPersona().getApellido(),
-            cita.getCentroVacunacion().getNombre(), cita.getFechaHoraCita().getHour()+":"+cita.getFechaHoraCita().getMinute()});
+            cita.getCentroVacunacion().getNombre(), cita.getFechaHoraCita().getHour() + ":" + cita.getFechaHoraCita().getMinute()});
     }
 }
