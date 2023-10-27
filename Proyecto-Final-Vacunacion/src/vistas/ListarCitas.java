@@ -91,6 +91,7 @@ public class ListarCitas extends javax.swing.JPanel {
         jLabel3.setText("Selecione el dia de la cita a buscar");
 
         comboFechaDia.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        comboFechaDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         comboFechaDia.setAlignmentX(0.1F);
         comboFechaDia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         comboFechaDia.setOpaque(false);
@@ -159,7 +160,16 @@ public class ListarCitas extends javax.swing.JPanel {
     }//GEN-LAST:event_comboFechaActionPerformed
 
     private void comboFechaDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFechaDiaActionPerformed
-        
+        String diaSeleccionado = comboFechaDia.getSelectedItem().toString();
+        int dia = Integer.parseInt(diaSeleccionado);
+        limpiarTabla();
+        List<Cita> listaCitas = citaD.listarCitas();
+        for (Cita cita : listaCitas) {
+            LocalDate fechaCita = cita.getFechaHoraCita().toLocalDate();
+            if (fechaCita.getDayOfMonth() == dia) {
+                cargarDatos(cita);
+            }
+        }
     }//GEN-LAST:event_comboFechaDiaActionPerformed
 
 
