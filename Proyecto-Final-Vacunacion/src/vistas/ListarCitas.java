@@ -152,6 +152,7 @@ public class ListarCitas extends javax.swing.JPanel {
         int filaSeleccionada = jTable1.getSelectedRow();
         if (filaSeleccionada >= 0) {
             int dniPersona = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
+
             int idCita = -1;
             List<Cita> listaCitas = citaD.listarCitas();
             for (Cita cita : listaCitas) {

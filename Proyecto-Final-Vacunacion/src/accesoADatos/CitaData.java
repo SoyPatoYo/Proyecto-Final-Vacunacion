@@ -106,7 +106,7 @@ public class CitaData {
     }
 
     public List<Cita> listarCitas() {
-        String sql = "SELECT codigo,persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada FROM cita";
+        String sql = "SELECT codigo, persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada FROM cita";
         List<Cita> citas = new ArrayList<>();
 
         try {
