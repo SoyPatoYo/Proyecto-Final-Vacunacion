@@ -1,7 +1,9 @@
 package vistas;
 
 import accesoADatos.CitaData;
+import accesoADatos.CiudadanoData;
 import entidades.Cita;
+import entidades.Ciudadano;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,12 @@ public class ListarCitas extends javax.swing.JPanel {
         }
     };
     CitaData citaD;
-
+    CiudadanoData cD;
+    
     public ListarCitas() {
         initComponents();
         citaD = new CitaData();
+        cD = new CiudadanoData();
         armarCabecera();
         llenarTabla();
         limpiarTabla();
@@ -149,7 +153,15 @@ public class ListarCitas extends javax.swing.JPanel {
     }//GEN-LAST:event_comboFechaDiaActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-       
+       int fila = jTable1.getSelectedRow();
+       int dni=Integer.parseInt(jTable1.getValueAt(fila,0).toString());
+       Ciudadano persona=cD.buscarCiudadanoPorDni(dni);
+       List<Cita> citas=citaD.listarCitasPorPersona(persona.getIdCiudadano());
+       Cita cita = citas.get(0);
+       for(Cita c:citas){
+           cita = c;
+       }
+       citaD.cancelarCita(cita.getCodigo());
     }//GEN-LAST:event_eliminarActionPerformed
 
 
