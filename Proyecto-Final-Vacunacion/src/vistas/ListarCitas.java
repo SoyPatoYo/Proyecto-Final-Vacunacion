@@ -149,28 +149,7 @@ public class ListarCitas extends javax.swing.JPanel {
     }//GEN-LAST:event_comboFechaDiaActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        int filaSeleccionada = jTable1.getSelectedRow();
-        if (filaSeleccionada >= 0) {
-            int dniPersona = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
-
-            int idCita = -1;
-            List<Cita> listaCitas = citaD.listarCitas();
-            for (Cita cita : listaCitas) {
-                if (cita.getPersona().getDni() == dniPersona) {
-                    idCita = cita.getCodigo();
-                    break;
-                }
-            }
-            if (idCita != -1) {
-                citaD.cancelarCita(idCita);
-                limpiarTabla();
-                llenarTabla();
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontró una cita con el DNI de la persona seleccionada.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecciona una fila antes de eliminar la cita.");
-        }
+       
     }//GEN-LAST:event_eliminarActionPerformed
 
 
