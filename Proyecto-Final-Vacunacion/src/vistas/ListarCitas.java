@@ -79,6 +79,7 @@ public class ListarCitas extends javax.swing.JPanel {
                 "DNI", "NOMBRE", "APELLIDO", "CENTRO", "FECHA"
             }
         ));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -177,6 +178,7 @@ public class ListarCitas extends javax.swing.JPanel {
     }//GEN-LAST:event_comboFechaDiaActionPerformed
 
     private void colocadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colocadaActionPerformed
+       
         try {
             int fila = jTable1.getSelectedRow();
 
@@ -184,17 +186,22 @@ public class ListarCitas extends javax.swing.JPanel {
                 int dni = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
                 Ciudadano persona = cD.buscarCiudadanoPorDni(dni);
                 List<Cita> citas = citaD.listarCitasPorPersona(persona.getIdCiudadano());
+                Cita cita = citas.get(0);
+                for (Cita c : citas) {
+                    cita = c;
+                }
 
                 if (!citas.isEmpty()) {
-                    Cita cita = citas.get(fila);
+//                    Cita cita = citas.get(fila);
                     citaD.citaColocada(cita.getCodigo());
-
+                   
+//                  descontar la dosis del centro de la cita.
                     String centro = jTable1.getValueAt(fila, 3).toString();
                     CentroSalud centroS = (CentroSalud) centroD.buscarCentroSaludPorNombre(centro);
                     int vacunaC = centroD.obtenerIdCentroPorNombreVacuna(cita.getCentroVacunacion().getLaboratorio().getLaboratorio());
 
                     if (centroS != null) {
-                        centroD.descontarVacunasDelCentro(vacunaC, cita.getCentroVacunacion().getLaboratorio().getLaboratorio(), 1);
+                        centroD.descontarVacunasDelCentro(cita.getCentroVacunacion().getIdCentro(), cita.getCentroVacunacion().getLaboratorio().getLaboratorio(), 1);
                     } else {
                         JOptionPane.showMessageDialog(null, "Centro de salud no encontrado.");
                     }

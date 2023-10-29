@@ -276,7 +276,7 @@ public class CitaData {
     }
 
     public void citaColocada(int codigo) {
-        Cita cita = buscarCita(codigo);
+
         String sql = "UPDATE cita SET estado=?,fechahoraColoca=?,colocada=? WHERE codigo=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -296,6 +296,34 @@ public class CitaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al cancelar la cita: " + ex.getMessage());
         }
+    }
+
+    public Cita idCentroSalud(int codigo) {
+        String sql = "SELECT centroVacunacion FROM cita WHERE codigo=?";
+        Cita cita = null;
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, codigo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                cita = new Cita();
+                cita.setCodigo(codigo);
+                cita.setPersona(cd.buscarCiudadanoPorId(rs.getInt("persona")));
+                cita.setCantRefuerzo(rs.getInt("cantRefuerzo"));
+                cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
+                cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
+                //cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime()); Daba error si la fecha era null.
+                cita.setEstado(rs.getBoolean("estado"));
+                cita.setColocada(rs.getBoolean("colocada"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encuenta una Cita con ese codigo.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+
+        return cita;
     }
 
 }

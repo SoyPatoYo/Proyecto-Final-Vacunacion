@@ -263,9 +263,11 @@ public class CentroSaludData {
     }
 
     public void descontarVacunasDelCentro(int idCentro, String nombreVacuna, int cantidadDescontada) {
-        // Verificar si el centro de salud y la vacuna existen
-        int centroS=obtenerIdCentroPorNombreVacuna(nombreVacuna);
-        CentroSalud centro = buscarCentroSaludPorID(centroS);
+        //String nombreVacuna,
+////        int idCentro,
+//        // Verificar si el centro de salud y la vacuna existen
+//        int centroS=obtenerIdCentroPorNombreVacuna(nombreVacuna);
+        CentroSalud centro = buscarCentroSaludPorID(idCentro);
         if (centro == null) {
             JOptionPane.showMessageDialog(null, "No se encontró el centro de salud con ID: " + idCentro);
             return;
@@ -288,13 +290,13 @@ public class CentroSaludData {
         }
 
         // Actualizar la cantidad de dosis en el centro de salud
-        String sql = "UPDATE centrosalud SET cantidadDosis = ? WHERE idCentro = ? AND laboratorio = ?";
+        String sql = "UPDATE centrosalud SET cantidadDosis = ? WHERE idCentro = ?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, nuevaCantidad);
             ps.setInt(2, idCentro);
-            ps.setString(3, nombreVacuna);
+            //ps.setString(3, nombreVacuna);
             int filasActualizadas = ps.executeUpdate();
 
             if (filasActualizadas > 0) {
