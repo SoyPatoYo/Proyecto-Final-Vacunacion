@@ -178,7 +178,7 @@ public class ListarCitas extends javax.swing.JPanel {
     }//GEN-LAST:event_comboFechaDiaActionPerformed
 
     private void colocadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colocadaActionPerformed
-       
+
         try {
             int fila = jTable1.getSelectedRow();
 
@@ -192,14 +192,12 @@ public class ListarCitas extends javax.swing.JPanel {
                 }
 
                 if (!citas.isEmpty()) {
-//                    Cita cita = citas.get(fila);
+
                     citaD.citaColocada(cita.getCodigo());
-                   
+
 //                  descontar la dosis del centro de la cita.
                     String centro = jTable1.getValueAt(fila, 3).toString();
                     CentroSalud centroS = (CentroSalud) centroD.buscarCentroSaludPorNombre(centro);
-                    int vacunaC = centroD.obtenerIdCentroPorNombreVacuna(cita.getCentroVacunacion().getLaboratorio().getLaboratorio());
-
                     if (centroS != null) {
                         centroD.descontarVacunasDelCentro(cita.getCentroVacunacion().getIdCentro(), cita.getCentroVacunacion().getLaboratorio().getLaboratorio(), 1);
                     } else {
@@ -218,14 +216,24 @@ public class ListarCitas extends javax.swing.JPanel {
 
     private void eliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar1ActionPerformed
         int fila = jTable1.getSelectedRow();
-        int dni = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
-        Ciudadano persona = cD.buscarCiudadanoPorDni(dni);
-        List<Cita> citas = citaD.listarCitasPorPersona(persona.getIdCiudadano());
-        Cita cita = citas.get(0);
-        for (Cita c : citas) {
-            cita = c;
+
+        if (fila >= 0) {
+            int dni = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+            Ciudadano persona = cD.buscarCiudadanoPorDni(dni);
+            List<Cita> citas = citaD.listarCitasPorPersona(persona.getIdCiudadano());
+
+            if (!citas.isEmpty()) {
+                Cita cita = citas.get(0);
+                for (Cita c : citas) {
+                    cita = c;
+                }
+                citaD.cancelarCita(cita.getCodigo());
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron citas para esta persona.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecciona una fila válida en la tabla.");
         }
-        citaD.cancelarCita(cita.getCodigo());
     }//GEN-LAST:event_eliminar1ActionPerformed
 
 
