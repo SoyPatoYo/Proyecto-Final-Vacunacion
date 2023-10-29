@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,9 +44,9 @@ public class CitaData {
             if (rs.next()) {
                 cita.setCodigo(rs.getInt(1));
                 LocalDate fecha = cita.getFechaHoraCita().toLocalDate();
-                 
-                JOptionPane.showMessageDialog(null, "Cita registrada para "+fecha+" a las "+cita.getFechaHoraCita().getHour()+":"+cita.getFechaHoraCita().getMinute()+" en "+
-                        cita.getCentroVacunacion().getDireccion()+" con dosis "+ cita.getCentroVacunacion().getLaboratorio().getMarcaVacuna()+".");
+
+                JOptionPane.showMessageDialog(null, "Cita registrada para " + fecha + " a las " + cita.getFechaHoraCita().getHour() + ":" + cita.getFechaHoraCita().getMinute() + " en "
+                        + cita.getCentroVacunacion().getDireccion() + " con dosis " + cita.getCentroVacunacion().getLaboratorio().getMarcaVacuna() + ".");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
@@ -272,6 +273,29 @@ public class CitaData {
         }
 
         return dosisPorCentro;
+    }
+
+    public void citaColocada(int codigo) {
+        Cita cita = buscarCita(codigo);
+        String sql = "UPDATE cita SET estado=?,fechahoraColoca=?,colocada=? WHERE codigo=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setTimestamp(2, new Timestamp(new Date().getTime()));
+            ps.setBoolean(3, true);
+            ps.setInt(4, codigo);
+
+            int filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(null, "Cita con código " + codigo + " ha sido marcada como colocada.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna cita con el código especificado.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cancelar la cita: " + ex.getMessage());
+        }
     }
 
 }

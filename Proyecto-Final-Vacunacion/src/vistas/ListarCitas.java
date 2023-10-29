@@ -1,11 +1,12 @@
 package vistas;
 
+import accesoADatos.CentroSaludData;
 import accesoADatos.CitaData;
 import accesoADatos.CiudadanoData;
+import entidades.CentroSalud;
 import entidades.Cita;
 import entidades.Ciudadano;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,11 +21,13 @@ public class ListarCitas extends javax.swing.JPanel {
     };
     CitaData citaD;
     CiudadanoData cD;
-    
+    CentroSaludData centroD;
+
     public ListarCitas() {
         initComponents();
         citaD = new CitaData();
         cD = new CiudadanoData();
+        centroD = new CentroSaludData();
         armarCabecera();
         llenarTabla();
         limpiarTabla();
@@ -39,7 +42,8 @@ public class ListarCitas extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         comboFechaDia = new javax.swing.JComboBox<>();
-        eliminar = new javax.swing.JButton();
+        colocada = new javax.swing.JButton();
+        eliminar1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -91,13 +95,23 @@ public class ListarCitas extends javax.swing.JPanel {
             }
         });
 
-        eliminar.setBackground(new java.awt.Color(255, 255, 255));
-        eliminar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        eliminar.setText("ELIMINAR");
-        eliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        eliminar.addActionListener(new java.awt.event.ActionListener() {
+        colocada.setBackground(new java.awt.Color(255, 255, 255));
+        colocada.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        colocada.setText("COLOCADA");
+        colocada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        colocada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarActionPerformed(evt);
+                colocadaActionPerformed(evt);
+            }
+        });
+
+        eliminar1.setBackground(new java.awt.Color(255, 255, 255));
+        eliminar1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        eliminar1.setText("ELIMINAR");
+        eliminar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        eliminar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminar1ActionPerformed(evt);
             }
         });
 
@@ -118,10 +132,15 @@ public class ListarCitas extends javax.swing.JPanel {
                         .addComponent(comboFechaDia, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(colocada, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(38, 38, 38)
+                    .addComponent(eliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(361, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,11 +150,16 @@ public class ListarCitas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboFechaDia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
+                .addComponent(colocada, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(13, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(123, 123, 123)
+                    .addComponent(eliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(305, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -152,22 +176,56 @@ public class ListarCitas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_comboFechaDiaActionPerformed
 
-    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-       int fila = jTable1.getSelectedRow();
-       int dni=Integer.parseInt(jTable1.getValueAt(fila,0).toString());
-       Ciudadano persona=cD.buscarCiudadanoPorDni(dni);
-       List<Cita> citas=citaD.listarCitasPorPersona(persona.getIdCiudadano());
-       Cita cita = citas.get(0);
-       for(Cita c:citas){
-           cita = c;
-       }
-       citaD.cancelarCita(cita.getCodigo());
-    }//GEN-LAST:event_eliminarActionPerformed
+    private void colocadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colocadaActionPerformed
+        try {
+            int fila = jTable1.getSelectedRow();
+
+            if (fila >= 0) {
+                int dni = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+                Ciudadano persona = cD.buscarCiudadanoPorDni(dni);
+                List<Cita> citas = citaD.listarCitasPorPersona(persona.getIdCiudadano());
+
+                if (!citas.isEmpty()) {
+                    Cita cita = citas.get(fila);
+                    citaD.citaColocada(cita.getCodigo());
+
+                    String centro = jTable1.getValueAt(fila, 3).toString();
+                    CentroSalud centroS = (CentroSalud) centroD.buscarCentroSaludPorNombre(centro);
+                    int vacunaC = centroD.obtenerIdCentroPorNombreVacuna(cita.getCentroVacunacion().getLaboratorio().getLaboratorio());
+
+                    if (centroS != null) {
+                        centroD.descontarVacunasDelCentro(vacunaC, cita.getCentroVacunacion().getLaboratorio().getLaboratorio(), 1);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Centro de salud no encontrado.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontraron citas para esta persona.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecciona una fila válida en la tabla.");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_colocadaActionPerformed
+
+    private void eliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar1ActionPerformed
+        int fila = jTable1.getSelectedRow();
+        int dni = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+        Ciudadano persona = cD.buscarCiudadanoPorDni(dni);
+        List<Cita> citas = citaD.listarCitasPorPersona(persona.getIdCiudadano());
+        Cita cita = citas.get(0);
+        for (Cita c : citas) {
+            cita = c;
+        }
+        citaD.cancelarCita(cita.getCodigo());
+    }//GEN-LAST:event_eliminar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton colocada;
     private javax.swing.JComboBox<String> comboFechaDia;
-    private javax.swing.JButton eliminar;
+    private javax.swing.JButton eliminar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;

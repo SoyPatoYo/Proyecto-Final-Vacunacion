@@ -134,6 +134,30 @@ public class CentroSaludData {
         return centros;
     }
 
+    public CentroSalud buscarCentroSaludPorNombre(String nombreBuscado) {
+        CentroSalud centro = null;
+        String sql = "SELECT * FROM centrosalud WHERE nombre = ?";
+
+        try {
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement.setString(1, nombreBuscado);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                centro = new CentroSalud();
+                centro.setIdCentro(rs.getInt("idCentro"));
+                centro.setNombre(rs.getString("nombre"));
+                centro.setDireccion(rs.getString("direccion"));
+                centro.setZona(rs.getString("zona"));
+                centro.setLaboratorio(vd.buscarVacunasPorLaboratorio(rs.getString("laboratorio")));
+                centro.setCantDosis(rs.getInt("cantidadDosis"));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return centro;
+    }
+
     public void borrarCentroSalud(int idCentro) {
         String sql = "DELETE FROM centrosalud WHERE idCentro=?";
         try {
@@ -171,6 +195,27 @@ public class CentroSaludData {
         }
 
         return cantidadDosis;
+    }
+
+    public int obtenerIdCentroPorNombreVacuna(String nombreVacuna) {
+        String sql = "SELECT idCentro FROM centrosalud WHERE laboratorio = ?";
+        int idCentro = -1; // Valor predeterminado en caso de no encontrar un centro
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, nombreVacuna);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                idCentro = rs.getInt("idCentro");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún centro de salud con la vacuna " + nombreVacuna);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+
+        return idCentro;
     }
 
     public void enviarVacunasAlCentro(int idCentro, String nombreVacuna, int cantidadEnviada) {
@@ -213,13 +258,14 @@ public class CentroSaludData {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             }
-            descontarVacunasDelLote(vd.buscarVacunasPorLaboratorio(nombreVacuna).getLote(),nombreVacuna,cantidadEnviada);
+            descontarVacunasDelLote(vd.buscarVacunasPorLaboratorio(nombreVacuna).getLote(), nombreVacuna, cantidadEnviada);
         }
     }
 
     public void descontarVacunasDelCentro(int idCentro, String nombreVacuna, int cantidadDescontada) {
         // Verificar si el centro de salud y la vacuna existen
-        CentroSalud centro = buscarCentroSaludPorID(idCentro);
+        int centroS=obtenerIdCentroPorNombreVacuna(nombreVacuna);
+        CentroSalud centro = buscarCentroSaludPorID(centroS);
         if (centro == null) {
             JOptionPane.showMessageDialog(null, "No se encontró el centro de salud con ID: " + idCentro);
             return;
