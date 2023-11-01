@@ -4,6 +4,7 @@ import accesoADatos.VacunaData;
 import entidades.Vacuna;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class CargarVacuna extends javax.swing.JPanel {
@@ -15,6 +16,7 @@ public class CargarVacuna extends javax.swing.JPanel {
         initComponents();
         vD = new VacunaData();
         vac = new Vacuna();
+        cargarCombo();
 
     }
 
@@ -61,7 +63,6 @@ public class CargarVacuna extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Cantidad ml.");
 
-        comboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sputnik", "Sinopharm", "Moderna", "Pfizer", "AstraZeneca" }));
         comboMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboMarcaActionPerformed(evt);
@@ -215,7 +216,7 @@ public class CargarVacuna extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getAccessibleContext().setAccessibleName("");
@@ -257,7 +258,7 @@ public class CargarVacuna extends javax.swing.JPanel {
                         vacun = vD.buscarVacuna(5);
                     }
 
-                    vD.modificarCantidadVacuna(vacun,cantidad);
+                    vD.modificarCantidadVacuna(vacun, cantidad);
                     dosisASumar.setText("");
                 } else {
                     JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número entero positivo.");
@@ -331,4 +332,14 @@ public class CargarVacuna extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextPane laboratorio;
     // End of variables declaration//GEN-END:variables
+
+    public void cargarCombo() {
+        comboMarca.removeAllItems();
+        List<Vacuna> vacunas = vD.buscarVacunas();
+        for (Vacuna vacuna : vacunas) {
+            String marca = vacuna.getMarcaVacuna();
+            comboMarca.addItem(marca); // Agrega cada marca al combo
+        }
+    }
+
 }
