@@ -238,7 +238,7 @@ public class CargarVacuna extends javax.swing.JPanel {
 
         try {
             String marca = (String) comboMarca.getSelectedItem();
-//            Vacuna vacun = new Vacuna();
+            Vacuna vacun = new Vacuna();
             List<Vacuna> vacunas = vD.buscarVacunas();
             String dosisASumarText = dosisASumar.getText();
 
@@ -258,20 +258,20 @@ public class CargarVacuna extends javax.swing.JPanel {
 //                    } else if (marca.equals("AstraZeneca")) {
 //                        vacun = vD.buscarVacuna(5);
 //                    }
-                    
-                        vD.modificarCantidadVacuna(vacuna, cantidad);
-                    }
-//                        vD.modificarCantidadVacuna(vacuna, cantidad);
-                        dosisASumar.setText("");
-                    }else {
+
+                    vD.modificarCantidadVacuna(vacun, cantidad);
+                    dosisASumar.setText("");
+                } else { //                        vD.modificarCantidadVacuna(vacuna, cantidad);
+
                     JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número entero positivo.");
                 }
-                } else {
-                    JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número.");
-                }
-            }catch (NumberFormatException e) {
+            } else {
+                JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número.");
+            }
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarcaActionPerformed
