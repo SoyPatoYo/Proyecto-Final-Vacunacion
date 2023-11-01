@@ -20,6 +20,7 @@ public class AgregarVacunas extends javax.swing.JPanel {
     public AgregarVacunas() {
         initComponents();
         armarCabecera();
+        tablaCentros.getTableHeader().setReorderingAllowed(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -49,7 +50,7 @@ public class AgregarVacunas extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Seleccione Centro");
 
-        comboCentro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Centro Norte", "Centro Sur", "Centro Este", "Centro Oeste" }));
+        comboCentro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Centro Norte", "Centro Sur", "Centro Este", "Centro Oeste", "Centro Centro" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Seleccione Laboratiorio");

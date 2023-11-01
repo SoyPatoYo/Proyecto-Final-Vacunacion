@@ -122,7 +122,7 @@ public class CitaData {
                 cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
                 cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
 //                cita.setFechaHoraColoca(rs.getTimestamp("fechahoraColoca").toLocalDateTime());
-//                cita.setEstado(rs.getBoolean("estado"));
+                cita.setEstado(rs.getBoolean("estado"));
 //                cita.setColocada(rs.getBoolean("colocada"));
                 citas.add(cita);
             }

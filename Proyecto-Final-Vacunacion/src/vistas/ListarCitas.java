@@ -28,8 +28,9 @@ public class ListarCitas extends javax.swing.JPanel {
         citaD = new CitaData();
         cD = new CiudadanoData();
         centroD = new CentroSaludData();
+        jTable1.getTableHeader().setReorderingAllowed(false);
         armarCabecera();
-        llenarTabla();
+        //llenarTabla();
         limpiarTabla();
     }
 
@@ -171,7 +172,7 @@ public class ListarCitas extends javax.swing.JPanel {
         List<Cita> listaCitas = citaD.listarCitas();
         for (Cita cita : listaCitas) {
             LocalDate fechaCita = cita.getFechaHoraCita().toLocalDate();
-            if (fechaCita.getDayOfMonth() == dia) {
+            if (fechaCita.getDayOfMonth() == dia && cita.isEstado()) {
                 cargarDatos(cita);
             }
         }

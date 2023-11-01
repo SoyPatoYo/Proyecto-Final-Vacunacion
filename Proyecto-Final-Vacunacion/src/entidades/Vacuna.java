@@ -9,7 +9,7 @@ public class Vacuna {
     private String laboratorio;
     private double medida;
     private LocalDate vencimiento;
-    private boolean colocada=false;
+    private boolean colocada;
     private String antigeno;
 
     public Vacuna() {

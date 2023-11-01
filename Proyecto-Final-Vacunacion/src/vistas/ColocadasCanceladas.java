@@ -28,6 +28,7 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
         citaD = new CitaData();
         cD = new CiudadanoData();
         centroD = new CentroSaludData();
+        jTable1.getTableHeader().setReorderingAllowed(false);
         armarCabecera();
         llenarTabla();
         limpiarTabla();

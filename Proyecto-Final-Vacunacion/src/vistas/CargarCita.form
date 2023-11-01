@@ -296,11 +296,12 @@
         <Component class="javax.swing.JComboBox" name="comboCentro">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
+              <StringArray count="5">
                 <StringItem index="0" value="Centro Medico Norte"/>
                 <StringItem index="1" value="Centro Medico Sur"/>
                 <StringItem index="2" value="Centro Medico Este"/>
                 <StringItem index="3" value="Centro Medico Oeste"/>
+                <StringItem index="4" value="Centro Medico Centro"/>
               </StringArray>
             </Property>
           </Properties>

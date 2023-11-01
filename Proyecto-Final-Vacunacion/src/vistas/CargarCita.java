@@ -107,7 +107,7 @@ public class CargarCita extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        comboCentro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Centro Medico Norte", "Centro Medico Sur", "Centro Medico Este", "Centro Medico Oeste" }));
+        comboCentro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Centro Medico Norte", "Centro Medico Sur", "Centro Medico Este", "Centro Medico Oeste", "Centro Medico Centro" }));
         comboCentro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCentroActionPerformed(evt);
@@ -310,40 +310,64 @@ public class CargarCita extends javax.swing.JPanel {
     }//GEN-LAST:event_comboCentroActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Ciudadano persona = cd.buscarCiudadanoPorDni(Integer.parseInt(textDni.getText()));
-
-        int codRef = Integer.parseInt(textCodRef.getText());
-        LocalDate fecha = LocalDate.now().plusDays(10);
-        int opcion = Principal.numeroAzar(3);
-        LocalDateTime fechaCita = fecha.atTime(16, 30);
-        switch (opcion) {
-            case 1:
-                fechaCita = fecha.atTime(13, 30);
-                break;
-            case 2:
-                fechaCita = fecha.atTime(14, 30);
-                break;
-            case 3:
-                fechaCita = fecha.atTime(15, 30);
-                break;
+        if (textNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Primero ingrese un documento y precione el boton para cargar los datos.");
+        } else {
+            Ciudadano persona = cd.buscarCiudadanoPorDni(Integer.parseInt(textDni.getText()));
+            List<Cita> citasPorPersona = citaD.listarCitasPorPersona(persona.getIdCiudadano());
+            boolean bandera = false;
+            Cita x = new Cita();
+            for (Cita c : citasPorPersona) {
+                if (c.isColocada()) {
+                    bandera = true;
+                    x = c;
+                } else {
+                    bandera = false;
+                    x = c;
+                }
+            }
+            if (bandera) {
+                int codRef = Integer.parseInt(textCodRef.getText());
+                LocalDate fecha = LocalDate.now().plusDays(10);
+                int opcion = Principal.numeroAzar(3);
+                LocalDateTime fechaCita = fecha.atTime(16, 30);
+                switch (opcion) {
+                    case 1:
+                        fechaCita = fecha.atTime(13, 30);
+                        break;
+                    case 2:
+                        fechaCita = fecha.atTime(14, 30);
+                        break;
+                    case 3:
+                        fechaCita = fecha.atTime(15, 30);
+                        break;
+                }
+                if (rbCovid.isSelected()) {
+                    fechaCita.plusDays(7);
+                }
+                List<CentroSalud> centrosVacunacion = csD.buscarCentrosSaludPorNombre((String) comboCentro.getSelectedItem());
+                CentroSalud centro = new CentroSalud();
+                if (codRef == 1) {
+                    int random = Principal.numeroAzar(5) - 1;
+                    centro = centrosVacunacion.get(random);
+                } else {
+                    centro = x.getCentroVacunacion();
+                }
+                Cita cita = new Cita(persona, codRef, fechaCita, centro, true, false);
+                citaD.guardarCita(cita);
+                //esto para limpiar la pantalla despues de guardar la cita
+                Principal.jpEscritorio.removeAll();
+                cargarCita = new CargarCita();
+                Principal.jpEscritorio.add(cargarCita, "cargarcita");
+                MenuCitas.vista.show(Principal.jpEscritorio, "cargarcita");
+                SwingUtilities.updateComponentTreeUI(this);
+                this.repaint();
+                //hasta aca
+            } else {
+                LocalDate fechaDeCita = x.getFechaHoraCita().toLocalDate();
+                JOptionPane.showMessageDialog(this, "Este ciudadano tiene una cita pendiente para " + fechaDeCita + " a las " + x.getFechaHoraCita().getHour() + ":" + x.getFechaHoraCita().getMinute() + ".");
+            }
         }
-        if (rbCovid.isSelected()) {
-            fechaCita.plusDays(7);
-        }
-        List<CentroSalud> centrosVacunacion = csD.buscarCentrosSaludPorNombre((String) comboCentro.getSelectedItem());
-        int random = Principal.numeroAzar(5) - 1;
-        CentroSalud centro = centrosVacunacion.get(random);
-
-        Cita cita = new Cita(persona, codRef, fechaCita, centro, true, false);
-        citaD.guardarCita(cita);
-        //esto para limpiar la pantalla despues de guardar la cita
-        Principal.jpEscritorio.removeAll();
-        cargarCita = new CargarCita();
-        Principal.jpEscritorio.add(cargarCita, "cargarcita");
-        MenuCitas.vista.show(Principal.jpEscritorio, "cargarcita");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();
-        //hasta aca
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void actualizarComboCentro() {

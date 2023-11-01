@@ -104,7 +104,7 @@ public class BuscarCiudadano extends javax.swing.JPanel {
 
         comboBoxPatologia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Pulmonares", "Diabetico", "Cardiaco", "Cancer", "Hipertencion" }));
 
-        comboBoxZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Norte", "Sur", "Este", "Oeste" }));
+        comboBoxZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Norte", "Sur", "Este", "Oeste", "Centro" }));
 
         comboBoxTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Salud" }));
 

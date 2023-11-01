@@ -23,6 +23,7 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
     public ListadoCiudadanos() {
         initComponents();
         armarCabecera();
+        tablaCiudadanos.getTableHeader().setReorderingAllowed(false);
     }
 
     /**

@@ -16,6 +16,7 @@ public class ListadoVacunas extends javax.swing.JPanel {
     VacunaData vD;
     public ListadoVacunas() {
         initComponents();
+        tablaVacunas.getTableHeader().setReorderingAllowed(false);
         armarCabecera();
         llenarTabla();
     }
