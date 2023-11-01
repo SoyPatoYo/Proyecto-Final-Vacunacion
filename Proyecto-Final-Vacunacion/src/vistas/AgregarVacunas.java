@@ -261,6 +261,11 @@ public class AgregarVacunas extends javax.swing.JPanel {
             for (CentroSalud c : centros) {
                 cargarDatos(c);
             }
+        }else if (centro.equals("Centro Centro")) {
+            List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Centro");
+            for (CentroSalud c : centros) {
+                cargarDatos(c);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

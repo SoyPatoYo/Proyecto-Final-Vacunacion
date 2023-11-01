@@ -42,7 +42,7 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
         comboZona = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
+        textDirec = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         comboVacunas = new javax.swing.JComboBox<>();
@@ -88,7 +88,7 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textDirec, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +129,7 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textDirec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(32, 32, 32))
@@ -145,12 +145,29 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
     }//GEN-LAST:event_comboVacunasActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nombre;
-        String direccion;
-        String zona;
-        Vacuna laboratorio;
-        int cantDosis;
-        CentroSalud centro = new CentroSalud();
+        String zona = comboZona.getSelectedItem().toString();
+        String nombre = new String();
+        if(zona.equals("Norte")){
+            nombre = "Centro Medico Norte";
+        }else if(zona.equals("Sur")){
+            nombre = "Centro Medico Sur";
+        }else if(zona.equals("Este")){
+            nombre = "Centro Medico Este";
+        }else if(zona.equals("Oeste")){
+            nombre = "Centro Medico Oeste";
+        }else if(zona.equals("Centro")){
+            nombre = "Centro Medico Centro";
+        }
+        String direccion = textDirec.getText();
+        List<Vacuna> vacunas = vD.buscarVacunas();
+        Vacuna laboratorio = new Vacuna();
+        for(Vacuna v:vacunas){
+           if(v.getMarcaVacuna().equals(comboVacunas.getSelectedItem())){
+               laboratorio = v;
+           } 
+        }
+        int cantDosis = 1000;
+        CentroSalud centro = new CentroSalud(nombre, direccion, zona, laboratorio, cantDosis);
 
         csD.guardarCentroSalud(centro);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -167,7 +184,7 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField textDirec;
     // End of variables declaration//GEN-END:variables
     private void cargarCombo() {
         List<Vacuna> listaVacunas = vD.buscarVacunas();
