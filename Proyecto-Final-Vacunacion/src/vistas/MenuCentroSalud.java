@@ -16,6 +16,7 @@ public class MenuCentroSalud extends javax.swing.JPanel {
 
     CargarCentro cargarCentro;
     AgregarVacunas agregarVacunas;
+    CargarNuevoCentro cargarNuevoCentro;
     CardLayout vista;
     public MenuCentroSalud() {
         initComponents();
@@ -128,7 +129,12 @@ public class MenuCentroSalud extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        Principal.jpEscritorio.removeAll();
+        cargarNuevoCentro = new CargarNuevoCentro();
+        Principal.jpEscritorio.add(cargarNuevoCentro, "cargarNuevoCentro");
+        vista.show(Principal.jpEscritorio, "cargarNuevoCentro");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
