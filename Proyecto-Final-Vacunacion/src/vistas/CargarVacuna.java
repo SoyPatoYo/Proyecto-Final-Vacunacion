@@ -238,7 +238,8 @@ public class CargarVacuna extends javax.swing.JPanel {
 
         try {
             String marca = (String) comboMarca.getSelectedItem();
-            Vacuna vacun = new Vacuna();
+//            Vacuna vacun = new Vacuna();
+            List<Vacuna> vacunas = vD.buscarVacunas();
             String dosisASumarText = dosisASumar.getText();
 
             // Validar que dosisASumarText sea un número entero positivo
@@ -246,27 +247,29 @@ public class CargarVacuna extends javax.swing.JPanel {
                 int cantidad = Integer.parseInt(dosisASumarText);
 
                 if (cantidad > 0) {
-                    if (marca.equals("Sputnik")) {
-                        vacun = vD.buscarVacuna(2);
-                    } else if (marca.equals("Sinopharm")) {
-                        vacun = vD.buscarVacuna(1);
-                    } else if (marca.equals("Moderna")) {
-                        vacun = vD.buscarVacuna(3);
-                    } else if (marca.equals("Pfizer")) {
-                        vacun = vD.buscarVacuna(4);
-                    } else if (marca.equals("AstraZeneca")) {
-                        vacun = vD.buscarVacuna(5);
+//                    if (marca.equals("Sputnik")) {
+//                        vacun = vD.buscarVacuna(2);
+//                    } else if (marca.equals("Sinopharm")) {
+//                        vacun = vD.buscarVacuna(1);
+//                    } else if (marca.equals("Moderna")) {
+//                        vacun = vD.buscarVacuna(3);
+//                    } else if (marca.equals("Pfizer")) {
+//                        vacun = vD.buscarVacuna(4);
+//                    } else if (marca.equals("AstraZeneca")) {
+//                        vacun = vD.buscarVacuna(5);
+//                    }
+                    
+                        vD.modificarCantidadVacuna(vacuna, cantidad);
                     }
-
-                    vD.modificarCantidadVacuna(vacun, cantidad);
-                    dosisASumar.setText("");
-                } else {
+//                        vD.modificarCantidadVacuna(vacuna, cantidad);
+                        dosisASumar.setText("");
+                    }else {
                     JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número entero positivo.");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número.");
-            }
-        } catch (NumberFormatException e) {
+                } else {
+                    JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número.");
+                }
+            }catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -315,7 +318,7 @@ public class CargarVacuna extends javax.swing.JPanel {
         List<Vacuna> vacunas = vD.buscarVacunas();
         for (Vacuna vacuna : vacunas) {
             String marca = vacuna.getMarcaVacuna();
-            comboMarca.addItem(marca); // Agrega cada marca al combo
+            comboMarca.addItem(marca);
         }
     }
 
