@@ -170,7 +170,7 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
 
     private void cargarDatos(Cita cita) {
         modelo.addRow(new Object[]{cita.getPersona().getDni(), cita.getPersona().getNombre(), cita.getPersona().getApellido(),
-            cita.getCentroVacunacion().getNombre(), cita.getFechaHoraCita().getHour() + ":" + cita.getFechaHoraCita().getMinute()});
+            cita.getCentroVacunacion().getNombre(), cita.getFechaHoraCita().toLocalDate()});
     }
     
     private void cargarDatosColocada(){
