@@ -5,17 +5,26 @@
  */
 package vistas;
 
+import accesoADatos.CentroSaludData;
+import accesoADatos.VacunaData;
+import entidades.CentroSalud;
+import entidades.Vacuna;
+import java.time.LocalDate;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Matias
  */
 public class CargarNuevaVacuna extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CargarNuevaVacuna
-     */
+    VacunaData vD;
+    CentroSaludData csD;
     public CargarNuevaVacuna() {
         initComponents();
+        vD = new VacunaData();
+        csD = new CentroSaludData();
     }
 
     /**
@@ -31,11 +40,11 @@ public class CargarNuevaVacuna extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        laboratorio = new javax.swing.JTextPane();
+        textLaboratorio = new javax.swing.JTextPane();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        antigeno = new javax.swing.JTextPane();
+        textAntigeno = new javax.swing.JTextPane();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         textDosis = new javax.swing.JTextPane();
@@ -56,7 +65,7 @@ public class CargarNuevaVacuna extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Laboratorio");
 
-        jScrollPane3.setViewportView(laboratorio);
+        jScrollPane3.setViewportView(textLaboratorio);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Cantidad ml.");
@@ -64,7 +73,7 @@ public class CargarNuevaVacuna extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Antigeno");
 
-        jScrollPane4.setViewportView(antigeno);
+        jScrollPane4.setViewportView(textAntigeno);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Cant. Dosis ");
@@ -179,12 +188,52 @@ public class CargarNuevaVacuna extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        try {
+            String dosisText = textDosis.getText();
+            int cantidadDosis = 0;
+            if (dosisText.matches("\\d+")) {
+                cantidadDosis = Integer.parseInt(dosisText);
+            } else {
+                JOptionPane.showMessageDialog(null, "La cantidad de dosis debe ser un número entero positivo.");
+                return;
+            }
+            
+            String marcaVacuna = textMarca.getText();
+            String laboratorio = textLaboratorio.getText();
+            String antigeno = textAntigeno.getText();
+            
+            if (!marcaVacuna.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(null, "La marca de la vacuna debe contener solo letras.");
+                return;
+            }
+            
+            if (!laboratorio.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(null, "El laboratorio debe contener solo letras.");
+                return;
+            }
+            
+            if (!antigeno.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(null, "El antígeno debe contener solo letras.");
+                return;
+            }
+            
+            double medida = Double.parseDouble(comboMl.getSelectedItem().toString());
+            LocalDate vencimiento = LocalDate.now().plusYears(2);
+                
+            
+            Vacuna vacuna = new Vacuna(cantidadDosis, marcaVacuna, laboratorio, medida, vencimiento, antigeno);
+            vD.guardarVacuna(vacuna);
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: Asegúrate de ingresar datos válidos.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed
-        laboratorio.setText("");
-        antigeno.setText("");
+        textLaboratorio.setText("");
+        textAntigeno.setText("");
         textMarca.setText("");
         textDosis.setText("");
         comboMl.setSelectedIndex(0);
@@ -197,7 +246,6 @@ public class CargarNuevaVacuna extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextPane antigeno;
     private javax.swing.JButton botonLimpiar;
     private javax.swing.JButton botonSalir;
     private javax.swing.JComboBox<String> comboMl;
@@ -212,8 +260,9 @@ public class CargarNuevaVacuna extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextPane laboratorio;
+    private javax.swing.JTextPane textAntigeno;
     private javax.swing.JTextPane textDosis;
+    private javax.swing.JTextPane textLaboratorio;
     private javax.swing.JTextPane textMarca;
     // End of variables declaration//GEN-END:variables
 }

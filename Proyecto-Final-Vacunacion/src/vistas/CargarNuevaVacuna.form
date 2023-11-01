@@ -152,7 +152,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="laboratorio">
+        <Component class="javax.swing.JTextPane" name="textLaboratorio">
         </Component>
       </SubComponents>
     </Container>
@@ -179,7 +179,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="antigeno">
+        <Component class="javax.swing.JTextPane" name="textAntigeno">
         </Component>
       </SubComponents>
     </Container>
