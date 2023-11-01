@@ -9,6 +9,7 @@ import accesoADatos.CentroSaludData;
 import entidades.CentroSalud;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -207,65 +208,85 @@ public class CargarCentro extends javax.swing.JPanel {
 
     private void comboBoxZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxZonaActionPerformed
         borrarFilas();
-        csD = new CentroSaludData();
-        String zona = (String) comboBoxZona.getSelectedItem();
-        if (zona.equals("Norte")) {
-            List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Norte");
-            CentroSalud centro=centros.get(0);
-            textNombre.setText(centro.getNombre());
-            textDirec.setText(centro.getDireccion());
-            int total=0;
-            for (CentroSalud c : centros) {
-               total+=c.getCantDosis();
+        try {
+
+            csD = new CentroSaludData();
+            String zona = (String) comboBoxZona.getSelectedItem();
+
+            if (zona.equals("Norte")) {
+                List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Norte");
+                CentroSalud centro = centros.get(0);
+                textNombre.setText(centro.getNombre());
+                textDirec.setText(centro.getDireccion());
+                int total = 0;
+                for (CentroSalud c : centros) {
+                    total += c.getCantDosis();
+                }
+                //int total = centro1.getCantDosis() + centro2.getCantDosis() + centro3.getCantDosis() + centro4.getCantDosis();
+                textTotalD.setText("" + total);
+                textVacunaciones.setText("" + Principal.numeroAzar(200));
+                for (CentroSalud c : centros) {
+                    cargarDatos(c);
+                }
+            } else if (zona.equals("Sur")) {
+                List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Sur");
+                CentroSalud centro = centros.get(0);
+                textNombre.setText(centro.getNombre());
+                textDirec.setText(centro.getDireccion());
+                int total = 0;
+                for (CentroSalud c : centros) {
+                    total += c.getCantDosis();
+                }
+                textTotalD.setText("" + total);
+                textVacunaciones.setText("" + Principal.numeroAzar(200));
+                for (CentroSalud c : centros) {
+                    cargarDatos(c);
+                }
+            } else if (zona.equals("Este")) {
+                List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Este");
+                CentroSalud centro = centros.get(0);
+                textNombre.setText(centro.getNombre());
+                textDirec.setText(centro.getDireccion());
+                int total = 0;
+                for (CentroSalud c : centros) {
+                    total += c.getCantDosis();
+                }
+                textTotalD.setText("" + total);
+                textVacunaciones.setText("" + Principal.numeroAzar(200));
+                for (CentroSalud c : centros) {
+                    cargarDatos(c);
+                }
+            } else if (zona.equals("Oeste")) {
+                List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Oeste");
+                CentroSalud centro = centros.get(0);
+                textNombre.setText(centro.getNombre());
+                textDirec.setText(centro.getDireccion());
+                int total = 0;
+                for (CentroSalud c : centros) {
+                    total += c.getCantDosis();
+                }
+                textTotalD.setText("" + total);
+                textVacunaciones.setText("" + Principal.numeroAzar(200));
+                for (CentroSalud c : centros) {
+                    cargarDatos(c);
+                }
+            } else if (zona.equals("Centro")) {
+                List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Centro");
+                CentroSalud centro = centros.get(0);
+                textNombre.setText(centro.getNombre());
+                textDirec.setText(centro.getDireccion());
+                int total = 0;
+                for (CentroSalud c : centros) {
+                    total += c.getCantDosis();
+                }
+                textTotalD.setText("" + total);
+                textVacunaciones.setText("" + Principal.numeroAzar(200));
+                for (CentroSalud c : centros) {
+                    cargarDatos(c);
+                }
             }
-            //int total = centro1.getCantDosis() + centro2.getCantDosis() + centro3.getCantDosis() + centro4.getCantDosis();
-            textTotalD.setText("" + total);
-            textVacunaciones.setText("" + Principal.numeroAzar(200));
-            for (CentroSalud c : centros) {
-                cargarDatos(c);
-            }
-        }else if (zona.equals("Sur")) {
-            List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Sur");
-            CentroSalud centro=centros.get(0);
-            textNombre.setText(centro.getNombre());
-            textDirec.setText(centro.getDireccion());
-            int total=0;
-            for (CentroSalud c : centros) {
-               total+=c.getCantDosis();
-            }
-            textTotalD.setText("" + total);
-            textVacunaciones.setText("" + Principal.numeroAzar(200));
-            for (CentroSalud c : centros) {
-                cargarDatos(c);
-            }
-        }else if (zona.equals("Este")) {
-            List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Este");
-            CentroSalud centro=centros.get(0);
-            textNombre.setText(centro.getNombre());
-            textDirec.setText(centro.getDireccion());
-            int total=0;
-            for (CentroSalud c : centros) {
-               total+=c.getCantDosis();
-            }
-            textTotalD.setText("" + total);
-            textVacunaciones.setText("" + Principal.numeroAzar(200));
-            for (CentroSalud c : centros) {
-                cargarDatos(c);
-            }
-        }else if (zona.equals("Oeste")) {
-            List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Oeste");
-            CentroSalud centro=centros.get(0);
-            textNombre.setText(centro.getNombre());
-            textDirec.setText(centro.getDireccion());
-            int total=0;
-            for (CentroSalud c : centros) {
-               total+=c.getCantDosis();
-            }
-            textTotalD.setText("" + total);
-            textVacunaciones.setText("" + Principal.numeroAzar(200));
-            for (CentroSalud c : centros) {
-                cargarDatos(c);
-            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_comboBoxZonaActionPerformed
 
@@ -288,14 +309,16 @@ public class CargarCentro extends javax.swing.JPanel {
     private javax.swing.JTextField textVacunaciones;
     // End of variables declaration//GEN-END:variables
     private void cargarDatos(CentroSalud centro) {
-        modelo.addRow(new Object[]{centro.getLaboratorio().getMarcaVacuna(),centro.getCantDosis()});
+        modelo.addRow(new Object[]{centro.getLaboratorio().getMarcaVacuna(), centro.getCantDosis()});
     }
+
     private void armarCabecera() {
         modelo.addColumn("Marca");
         modelo.addColumn("Cantidad");
-        
+
         tablaMarcaCantidad.setModel(modelo);
     }
+
     private void borrarFilas() {
         int filas = tablaMarcaCantidad.getRowCount() - 1;
 
