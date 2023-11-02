@@ -159,6 +159,33 @@ public class CitaData {
 
         return citas;
     }
+    
+    public List<Cita> listarCitasPorPersonaPendiente(int idPersona) {
+        String sql = "SELECT * FROM cita WHERE persona = ? AND colocada = false AND estado = true";
+        List<Cita> citas = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idPersona);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setCodigo(rs.getInt("codigo"));
+                cita.setPersona(cd.buscarCiudadanoPorId(rs.getInt("persona")));
+                cita.setCantRefuerzo(rs.getInt("cantRefuerzo"));
+                cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
+                cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
+                cita.setEstado(rs.getBoolean("estado"));
+                cita.setColocada(rs.getBoolean("colocada"));
+                citas.add(cita);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar las citas por persona: " + ex.getMessage());
+        }
+
+        return citas;
+    }
 
     public void borrarCita(int codigo) {
         String sql = "DELETE FROM cita WHERE codigo=?";
