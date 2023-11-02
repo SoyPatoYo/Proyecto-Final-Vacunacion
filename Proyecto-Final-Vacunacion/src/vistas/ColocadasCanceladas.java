@@ -189,25 +189,31 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
         modelo.addRow(new Object[]{cita.getPersona().getDni(), cita.getPersona().getNombre(), cita.getPersona().getApellido(),
             cita.getCentroVacunacion().getNombre(), cita.getFechaHoraCita().toLocalDate()});
     }
-    
-    private void cargarDatosColocada(){
+
+    private void cargarDatosColocada() {
         List<Cita> listaCitas = citaD.listarCitasColocadas();
-        for(Cita c : listaCitas){
-            cargarDatos(c);
+        for (Cita c : listaCitas) {
+            if (c.getPersona().isEstado()) {
+                cargarDatos(c);
+            }
         }
     }
-    
-    private void cargarDatosCancelada(){
-        List<Cita> listaCitasCanceladas=citaD.listarCitasCanceladas();
-        for(Cita c: listaCitasCanceladas){
-            cargarDatos(c);
+
+    private void cargarDatosCancelada() {
+        List<Cita> listaCitasCanceladas = citaD.listarCitasCanceladas();
+        for (Cita c : listaCitasCanceladas) {
+            if (c.getPersona().isEstado()) {
+                cargarDatos(c);
+            }
         }
     }
-    
-    private void cargarDatosPendientes(){
-        List<Cita> listaCitasPendientes=citaD.listarCitasPendientes();
-        for(Cita c: listaCitasPendientes){
-            cargarDatos(c);
+
+    private void cargarDatosPendientes() {
+        List<Cita> listaCitasPendientes = citaD.listarCitasPendientes();
+        for (Cita c : listaCitasPendientes) {
+            if (c.getPersona().isEstado()) {
+                cargarDatos(c);
+            }
         }
     }
 }
