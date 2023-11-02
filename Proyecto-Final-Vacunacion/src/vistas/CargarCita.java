@@ -333,7 +333,7 @@ public class CargarCita extends javax.swing.JPanel {
             }
             if (bandera) {
                 int codRef = Integer.parseInt(textCodRef.getText());
-                LocalDate fecha = LocalDate.now().plusDays(10);
+                LocalDate fecha = LocalDate.now().plusDays(15);
                 int opcion = Principal.numeroAzar(3);
 
                 LocalDateTime fechaCita = fecha.atTime(16, 30);
