@@ -84,7 +84,7 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Elija Zona");
 
-        comboZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Norte", "Sur", "Este", "Oeste" }));
+        comboZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Norte", "Sur", "Este", "Oeste", "Centro" }));
         comboZona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboZonaActionPerformed(evt);
@@ -196,6 +196,13 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
             List<Ciudadano> ciudadanos = cD.listarCiudadanos();
             for (Ciudadano c : ciudadanos) {
                 if (c.getZona().equals("Oeste") && c.isEstado()) {
+                    cargarDatos(c);
+                }
+            }
+        }else if (zona.equals("Centro")) {
+            List<Ciudadano> ciudadanos = cD.listarCiudadanos();
+            for (Ciudadano c : ciudadanos) {
+                if (c.getZona().equals("Centro") && c.isEstado()) {
                     cargarDatos(c);
                 }
             }
