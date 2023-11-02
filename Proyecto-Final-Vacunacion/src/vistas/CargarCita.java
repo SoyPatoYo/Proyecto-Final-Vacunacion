@@ -355,6 +355,7 @@ public class CargarCita extends javax.swing.JPanel {
                     int random = Principal.numeroAzar(cont) - 1;
                     centro = centrosVacunacion.get(random);
                 } else {
+                    fechaCita = fechaCita.plusDays(15);
                     centro = x.getCentroVacunacion();
                 }
                 if (rbCovid.isSelected()) {
