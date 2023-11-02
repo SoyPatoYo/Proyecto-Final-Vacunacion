@@ -146,7 +146,6 @@ public class CargarVacunasACentro extends javax.swing.JPanel {
             }
         }
         centro.setCantDosis(0);
-        System.out.println(centro.getLaboratorio().getLaboratorio());
         
         List<CentroSalud> todosLosCentros=csD.listarCentrosSalud();
         for(CentroSalud cS:todosLosCentros){
