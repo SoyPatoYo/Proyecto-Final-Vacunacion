@@ -345,11 +345,8 @@ public class CargarCita extends javax.swing.JPanel {
                 if (rbCovid.isSelected()) {
                     fechaCita.plusDays(7);
                 }
-                if(!textPatologia.getText().equals("Ninguno")){
-                    fechaCita.minusDays(6);
-                }
-                if(!textTrabajo.getText().equals("Ninguno")){
-                    fechaCita.minusDays(6);
+                if(!textPatologia.getText().equals("Ninguno") || !textTrabajo.getText().equals("Ninguno")){
+                    fechaCita.minusDays(7);
                 }
                 List<CentroSalud> centrosVacunacion = csD.buscarCentrosSaludPorNombreNoNull((String) comboCentro.getSelectedItem());
                 int cont=centrosVacunacion.size();
