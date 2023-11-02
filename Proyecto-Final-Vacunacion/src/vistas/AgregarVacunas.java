@@ -1,4 +1,3 @@
-
 package vistas;
 
 import accesoADatos.CentroSaludData;
@@ -164,69 +163,18 @@ public class AgregarVacunas extends javax.swing.JPanel {
             // Validar que la cantidad sea un número positivo
             if (cantidadTexto.matches("^\\d+$")) {
                 int cantidad = Integer.parseInt(cantidadTexto);
-                
 
-                if (cantidad >= 0) {
-                    switch (fila) {
-                        case 0:
-                            if (centro.equals("Centro Norte")) {
-                                csD.enviarVacunasAlCentro(1, "Reino Unido", cantidad);
-                            } else if (centro.equals("Centro Sur")) {
-                                csD.enviarVacunasAlCentro(11, "Reino Unido", cantidad);
-                            } else if (centro.equals("Centro Este")) {
-                                csD.enviarVacunasAlCentro(16, "Reino Unido", cantidad);
-                            } else if (centro.equals("Centro Oeste")) {
-                                csD.enviarVacunasAlCentro(21, "Reino Unido", cantidad);
-                            }
-                            break;
-                        case 1:
-                            if (centro.equals("Centro Norte")) {
-                                csD.enviarVacunasAlCentro(2, "Nueva York", cantidad);
-                            } else if (centro.equals("Centro Sur")) {
-                                csD.enviarVacunasAlCentro(12, "Nueva York", cantidad);
-                            } else if (centro.equals("Centro Este")) {
-                                csD.enviarVacunasAlCentro(17, "Nueva York", cantidad);
-                            } else if (centro.equals("Centro Oeste")) {
-                                csD.enviarVacunasAlCentro(22, "Nueva York", cantidad);
-                            }
-                            break;
-                        case 2:
-                            if (centro.equals("Centro Norte")) {
-                                csD.enviarVacunasAlCentro(3, "Argentina", cantidad);
-                            } else if (centro.equals("Centro Sur")) {
-                                csD.enviarVacunasAlCentro(13, "Argentina", cantidad);
-                            } else if (centro.equals("Centro Este")) {
-                                csD.enviarVacunasAlCentro(18, "Argentina", cantidad);
-                            } else if (centro.equals("Centro Oeste")) {
-                                csD.enviarVacunasAlCentro(23, "Argentina", cantidad);
-                            }
-                            break;
-                        case 3:
-                            if (centro.equals("Centro Norte")) {
-                                csD.enviarVacunasAlCentro(4, "Rusia", cantidad);
-                            } else if (centro.equals("Centro Sur")) {
-                                csD.enviarVacunasAlCentro(14, "Rusia", cantidad);
-                            } else if (centro.equals("Centro Este")) {
-                                csD.enviarVacunasAlCentro(19, "Rusia", cantidad);
-                            } else if (centro.equals("Centro Oeste")) {
-                                csD.enviarVacunasAlCentro(24, "Rusia", cantidad);
-                            }
-                            break;
-                        case 4:
-                            if (centro.equals("Centro Norte")) {
-                                csD.enviarVacunasAlCentro(5, "EEUU", cantidad);
-                            } else if (centro.equals("Centro Sur")) {
-                                csD.enviarVacunasAlCentro(15, "EEUU", cantidad);
-                            } else if (centro.equals("Centro Este")) {
-                                csD.enviarVacunasAlCentro(20, "EEUU", cantidad);
-                            } else if (centro.equals("Centro Oeste")) {
-                                csD.enviarVacunasAlCentro(25, "EEUU", cantidad);
-                            }
-                            break;
+                List<CentroSalud> centros = csD.listarCentrosSaludNoNull();
+                String nombre = tablaCentros.getValueAt(fila, 0).toString();
+                String direccion = tablaCentros.getValueAt(fila, 1).toString();
+                String laboratorio = tablaCentros.getValueAt(fila, 2).toString();
+                CentroSalud centroSelec = new CentroSalud();
+                for (CentroSalud cs : centros) {
+                    if (cs.getNombre().equals(nombre) && cs.getDireccion().equals(direccion) && cs.getLaboratorio().getLaboratorio().equals(laboratorio)) {
+                        centroSelec = cs;
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "La cantidad debe ser un número no negativo.");
                 }
+                csD.enviarVacunasAlCentro(centroSelec.getIdCentro(), centroSelec.getLaboratorio().getLaboratorio(), cantidad);
             } else {
                 JOptionPane.showMessageDialog(null, "La cantidad debe ser un número entero positivo.");
             }
@@ -244,27 +192,37 @@ public class AgregarVacunas extends javax.swing.JPanel {
         if (centro.equals("Centro Norte")) {
             List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Norte");
             for (CentroSalud c : centros) {
-                cargarDatos(c);
+                if (null!=c.getLaboratorio().getLaboratorio()) {
+                    cargarDatos(c);
+                }
             }
         } else if (centro.equals("Centro Sur")) {
             List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Sur");
             for (CentroSalud c : centros) {
-                cargarDatos(c);
+                if (null!=c.getLaboratorio().getLaboratorio()) {
+                    cargarDatos(c);
+                }
             }
         } else if (centro.equals("Centro Este")) {
             List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Este");
             for (CentroSalud c : centros) {
-                cargarDatos(c);
+                if (null!=c.getLaboratorio().getLaboratorio()) {
+                    cargarDatos(c);
+                }
             }
         } else if (centro.equals("Centro Oeste")) {
             List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Oeste");
             for (CentroSalud c : centros) {
-                cargarDatos(c);
+                if (null!=c.getLaboratorio().getLaboratorio()) {
+                    cargarDatos(c);
+                }
             }
-        }else if (centro.equals("Centro Centro")) {
+        } else if (centro.equals("Centro Centro")) {
             List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Centro");
             for (CentroSalud c : centros) {
-                cargarDatos(c);
+                if (null!=c.getLaboratorio().getLaboratorio()) {
+                    cargarDatos(c);
+                }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -286,7 +244,7 @@ public class AgregarVacunas extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private void armarCabecera() {
         modelo.addColumn("Centro");
-        modelo.addColumn("Zona");
+        modelo.addColumn("Direccion");
         modelo.addColumn("Laboratorio");
         modelo.addColumn("Cantidad");
 
@@ -295,7 +253,7 @@ public class AgregarVacunas extends javax.swing.JPanel {
     }
 
     private void cargarDatos(CentroSalud centro) {
-        modelo.addRow(new Object[]{centro.getNombre(), centro.getZona(), centro.getLaboratorio().getLaboratorio(), centro.getCantDosis()});
+        modelo.addRow(new Object[]{centro.getNombre(), centro.getDireccion(), centro.getLaboratorio().getLaboratorio(), centro.getCantDosis()});
     }
 
     private void borrarFilas() {

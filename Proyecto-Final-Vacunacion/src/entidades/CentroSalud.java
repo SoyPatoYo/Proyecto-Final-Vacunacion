@@ -29,6 +29,14 @@ public class CentroSalud {
         this.cantDosis = cantDosis;
     }
 
+    public CentroSalud(String nombre, String direccion, String zona) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.zona = zona;
+    }
+    
+    
+
     public int getIdCentro() {
         return idCentro;
     }

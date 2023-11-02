@@ -46,10 +46,8 @@ public class CargarCentro extends javax.swing.JPanel {
         comboBoxZona = new javax.swing.JComboBox<>();
         textNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         textTotalD = new javax.swing.JTextField();
-        textDirec = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMarcaCantidad = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
@@ -75,10 +73,6 @@ public class CargarCentro extends javax.swing.JPanel {
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Centro");
-
-        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Direccion");
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -132,19 +126,17 @@ public class CargarCentro extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(textTotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(39, 39, 39)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(textNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboBoxZona, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textDirec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(comboBoxZona, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(textTotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(41, 41, 41)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(textVacunaciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,16 +169,12 @@ public class CargarCentro extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textDirec, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textTotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textTotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -217,7 +205,6 @@ public class CargarCentro extends javax.swing.JPanel {
                 List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Norte");
                 CentroSalud centro = centros.get(0);
                 textNombre.setText(centro.getNombre());
-                textDirec.setText(centro.getDireccion());
                 int total = 0;
                 for (CentroSalud c : centros) {
                     total += c.getCantDosis();
@@ -226,13 +213,14 @@ public class CargarCentro extends javax.swing.JPanel {
                 textTotalD.setText("" + total);
                 textVacunaciones.setText("" + Principal.numeroAzar(200));
                 for (CentroSalud c : centros) {
-                    cargarDatos(c);
+                    if (null != c.getLaboratorio().getLaboratorio()) {
+                        cargarDatos(c);
+                    }
                 }
             } else if (zona.equals("Sur")) {
                 List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Sur");
                 CentroSalud centro = centros.get(0);
                 textNombre.setText(centro.getNombre());
-                textDirec.setText(centro.getDireccion());
                 int total = 0;
                 for (CentroSalud c : centros) {
                     total += c.getCantDosis();
@@ -240,13 +228,14 @@ public class CargarCentro extends javax.swing.JPanel {
                 textTotalD.setText("" + total);
                 textVacunaciones.setText("" + Principal.numeroAzar(200));
                 for (CentroSalud c : centros) {
-                    cargarDatos(c);
+                    if (null != c.getLaboratorio().getLaboratorio()) {
+                        cargarDatos(c);
+                    }
                 }
             } else if (zona.equals("Este")) {
                 List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Este");
                 CentroSalud centro = centros.get(0);
                 textNombre.setText(centro.getNombre());
-                textDirec.setText(centro.getDireccion());
                 int total = 0;
                 for (CentroSalud c : centros) {
                     total += c.getCantDosis();
@@ -254,13 +243,14 @@ public class CargarCentro extends javax.swing.JPanel {
                 textTotalD.setText("" + total);
                 textVacunaciones.setText("" + Principal.numeroAzar(200));
                 for (CentroSalud c : centros) {
-                    cargarDatos(c);
+                    if (null != c.getLaboratorio().getLaboratorio()) {
+                        cargarDatos(c);
+                    }
                 }
             } else if (zona.equals("Oeste")) {
                 List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Oeste");
                 CentroSalud centro = centros.get(0);
                 textNombre.setText(centro.getNombre());
-                textDirec.setText(centro.getDireccion());
                 int total = 0;
                 for (CentroSalud c : centros) {
                     total += c.getCantDosis();
@@ -268,13 +258,14 @@ public class CargarCentro extends javax.swing.JPanel {
                 textTotalD.setText("" + total);
                 textVacunaciones.setText("" + Principal.numeroAzar(200));
                 for (CentroSalud c : centros) {
-                    cargarDatos(c);
+                    if (null != c.getLaboratorio().getLaboratorio()) {
+                        cargarDatos(c);
+                    }
                 }
             } else if (zona.equals("Centro")) {
                 List<CentroSalud> centros = csD.buscarCentrosSaludPorNombre("Centro Medico Centro");
                 CentroSalud centro = centros.get(0);
                 textNombre.setText(centro.getNombre());
-                textDirec.setText(centro.getDireccion());
                 int total = 0;
                 for (CentroSalud c : centros) {
                     total += c.getCantDosis();
@@ -282,7 +273,9 @@ public class CargarCentro extends javax.swing.JPanel {
                 textTotalD.setText("" + total);
                 textVacunaciones.setText("" + Principal.numeroAzar(200));
                 for (CentroSalud c : centros) {
-                    cargarDatos(c);
+                    if (null != c.getLaboratorio().getLaboratorio()) {
+                        cargarDatos(c);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -295,7 +288,6 @@ public class CargarCentro extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboBoxZona;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -303,16 +295,16 @@ public class CargarCentro extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaMarcaCantidad;
-    private javax.swing.JTextField textDirec;
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textTotalD;
     private javax.swing.JTextField textVacunaciones;
     // End of variables declaration//GEN-END:variables
     private void cargarDatos(CentroSalud centro) {
-        modelo.addRow(new Object[]{centro.getLaboratorio().getMarcaVacuna(), centro.getCantDosis()});
+        modelo.addRow(new Object[]{centro.getDireccion(), centro.getLaboratorio().getMarcaVacuna(), centro.getCantDosis()});
     }
 
     private void armarCabecera() {
+        modelo.addColumn("Direccion");
         modelo.addColumn("Marca");
         modelo.addColumn("Cantidad");
 

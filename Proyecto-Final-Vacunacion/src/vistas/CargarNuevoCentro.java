@@ -24,7 +24,6 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
         initComponents();
         vD = new VacunaData();
         csD = new CentroSaludData();
-        cargarCombo();
     }
 
     /**
@@ -43,9 +42,6 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         textDirec = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
-        comboVacunas = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -64,15 +60,6 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Dirección del Centro");
-
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel4.setText("Seleccione la marca de Vacuna ");
-
-        comboVacunas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboVacunasActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Agregar Centro");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,17 +82,13 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(comboZona, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(comboVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(97, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(29, 29, 29))
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,21 +101,15 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboVacunas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textDirec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(32, 32, 32))
+                .addGap(105, 105, 105))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -140,58 +117,44 @@ public class CargarNuevoCentro extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboZonaActionPerformed
 
-    private void comboVacunasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVacunasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboVacunasActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String zona = comboZona.getSelectedItem().toString();
         String nombre = new String();
-        if(zona.equals("Norte")){
+        if (zona.equals("Norte")) {
             nombre = "Centro Medico Norte";
-        }else if(zona.equals("Sur")){
+        } else if (zona.equals("Sur")) {
             nombre = "Centro Medico Sur";
-        }else if(zona.equals("Este")){
+        } else if (zona.equals("Este")) {
             nombre = "Centro Medico Este";
-        }else if(zona.equals("Oeste")){
+        } else if (zona.equals("Oeste")) {
             nombre = "Centro Medico Oeste";
-        }else if(zona.equals("Centro")){
+        } else if (zona.equals("Centro")) {
             nombre = "Centro Medico Centro";
         }
         String direccion = textDirec.getText();
-        List<Vacuna> vacunas = vD.buscarVacunas();
-        Vacuna laboratorio = new Vacuna();
-        for(Vacuna v:vacunas){
-           if(v.getMarcaVacuna().equals(comboVacunas.getSelectedItem())){
-               laboratorio = v;
-           } 
-        }
-        int cantDosis = 1000;
-        CentroSalud centro = new CentroSalud(nombre, direccion, zona, laboratorio, cantDosis);
+//        List<Vacuna> vacunas = vD.buscarVacunas();
+//        Vacuna laboratorio = new Vacuna();
+//        for (Vacuna v : vacunas) {
+//            if (v.getMarcaVacuna().equals(comboVacunas.getSelectedItem())) {
+//                laboratorio = v;
+//            }
+//        }
+//        int cantDosis = 1000;
+        CentroSalud centro = new CentroSalud(nombre, direccion, zona);
 
-        csD.guardarCentroSalud(centro);
+        csD.crearCentroSalud(centro);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> comboVacunas;
     private javax.swing.JComboBox<String> comboZona;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField textDirec;
     // End of variables declaration//GEN-END:variables
-    private void cargarCombo() {
-        List<Vacuna> listaVacunas = vD.buscarVacunas();
-
-        for (Vacuna v : listaVacunas) {
-            comboVacunas.addItem(v.getMarcaVacuna());
-        }
-
-    }
+    
 }

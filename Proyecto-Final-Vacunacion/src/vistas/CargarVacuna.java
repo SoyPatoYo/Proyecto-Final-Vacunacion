@@ -245,20 +245,13 @@ public class CargarVacuna extends javax.swing.JPanel {
             // Validar que dosisASumarText sea un número entero positivo
             if (dosisASumarText.matches("^\\d+$")) {
                 int cantidad = Integer.parseInt(dosisASumarText);
-
+                
+                for(Vacuna v:vacunas){
+                    if(v.getMarcaVacuna().equals(marca) && v.getLaboratorio().equals(laboratorio.getText())){
+                        vacun = v;
+                    }
+                }
                 if (cantidad > 0) {
-//                    if (marca.equals("Sputnik")) {
-//                        vacun = vD.buscarVacuna(2);
-//                    } else if (marca.equals("Sinopharm")) {
-//                        vacun = vD.buscarVacuna(1);
-//                    } else if (marca.equals("Moderna")) {
-//                        vacun = vD.buscarVacuna(3);
-//                    } else if (marca.equals("Pfizer")) {
-//                        vacun = vD.buscarVacuna(4);
-//                    } else if (marca.equals("AstraZeneca")) {
-//                        vacun = vD.buscarVacuna(5);
-//                    }
-
                     vD.modificarCantidadVacuna(vacun, cantidad);
                     dosisASumar.setText("");
                 } else { //                        vD.modificarCantidadVacuna(vacuna, cantidad);
