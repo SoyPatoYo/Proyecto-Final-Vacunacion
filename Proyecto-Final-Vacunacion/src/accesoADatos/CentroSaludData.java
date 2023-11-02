@@ -174,6 +174,31 @@ public class CentroSaludData {
         }
         return centros;
     }
+    
+    public List<CentroSalud> buscarCentrosSaludPorNombreNoNull(String nombreBuscado) {
+        List<CentroSalud> centros = new ArrayList<>();
+        String sql = "SELECT * FROM centrosalud WHERE nombre = ? AND laboratorio IS NOT null";
+
+        try {
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement.setString(1, nombreBuscado);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                CentroSalud centro = new CentroSalud();
+                centro.setIdCentro(rs.getInt("idCentro"));
+                centro.setNombre(rs.getString("nombre"));
+                centro.setDireccion(rs.getString("direccion"));
+                centro.setZona(rs.getString("zona"));
+                centro.setLaboratorio(vd.buscarVacunasPorLaboratorio(rs.getString("laboratorio")));
+                centro.setCantDosis(rs.getInt("cantidadDosis"));
+                centros.add(centro);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return centros;
+    }
 
     public CentroSalud buscarCentroSaludPorNombre(String nombreBuscado) {
         CentroSalud centro = null;

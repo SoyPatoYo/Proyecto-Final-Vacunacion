@@ -315,7 +315,7 @@ public class CargarCita extends javax.swing.JPanel {
         } else {
             Ciudadano persona = cd.buscarCiudadanoPorDni(Integer.parseInt(textDni.getText()));
             List<Cita> citasPorPersona = citaD.listarCitasPorPersona(persona.getIdCiudadano());
-            boolean bandera = false;
+            boolean bandera = true;
             Cita x = new Cita();
             for (Cita c : citasPorPersona) {
                 if (c.isColocada()) {
@@ -345,10 +345,12 @@ public class CargarCita extends javax.swing.JPanel {
                 if (rbCovid.isSelected()) {
                     fechaCita.plusDays(7);
                 }
-                List<CentroSalud> centrosVacunacion = csD.buscarCentrosSaludPorNombre((String) comboCentro.getSelectedItem());
+                List<CentroSalud> centrosVacunacion = csD.buscarCentrosSaludPorNombreNoNull((String) comboCentro.getSelectedItem());
+                int cont=centrosVacunacion.size();
+                System.out.println("+"+cont);
                 CentroSalud centro = new CentroSalud();
                 if (codRef == 1) {
-                    int random = Principal.numeroAzar(5) - 1;
+                    int random = Principal.numeroAzar(cont) - 1;
                     centro = centrosVacunacion.get(random);
                 } else {
                     centro = x.getCentroVacunacion();
@@ -382,6 +384,8 @@ public class CargarCita extends javax.swing.JPanel {
             comboCentro.addItem("Centro Medico Este");
         } else if ("Oeste".equals(zonaSeleccionada)) {
             comboCentro.addItem("Centro Medico Oeste");
+        } else if ("Centro".equals(zonaSeleccionada)) {
+            comboCentro.addItem("Centro Medico Centro");
         } else {
             JOptionPane.showMessageDialog(this, "Zona no reconocida. Por favor, seleccione una zona válida.");
         }
