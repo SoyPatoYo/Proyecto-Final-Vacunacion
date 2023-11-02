@@ -5,17 +5,25 @@
  */
 package vistas;
 
+import accesoADatos.VacunaData;
+import entidades.Vacuna;
+import java.util.List;
+
 /**
  *
  * @author Matias
  */
 public class EditarVacuna extends javax.swing.JPanel {
 
-    /**
-     * Creates new form EditarVacuna
-     */
+    VacunaData vD;
+    Vacuna vac;
+    
+    
     public EditarVacuna() {
         initComponents();
+        vD = new VacunaData();
+        vac = new Vacuna();
+        cargarCombo();
     }
 
     /**
@@ -46,7 +54,7 @@ public class EditarVacuna extends javax.swing.JPanel {
         comboMl = new javax.swing.JComboBox<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         textMarca = new javax.swing.JTextPane();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboMarca = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -99,6 +107,12 @@ public class EditarVacuna extends javax.swing.JPanel {
 
         jScrollPane5.setViewportView(textMarca);
 
+        comboMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboMarcaActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Elija Vacuna");
 
@@ -112,7 +126,7 @@ public class EditarVacuna extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(124, 124, 124))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +172,7 @@ public class EditarVacuna extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,13 +241,28 @@ public class EditarVacuna extends javax.swing.JPanel {
         Principal.jpEscritorio.repaint();
     }//GEN-LAST:event_botonSalirActionPerformed
 
+    private void comboMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarcaActionPerformed
+        String marca = (String) comboMarca.getSelectedItem();
+        List<Vacuna> vacunas = vD.buscarVacunas();
+        for (Vacuna vacuna : vacunas) {
+            String marcaV = vacuna.getMarcaVacuna();
+            if (marca.equalsIgnoreCase(marcaV)) {
+                textLaboratorio.setText(vacuna.getLaboratorio());
+                textMarca.setText(marca);
+                comboMl.setSelectedItem(vacuna.getMedida());
+                textAntigeno.setText(vacuna.getAntigeno());
+                textDosis.setText(vacuna.getCantidadDosis() + "");
+            }
+        }    
+    }//GEN-LAST:event_comboMarcaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonLimpiar;
     private javax.swing.JButton botonSalir;
+    private javax.swing.JComboBox<String> comboMarca;
     private javax.swing.JComboBox<String> comboMl;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -251,4 +280,12 @@ public class EditarVacuna extends javax.swing.JPanel {
     private javax.swing.JTextPane textLaboratorio;
     private javax.swing.JTextPane textMarca;
     // End of variables declaration//GEN-END:variables
+    public void cargarCombo() {
+        comboMarca.removeAllItems();
+        List<Vacuna> vacunas = vD.buscarVacunas();
+        for (Vacuna vacuna : vacunas) {
+            String marca = vacuna.getMarcaVacuna();
+            comboMarca.addItem(marca);
+        }
+    }
 }

@@ -3,6 +3,7 @@ package vistas;
 import accesoADatos.VacunaData;
 import entidades.Vacuna;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ListadoVacunas extends javax.swing.JPanel {
@@ -67,6 +68,11 @@ public class ListadoVacunas extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tablaVacunas);
 
         jButton2.setText("Borrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,6 +139,17 @@ public class ListadoVacunas extends javax.swing.JPanel {
         Principal.jpEscritorio.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            int fila = tablaVacunas.getSelectedRow();
+            vD.borrarVacuna((Integer)tablaVacunas.getValueAt(fila, 0));
+            borrarFilas();
+            llenarTabla();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Seleccione una vacuna antes de borrar.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -146,7 +163,9 @@ public class ListadoVacunas extends javax.swing.JPanel {
         vD=new VacunaData();
         List<Vacuna> listaVacunas=vD.buscarVacunas();
         for(Vacuna v:listaVacunas){
-            cargarDatos(v);
+            if(!v.isColocada()){
+              cargarDatos(v);  
+            }
         }
     }
     private void armarCabecera() {

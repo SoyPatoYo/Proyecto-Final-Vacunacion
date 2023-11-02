@@ -96,7 +96,7 @@ public class VacunaData {
 
     public List<Vacuna> buscarVacunas() {
         List<Vacuna> vacunas = new ArrayList<>();
-        String sql = "SELECT * FROM vacuna";
+        String sql = "SELECT * FROM vacuna WHERE colocada=0";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -168,7 +168,7 @@ public class VacunaData {
     }
 
     public void borrarVacuna(int lote) {
-        String sql = "DELETE FROM vacuna WHERE lote=?";
+        String sql = "UPDATE vacuna SET colocada=1, cantidadDosis=0 WHERE lote=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, lote);

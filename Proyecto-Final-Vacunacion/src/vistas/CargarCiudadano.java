@@ -275,7 +275,7 @@ public class CargarCiudadano extends javax.swing.JPanel {
             // Validar DNI
             try {
                 String dniStr = textDni.getText();
-                if (dniStr.length() < 7 || dniStr.length() > 8) {
+                if (dniStr.length() < 7 || dniStr.length() > 8 || dniStr.startsWith("0")) {
                     JOptionPane.showMessageDialog(null, "Error: El DNI debe tener 7-8 dígitos.");
                     return;
                 }
