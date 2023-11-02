@@ -335,6 +335,12 @@ public class CargarCita extends javax.swing.JPanel {
                 int codRef = Integer.parseInt(textCodRef.getText());
                 LocalDate fecha = LocalDate.now().plusDays(10);
                 int opcion = Principal.numeroAzar(3);
+                if (rbCovid.isSelected()) {
+                    fecha.plusDays(7);
+                }
+                if (!textPatologia.getText().equals("Ninguno") || !textTrabajo.getText().equals("Ninguno")) {
+                    fecha.minusDays(7);
+                }
                 LocalDateTime fechaCita = fecha.atTime(16, 30);
                 switch (opcion) {
                     case 1:
@@ -347,12 +353,7 @@ public class CargarCita extends javax.swing.JPanel {
                         fechaCita = fecha.atTime(15, 30);
                         break;
                 }
-                if (rbCovid.isSelected()) {
-                    fechaCita.plusDays(7);
-                }
-                if (!textPatologia.getText().equals("Ninguno") || !textTrabajo.getText().equals("Ninguno")) {
-                    fechaCita.minusDays(7);
-                }
+                
                 List<CentroSalud> centrosVacunacion = csD.buscarCentrosSaludPorNombreNoNull((String) comboCentro.getSelectedItem());
                 int cont = centrosVacunacion.size();
                 CentroSalud centro = new CentroSalud();
