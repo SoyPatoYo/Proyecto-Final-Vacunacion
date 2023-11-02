@@ -76,7 +76,7 @@ public class CiudadanoData {
     }
 
     public Ciudadano buscarCiudadanoPorDni(int dni) {
-        String sql = "SELECT * FROM ciudadano WHERE dni=?";
+        String sql = "SELECT * FROM ciudadano WHERE dni=? AND estado=true";
         Ciudadano persona = null;
         PreparedStatement ps;
         try {

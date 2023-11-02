@@ -359,8 +359,8 @@ public class BuscarCiudadano extends javax.swing.JPanel {
             // Validar DNI
             try {
                 String dniStr = textDni.getText();
-                if (dniStr.length() != 8) {
-                    JOptionPane.showMessageDialog(null, "Error: El DNI debe tener exactamente 8 dígitos.");
+                if (dniStr.length() < 7 || dniStr.length() > 8) {
+                    JOptionPane.showMessageDialog(null, "Error: El DNI debe tener 7-8 dígitos.");
                     return;
                 }
 
@@ -381,8 +381,6 @@ public class BuscarCiudadano extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se encontro un ciudadano con ese DNI.");
         }
-
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
