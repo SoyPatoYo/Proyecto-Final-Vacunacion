@@ -279,7 +279,7 @@ public class CargarCentro extends javax.swing.JPanel {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No hay Centros de Salud en esa zona.");
         }
     }//GEN-LAST:event_comboBoxZonaActionPerformed
 
