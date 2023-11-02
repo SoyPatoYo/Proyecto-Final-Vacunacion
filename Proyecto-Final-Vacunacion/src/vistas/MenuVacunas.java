@@ -14,7 +14,7 @@ public class MenuVacunas extends javax.swing.JPanel {
     CargarVacuna cargarV;
     CargarNuevaVacuna cargarNuevaV;
     EditarVacuna editarV;
-    CardLayout vista;
+    public static CardLayout vista;
 
     public MenuVacunas() {
         initComponents();
