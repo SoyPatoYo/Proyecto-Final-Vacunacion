@@ -347,7 +347,6 @@ public class CargarCita extends javax.swing.JPanel {
                 }
                 List<CentroSalud> centrosVacunacion = csD.buscarCentrosSaludPorNombreNoNull((String) comboCentro.getSelectedItem());
                 int cont=centrosVacunacion.size();
-                System.out.println("+"+cont);
                 CentroSalud centro = new CentroSalud();
                 if (codRef == 1) {
                     int random = Principal.numeroAzar(cont) - 1;
