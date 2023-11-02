@@ -58,6 +58,7 @@ public class CargarVacuna extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Marca");
 
+        laboratorio.setEditable(false);
         jScrollPane3.setViewportView(laboratorio);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -72,11 +73,13 @@ public class CargarVacuna extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Antigeno");
 
+        antigeno.setEditable(false);
         jScrollPane4.setViewportView(antigeno);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Cant. Dosis a Sumar");
 
+        dosisActuales.setEditable(false);
         jScrollPane5.setViewportView(dosisActuales);
 
         jButton1.setText("AGREGAR!");
@@ -107,6 +110,8 @@ public class CargarVacuna extends javax.swing.JPanel {
         jLabel10.setText("Cant. Dosis Actual");
 
         jScrollPane6.setViewportView(dosisASumar);
+
+        cantidadText.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

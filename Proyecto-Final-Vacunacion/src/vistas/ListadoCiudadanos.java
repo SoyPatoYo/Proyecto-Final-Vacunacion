@@ -125,7 +125,8 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel3.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("(Seleccione un ciudadano para Borrar)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

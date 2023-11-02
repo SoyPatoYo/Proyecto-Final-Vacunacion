@@ -53,7 +53,7 @@ public class MenuCiudadano extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Listar Ciudadanos");
+        jButton3.setText("Listar / Borrar  Ciudadanos");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
