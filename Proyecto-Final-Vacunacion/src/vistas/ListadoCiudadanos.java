@@ -8,8 +8,8 @@ package vistas;
 import accesoADatos.CiudadanoData;
 import entidades.Ciudadano;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 public class ListadoCiudadanos extends javax.swing.JPanel {
 
@@ -20,6 +20,7 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
             return false;
         }
     };
+
     public ListadoCiudadanos() {
         initComponents();
         armarCabecera();
@@ -39,9 +40,11 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCiudadanos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        comboZona = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        comboZona = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        botonBorrar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(493, 526));
@@ -77,15 +80,35 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Elija Zona");
+
+        comboZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Norte", "Sur", "Este", "Oeste" }));
+        comboZona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboZonaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 481, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(comboZona, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(123, 123, 123))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 23, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)))
         );
 
         jButton1.setText("Salir");
@@ -95,16 +118,15 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
             }
         });
 
-        comboZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Norte", "Sur", "Este", "Oeste" }));
-        comboZona.addActionListener(new java.awt.event.ActionListener() {
+        botonBorrar.setText("Borrar");
+        botonBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboZonaActionPerformed(evt);
+                botonBorrarActionPerformed(evt);
             }
         });
 
-        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Elija Zona");
+        jLabel3.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("(Seleccione un ciudadano para Borrar)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -113,21 +135,19 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 30, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonBorrar)
+                        .addGap(123, 123, 123)
                         .addComponent(jButton1)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(comboZona, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,14 +156,13 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(botonBorrar)
+                    .addComponent(jLabel3))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -154,29 +173,29 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
         String zona = (String) comboZona.getSelectedItem();
         if (zona.equals("Norte")) {
             List<Ciudadano> ciudadanos = cD.listarCiudadanos();
-            for(Ciudadano c:ciudadanos){
-                if(c.getZona().equals("Norte")){
+            for (Ciudadano c : ciudadanos) {
+                if (c.getZona().equals("Norte") && c.isEstado()) {
                     cargarDatos(c);
                 }
             }
-        }else if (zona.equals("Sur")) {
+        } else if (zona.equals("Sur")) {
             List<Ciudadano> ciudadanos = cD.listarCiudadanos();
-            for(Ciudadano c:ciudadanos){
-                if(c.getZona().equals("Sur")){
+            for (Ciudadano c : ciudadanos) {
+                if (c.getZona().equals("Sur") && c.isEstado()) {
                     cargarDatos(c);
                 }
             }
-        }else if (zona.equals("Este")) {
+        } else if (zona.equals("Este")) {
             List<Ciudadano> ciudadanos = cD.listarCiudadanos();
-            for(Ciudadano c:ciudadanos){
-                if(c.getZona().equals("Este")){
+            for (Ciudadano c : ciudadanos) {
+                if (c.getZona().equals("Este") && c.isEstado()) {
                     cargarDatos(c);
                 }
             }
-        }else if (zona.equals("Oeste")) {
+        } else if (zona.equals("Oeste")) {
             List<Ciudadano> ciudadanos = cD.listarCiudadanos();
-            for(Ciudadano c:ciudadanos){
-                if(c.getZona().equals("Oeste")){
+            for (Ciudadano c : ciudadanos) {
+                if (c.getZona().equals("Oeste") && c.isEstado()) {
                     cargarDatos(c);
                 }
             }
@@ -188,29 +207,42 @@ public class ListadoCiudadanos extends javax.swing.JPanel {
         Principal.jpEscritorio.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
+        try {
+            int fila = tablaCiudadanos.getSelectedRow();
+            cD.borrarCiudadanoPorDni((Integer) tablaCiudadanos.getValueAt(fila, 2));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Seleccione un ciudadano antes de borrar.");
+        }
+    }//GEN-LAST:event_botonBorrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonBorrar;
     private javax.swing.JComboBox<String> comboZona;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaCiudadanos;
     // End of variables declaration//GEN-END:variables
     private void cargarDatos(Ciudadano ciudadano) {
-        modelo.addRow(new Object[]{ciudadano.getNombre(),ciudadano.getApellido(),ciudadano.getDni(),ciudadano.getEmail(),ciudadano.getCelular()});
+        modelo.addRow(new Object[]{ciudadano.getNombre(), ciudadano.getApellido(), ciudadano.getDni(), ciudadano.getEmail(), ciudadano.getCelular()});
     }
+
     private void armarCabecera() {
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido");
         modelo.addColumn("Dni");
         modelo.addColumn("Email");
         modelo.addColumn("Celular");
-        
+
         tablaCiudadanos.setModel(modelo);
         tablaCiudadanos.getColumnModel().getColumn(3).setPreferredWidth(120);
     }
+
     private void borrarFilas() {
         int filas = tablaCiudadanos.getRowCount() - 1;
 

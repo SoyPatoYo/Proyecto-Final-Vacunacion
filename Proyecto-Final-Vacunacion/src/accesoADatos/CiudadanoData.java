@@ -19,8 +19,8 @@ public class CiudadanoData {
     }
 
     public void guardarCiudadano(Ciudadano persona) {
-        String sql = "INSERT INTO ciudadano(dni,nombre,apellido,zona,email,celular,patologia,ambitoTrabajo,covid)"
-                + " VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO ciudadano(dni,nombre,apellido,zona,email,celular,patologia,ambitoTrabajo,covid,estado)"
+                + " VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -33,6 +33,7 @@ public class CiudadanoData {
             ps.setString(7, persona.getPatologia());
             ps.setString(8, persona.getAmbitoTrabajo());
             ps.setBoolean(9, persona.isCovid());
+            ps.setBoolean(10, true);
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -94,6 +95,7 @@ public class CiudadanoData {
                 persona.setPatologia(rs.getString("patologia"));
                 persona.setAmbitoTrabajo(rs.getString("ambitoTrabajo"));
                 persona.setCovid(rs.getBoolean("covid"));
+                persona.setEstado(rs.getBoolean("estado"));
             }
             ps.close();
             rs.close();
@@ -123,6 +125,7 @@ public class CiudadanoData {
                 persona.setPatologia(rs.getString("patologia"));
                 persona.setAmbitoTrabajo(rs.getString("ambitoTrabajo"));
                 persona.setCovid(rs.getBoolean("covid"));
+                persona.setEstado(rs.getBoolean("estado"));
             }
             ps.close();
             rs.close();
@@ -153,6 +156,7 @@ public class CiudadanoData {
                 persona.setPatologia(rs.getString("patologia"));
                 persona.setAmbitoTrabajo(rs.getString("ambitoTrabajo"));
                 persona.setCovid(rs.getBoolean("covid"));
+                persona.setEstado(rs.getBoolean("estado"));
 
                 ciudadanos.add(persona);
             }
@@ -164,10 +168,12 @@ public class CiudadanoData {
     }
 
     public void borrarCiudadanoPorDni(int dni) {
-        String sql = "DELETE FROM ciudadano WHERE dni=?";
+        String sql = "UPDATE ciudadano "
+                + "SET estado=? WHERE dni=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, dni);
+            ps.setBoolean(1, false);
+            ps.setInt(2, dni);
             int filasEliminadas = ps.executeUpdate();
             if (filasEliminadas > 0) {
                 JOptionPane.showMessageDialog(null, "Ciudadano con DNI " + dni + " eliminado.");

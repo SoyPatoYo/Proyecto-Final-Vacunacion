@@ -43,6 +43,7 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jbColocadas = new javax.swing.JButton();
         jbCanceladas = new javax.swing.JButton();
+        jbPendientes = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -95,6 +96,13 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
             }
         });
 
+        jbPendientes.setText("Pendientes");
+        jbPendientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPendientesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,14 +112,15 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbColocadas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(jbPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbCanceladas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jbColocadas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbCanceladas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +129,8 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbColocadas)
-                    .addComponent(jbCanceladas))
+                    .addComponent(jbCanceladas)
+                    .addComponent(jbPendientes))
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -138,6 +148,11 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
         cargarDatosCancelada();
     }//GEN-LAST:event_jbCanceladasActionPerformed
 
+    private void jbPendientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPendientesActionPerformed
+        limpiarTabla();
+        cargarDatosPendientes();
+    }//GEN-LAST:event_jbPendientesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -145,6 +160,7 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbCanceladas;
     private javax.swing.JButton jbColocadas;
+    private javax.swing.JButton jbPendientes;
     // End of variables declaration//GEN-END:variables
      private void armarCabecera() {
         modelo.addColumn("DNI");
@@ -184,6 +200,13 @@ public class ColocadasCanceladas extends javax.swing.JPanel {
     private void cargarDatosCancelada(){
         List<Cita> listaCitasCanceladas=citaD.listarCitasCanceladas();
         for(Cita c: listaCitasCanceladas){
+            cargarDatos(c);
+        }
+    }
+    
+    private void cargarDatosPendientes(){
+        List<Cita> listaCitasPendientes=citaD.listarCitasPendientes();
+        for(Cita c: listaCitasPendientes){
             cargarDatos(c);
         }
     }

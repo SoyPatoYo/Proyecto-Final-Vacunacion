@@ -378,4 +378,30 @@ public class CitaData {
         return citas;
     }
 
+    public List<Cita> listarCitasPendientes() {
+        String sql = "SELECT codigo, persona, cantRefuerzo, fechahoraCita, centroVacunacion, estado, colocada FROM cita WHERE colocada = false AND estado = true";
+        List<Cita> citas = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setCodigo(rs.getInt("codigo"));
+                cita.setPersona(cd.buscarCiudadanoPorId(rs.getInt("persona")));
+                cita.setCantRefuerzo(rs.getInt("cantRefuerzo"));
+                cita.setFechaHoraCita(rs.getTimestamp("fechahoraCita").toLocalDateTime());
+                cita.setCentroVacunacion(csd.buscarCentroSaludPorID(rs.getInt("centroVacunacion")));
+                cita.setEstado(rs.getBoolean("estado"));
+                cita.setColocada(rs.getBoolean("colocada"));
+                citas.add(cita);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar las citas colocadas: " + ex.getMessage());
+        }
+
+        return citas;
+    }
+
 }

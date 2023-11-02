@@ -12,11 +12,12 @@ public class Ciudadano {
     private String patologia;
     private String ambitoTrabajo;
     private boolean covid;
+    private boolean estado;
 
     public Ciudadano() {
     }
 
-    public Ciudadano(int idCiudadano, int dni, String nombre, String apellido, String zona, String email, int celular, String patologia, String ambitoTrabajo, boolean covid) {
+    public Ciudadano(int idCiudadano, int dni, String nombre, String apellido, String zona, String email, int celular, String patologia, String ambitoTrabajo, boolean covid, boolean estado) {
         this.idCiudadano = idCiudadano;
         this.dni = dni;
         this.nombre = nombre;
@@ -27,8 +28,22 @@ public class Ciudadano {
         this.patologia = patologia;
         this.ambitoTrabajo = ambitoTrabajo;
         this.covid = covid;
+        this.estado = estado;
     }
 
+    public Ciudadano(int dni, String nombre, String apellido, String zona, String email, int celular, String patologia, String ambitoTrabajo, boolean covid, boolean estado) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.zona = zona;
+        this.email = email;
+        this.celular = celular;
+        this.patologia = patologia;
+        this.ambitoTrabajo = ambitoTrabajo;
+        this.covid = covid;
+        this.estado = estado;
+    }
+    
     public Ciudadano(int dni, String nombre, String apellido, String zona, String email, int celular, String patologia, String ambitoTrabajo, boolean covid) {
         this.dni = dni;
         this.nombre = nombre;
@@ -121,9 +136,17 @@ public class Ciudadano {
         this.covid = covid;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return idCiudadano+" - "+dni + "-" + nombre + ", " + apellido;
+        return idCiudadano + " - " + dni + "-" + nombre + ", " + apellido;
     }
 
 }
