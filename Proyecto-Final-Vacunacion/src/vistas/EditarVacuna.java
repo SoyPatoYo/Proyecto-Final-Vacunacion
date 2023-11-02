@@ -249,7 +249,7 @@ public class EditarVacuna extends javax.swing.JPanel {
             if (marca.equalsIgnoreCase(marcaV)) {
                 textLaboratorio.setText(vacuna.getLaboratorio());
                 textMarca.setText(marca);
-                comboMl.setSelectedItem(vacuna.getMedida());
+                comboMl.setSelectedItem(vacuna.getMedida()+"");
                 textAntigeno.setText(vacuna.getAntigeno());
                 textDosis.setText(vacuna.getCantidadDosis() + "");
             }
