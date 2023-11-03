@@ -298,7 +298,7 @@ public class CargarCita extends javax.swing.JPanel {
             codRef++;
             System.out.println(codRef);
             if (cit.isEstado() == false && cit.isColocada() == false) {
-                codRef--;
+                //codRef--;
                 System.out.println("asdasd" + codRef);
             }
 
